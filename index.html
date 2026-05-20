@@ -47,8 +47,8 @@
     .sb-section{padding:16px 16px 0}
     .sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.8px;padding:0 6px;margin-bottom:10px}
 
-    .sf-group{margin-bottom:12px}
-    .sf-label{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:5px;padding:0 2px}
+    .sf-group{margin-bottom:14px}
+    .sf-label{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:6px;padding:0 2px;display:flex;align-items:center;gap:5px}
     select{width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.18);border-radius:var(--rs);padding:9px 32px 9px 12px;cursor:pointer;outline:none;transition:border .15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.55)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
     select:focus{border-color:rgba(255,255,255,.5)}
     select option{background:#8A3300;color:#fff}
@@ -98,27 +98,27 @@
     .sort-btn.active,.sort-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 
     /* PETUGAS CARDS */
-    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
     @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
     .pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .18s,box-shadow .18s;animation:fadeUp .35s ease both}
     .pc:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
 
-    /* Strip PML di atas card */
-    .pc-pml-strip{background:linear-gradient(90deg,rgba(179,69,0,.08),rgba(179,69,0,.02));border-bottom:1px solid rgba(179,69,0,.12);padding:7px 16px;display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--brand2);font-weight:600}
+    /* Strip PML */
+    .pc-pml-strip{background:linear-gradient(90deg,rgba(179,69,0,.09),rgba(179,69,0,.02));border-bottom:1px solid rgba(179,69,0,.13);padding:7px 16px;display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--brand2);font-weight:700}
 
-    .pc-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
-    .pc-av{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;color:#fff}
+    .pc-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+    .pc-av{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;color:#fff;letter-spacing:-.5px}
     .pc-meta{flex:1;min-width:0}
     .pc-nama{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .pc-jabatan{font-size:10.5px;color:var(--text3);margin-top:2px}
-    .pc-loc{font-size:10px;color:var(--text2);font-weight:600;margin-top:3px}
-    .badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;letter-spacing:.2px}
+    .pc-kec{font-size:10px;color:var(--text2);font-weight:600;margin-top:3px}
+    .badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
     .bg{background:var(--green-g);color:#15803D}
     .bb{background:var(--blue-g);color:#1E40AF}
     .ba{background:var(--amber-g);color:#92400E}
     .br{background:var(--red-g);color:#B91C1C}
-    .bp{background:var(--purple-g);color:#6D28D9}
+    .bp{background:rgba(139,148,158,.12);color:#64748B}
 
     .pc-body{padding:14px 16px}
     .pc-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
@@ -127,15 +127,11 @@
     .pc-bar-bg{width:100%;height:9px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:12px}
     .pc-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
 
-    .pc-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+    .pc-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
     .pc-box{background:var(--surface2);border-radius:8px;padding:8px 10px}
     .pc-box-lbl{font-size:9.5px;color:var(--text3);font-weight:600;margin-bottom:2px}
     .pc-box-val{font-size:14px;font-weight:800;color:var(--text)}
     .pc-box-sub{font-size:9px;color:var(--text3);margin-top:1px}
-
-    .pc-sls{background:var(--bg);border-radius:8px;padding:7px 12px;display:flex;justify-content:space-between;align-items:center}
-    .pc-sls-lbl{font-size:10px;color:var(--text3);font-weight:600}
-    .pc-sls-val{font-size:10.5px;font-weight:700;color:var(--text2);font-family:'JetBrains Mono',monospace}
 
     /* EMPTY */
     .empty{text-align:center;padding:56px 20px;color:var(--text3);grid-column:1/-1}
@@ -148,7 +144,7 @@
     .loader-label{font-size:13px;font-weight:600;color:var(--text2)}
     .loader-sub{font-size:11px;color:var(--text3);margin-top:-8px}
 
-    /* TOGGLE SIDEBAR */
+    /* TOGGLE */
     .toggle-btn{position:fixed;top:14px;left:232px;z-index:300;width:30px;height:30px;background:var(--brand);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(179,69,0,.45);transition:left .3s,background .15s}
     .toggle-btn:hover{background:var(--brand2)}
     .toggle-btn svg{transition:transform .3s}
@@ -212,23 +208,26 @@
     <div class="sb-section">
       <div class="sb-lbl">Filter Data</div>
 
+      <!-- Filter 1: Kategori Kecamatan (8 kecamatan statis) -->
       <div class="sf-group">
-        <div class="sf-label">&#128205; Kecamatan</div>
+        <div class="sf-label">&#128205; Kategori Kecamatan</div>
         <select id="fKec" onchange="onKecChange()">
           <option value="">Semua Kecamatan</option>
+          <option value="PALU BARAT">Palu Barat</option>
+          <option value="PALU TIMUR">Palu Timur</option>
+          <option value="PALU SELATAN">Palu Selatan</option>
+          <option value="PALU UTARA">Palu Utara</option>
+          <option value="TATANGA">Tatanga</option>
+          <option value="ULUJADI">Ulujadi</option>
+          <option value="MANTIKULORE">Mantikulore</option>
+          <option value="TAWAELI">Tawaeli</option>
         </select>
       </div>
 
+      <!-- Filter 2: Jabatan PML — muncul setelah pilih kecamatan -->
       <div class="sf-group">
         <div class="sf-label">&#128101; Jabatan PML</div>
         <select id="fJabatan" onchange="applyFilters()" disabled>
-          <option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>
-        </select>
-      </div>
-
-      <div class="sf-group">
-        <div class="sf-label">&#127968; Kelurahan</div>
-        <select id="fKel" onchange="applyFilters()" disabled>
           <option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>
         </select>
       </div>
@@ -268,13 +267,14 @@
     <div class="page-body">
       <div id="error-banner">&#9888; <span id="errorMsg"></span></div>
 
+      <!-- STAT CARDS -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-bar" style="background:linear-gradient(90deg,var(--brand),var(--accent))"></div>
           <div class="stat-ico" style="background:var(--accent-g)">&#128101;</div>
-          <div class="stat-lbl">Total SLS / PCL</div>
-          <div class="stat-val" id="sTotalSLS">—</div>
-          <div class="stat-sub">wilayah SLS</div>
+          <div class="stat-lbl">Total PCL</div>
+          <div class="stat-val" id="sTotalPCL">—</div>
+          <div class="stat-sub">petugas cacah</div>
         </div>
         <div class="stat-card">
           <div class="stat-bar" style="background:linear-gradient(90deg,var(--purple),#A78BFA)"></div>
@@ -306,15 +306,16 @@
         </div>
       </div>
 
+      <!-- CARDS HEADER -->
       <div class="sec-head">
         <div>
-          <div class="sec-title" id="secTitle">Daftar SLS per PCL</div>
+          <div class="sec-title" id="secTitle">Daftar PCL</div>
           <div class="sec-count" id="secCount">Memuat data...</div>
         </div>
         <div class="sort-bar">
           <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres &#8595;</button>
-          <button class="sort-btn" id="sortPcl" onclick="setSort('pcl')">PCL A&#8211;Z</button>
-          <button class="sort-btn" id="sortKec" onclick="setSort('kec')">Kecamatan</button>
+          <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A&#8211;Z</button>
+          <button class="sort-btn" id="sortKec"  onclick="setSort('kec')">Kecamatan</button>
         </div>
       </div>
 
@@ -326,233 +327,247 @@
 <footer><b>SDI KOTA PALU</b> &nbsp;&bull;&nbsp; Dashboard Monitoring Petugas Sensus &nbsp;&bull;&nbsp; &copy; 2026 Badan Pusat Statistik Kota Palu</footer>
 
 <script>
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // KONFIGURASI
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 const SHEET_ID   = '1VV6jPG2fiZeI8fB92Wl-c2aLCABWo4KH';
 const SHEET_NAME = 'data projek';
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════════════════════
-let allData  = [];  // 1 baris = 1 SLS (row asli sheet)
+// ═══════════════════════════════════════════════════════
+// allData  : 1 entri = 1 PCL (hasil group dari baris SLS)
+//            setiap PCL menyimpan array SLS-nya
+// filtered : hasil filter dari allData
+let allData  = [];
 let filtered = [];
 let sortMode = 'prog';
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // UTILS
-// ══════════════════════════════════════════════════════════
-function pColor(v) {
-  if (v >= 100) return { bar:'#16A34A', text:'#15803D', cls:'bg', label:'Selesai'     };
-  if (v >= 75)  return { bar:'#1D4ED8', text:'#1E40AF', cls:'bb', label:'Hampir'      };
-  if (v >= 50)  return { bar:'#D97706', text:'#92400E', cls:'ba', label:'Proses'      };
-  if (v > 0)    return { bar:'#DC2626', text:'#B91C1C', cls:'br', label:'Tertinggal'  };
-  return              { bar:'#8A9DB8', text:'#8A9DB8', cls:'bp', label:'Belum Mulai'  };
+// ═══════════════════════════════════════════════════════
+function pColor(v){
+  if(v>=100) return {bar:'#16A34A',text:'#15803D',cls:'bg',label:'Selesai'};
+  if(v>=75)  return {bar:'#1D4ED8',text:'#1E40AF',cls:'bb',label:'Hampir'};
+  if(v>=50)  return {bar:'#D97706',text:'#92400E',cls:'ba',label:'Proses'};
+  if(v>0)    return {bar:'#DC2626',text:'#B91C1C',cls:'br',label:'Tertinggal'};
+  return           {bar:'#94A3B8',text:'#64748B',cls:'bp',label:'Belum Mulai'};
 }
-const AV_COLORS = ['#B34500','#1D4ED8','#16A34A','#9333EA','#0891B2','#D97706','#DB2777','#059669'];
-function avColor(s){ let h=0; for(let c of s) h=(h*31+c.charCodeAt(0))&0xFFFF; return AV_COLORS[h%AV_COLORS.length]; }
-function initials(n){ const p=n.trim().split(/\s+/); return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():n.slice(0,2).toUpperCase(); }
-function fmt(n){ return (n||0).toLocaleString('id-ID'); }
+const AV_COLORS=['#B34500','#1D4ED8','#16A34A','#9333EA','#0891B2','#D97706','#DB2777','#059669','#7C3AED','#0284C7','#C2410C','#0F766E'];
+function avColor(s){let h=0;for(let c of s)h=(h*31+c.charCodeAt(0))&0xFFFF;return AV_COLORS[h%AV_COLORS.length];}
+function initials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
+function fmt(n){return(n||0).toLocaleString('id-ID');}
 function setSync(ok){
-  const now=new Date(), t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('lastSync').textContent = ok ? 'Sinkron '+t : 'Gagal memuat';
-  document.getElementById('syncDot').style.background = ok ? '#22c55e' : '#e63946';
+  const now=new Date(),t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('lastSync').textContent=ok?'Sinkron '+t:'Gagal memuat';
+  document.getElementById('syncDot').style.background=ok?'#22c55e':'#e63946';
 }
-function showErr(msg){ document.getElementById('errorMsg').textContent=msg; document.getElementById('error-banner').style.display='block'; setSync(false); }
-function toggleSidebar(){ window.innerWidth<=768 ? document.body.classList.toggle('sidebar-open') : document.body.classList.toggle('sidebar-collapsed'); }
+function showErr(msg){document.getElementById('errorMsg').textContent=msg;document.getElementById('error-banner').style.display='block';setSync(false);}
+function toggleSidebar(){window.innerWidth<=768?document.body.classList.toggle('sidebar-open'):document.body.classList.toggle('sidebar-collapsed');}
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // FETCH + PARSE
-// Struktur sheet:
-//  A=0 namaPML, B=1 jabatanPML, C=2 namaPCL/kode, D=3 jabatanPCL
-//  E=4 kec, F=5 kel, G=6 wilayahSLS, H=7 kodeSLS
-//  I=8 jmlKK, J=9 petani, K=10 usaha
-//  L=11 tgtKK, M=12 tgtPetani, N=13 tgtUsaha
-//  O=14 progres
+// Struktur sheet (0-based):
+//   A=0 namaPML, B=1 jabatanPML, C=2 namaPCL, D=3 jabatanPCL
+//   E=4 kec, F=5 kel, G=6 wilayahSLS, H=7 kodeSLS
+//   I=8 jmlKK, J=9 petani, K=10 usaha
+//   L=11 tgtKK, M=12 tgtPetani, N=13 tgtUsaha
+//   O=14 progres
 //
-// Catatan penting:
-// - Kolom A,B,C,D,E bisa kosong pada baris lanjutan (merged cells di sheet)
-//   → lakukan forward-fill dari baris sebelumnya
-// ══════════════════════════════════════════════════════════
+// Kolom A–E sering kosong (merged cells) → forward-fill
+// Setiap PCL dikelompokkan; progres PCL = rata-rata progres SLS-nya
+// ═══════════════════════════════════════════════════════
 async function loadData(){
-  const icon = document.getElementById('refreshIcon');
+  const icon=document.getElementById('refreshIcon');
   icon.classList.add('spin');
-  document.getElementById('loading').style.display = 'flex';
-  document.getElementById('error-banner').style.display = 'none';
-  document.getElementById('loaderSub').textContent = 'Mengambil sheet "'+SHEET_NAME+'"...';
+  document.getElementById('loading').style.display='flex';
+  document.getElementById('error-banner').style.display='none';
+  document.getElementById('loaderSub').textContent='Mengambil sheet "'+SHEET_NAME+'"...';
 
-  try {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+  try{
+    const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
     let res;
-    try { res = await fetch(url); }
-    catch(e){ throw new Error('Tidak bisa terhubung ke Google Sheets. ('+e.message+')'); }
-    if (!res.ok) throw new Error('HTTP '+res.status+'. Pastikan sheet bisa diakses publik.');
+    try{res=await fetch(url);}
+    catch(e){throw new Error('Tidak bisa terhubung ke Google Sheets. ('+e.message+')');}
+    if(!res.ok) throw new Error('HTTP '+res.status+'. Pastikan sheet bisa diakses publik.');
 
-    const txt   = await res.text();
-    const match = txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
-    if (!match) throw new Error('Format respons tidak valid. Pastikan sheet publik (Anyone with link can view).');
+    const txt=await res.text();
+    const match=txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+    if(!match) throw new Error('Format respons tidak valid. Pastikan sheet sudah diset "Anyone with link can view".');
 
-    const json = JSON.parse(match[1]);
-    if (!json.table || !json.table.rows) throw new Error('Sheet "'+SHEET_NAME+'" kosong atau tidak ditemukan.');
+    const json=JSON.parse(match[1]);
+    if(!json.table||!json.table.rows) throw new Error('Sheet "'+SHEET_NAME+'" kosong atau tidak ditemukan.');
 
-    // ── Parse baris dengan forward-fill ──
-    allData = [];
-    let lastNamaPML='', lastJabatanPML='', lastJabatanPCL='', lastNamaPCL='', lastKec='', lastKel='';
+    // ── Parsing baris dengan forward-fill ──
+    // Hasil sementara: satu entri per baris SLS
+    const rawRows=[];
+    let lastPML='',lastJabPML='',lastPCL='',lastJabPCL='',lastKec='',lastKel='';
 
-    for (const row of json.table.rows) {
-      if (!row?.c) continue;
-      const c = row.c;
+    for(const row of json.table.rows){
+      if(!row?.c) continue;
+      const c=row.c;
+      const parse=v=>{const n=parseFloat(v);return isNaN(n)?0:n;};
 
-      // Ambil nilai atau pakai forward-fill
-      const namaPML    = c[0]?.v ? String(c[0].v).trim() : lastNamaPML;
-      const jabatanPML = c[1]?.v ? String(c[1].v).trim() : lastJabatanPML;
-      const namaPCL    = c[2]?.v ? String(c[2].v).trim() : lastNamaPCL;
-      const jabatanPCL = c[3]?.v ? String(c[3].v).trim() : lastJabatanPCL;
-      const kec        = c[4]?.v ? String(c[4].v).trim() : lastKec;
+      const namaPML    = c[0]?.v ? String(c[0].v).trim() : lastPML;
+      const jabatanPML = c[1]?.v ? String(c[1].v).trim() : lastJabPML;
+      const namaPCL    = c[2]?.v ? String(c[2].v).trim() : lastPCL;
+      const jabatanPCL = c[3]?.v ? String(c[3].v).trim() : lastJabPCL;
+      const kec        = c[4]?.v ? String(c[4].v).trim().toUpperCase() : lastKec;
       const kel        = c[5]?.v ? String(c[5].v).trim() : lastKel;
 
-      // Update forward-fill state hanya jika ada nilai baru
-      if (c[0]?.v) lastNamaPML    = namaPML;
-      if (c[1]?.v) lastJabatanPML = jabatanPML;
-      if (c[2]?.v) { lastNamaPCL = namaPCL; lastJabatanPCL = ''; } // reset jabatan PCL saat PCL baru
-      if (c[3]?.v) lastJabatanPCL = jabatanPCL;
-      if (c[4]?.v) lastKec        = kec;
-      if (c[5]?.v) lastKel        = kel;
+      if(c[0]?.v) lastPML    = namaPML;
+      if(c[1]?.v) lastJabPML = jabatanPML;
+      if(c[2]?.v){ lastPCL=namaPCL; lastJabPCL=''; }
+      if(c[3]?.v) lastJabPCL = jabatanPCL;
+      if(c[4]?.v) lastKec    = kec;
+      if(c[5]?.v) lastKel    = kel;
 
-      const wilayah   = c[6]?.v ? String(c[6].v).trim() : '';
-      const kodeSLS   = c[7]?.v ? String(c[7].v).trim() : '';
-
-      // Angka — toleransi desimal maupun string
-      const parse = v => { const n=parseFloat(v); return isNaN(n)?0:n; };
       const jmlKK     = parse(c[8]?.v);
       const jmlPetani = parse(c[9]?.v);
       const jmlUsaha  = parse(c[10]?.v);
       const tgtKK     = parse(c[11]?.v);
       const tgtPetani = parse(c[12]?.v);
       const tgtUsaha  = parse(c[13]?.v);
+      let   progRaw   = parse(c[14]?.v);
+      const progres   = progRaw>0&&progRaw<=1.5 ? Math.round(progRaw*100) : Math.round(progRaw);
 
-      // Progres: bisa 0–1 (desimal) atau 0–100
-      let progRaw = parse(c[14]?.v);
-      const progres = progRaw > 0 && progRaw <= 1.5 ? Math.round(progRaw*100) : Math.round(progRaw);
+      // Skip header
+      const skip=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan','no',''];
+      if(skip.includes(namaPCL.toLowerCase())||skip.includes(jabatanPML.toLowerCase())) continue;
+      if(!jabatanPCL&&!namaPCL&&!kec) continue;
 
-      // Skip baris header
-      const skipWords = ['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan','no'];
-      if (skipWords.some(w => namaPCL.toLowerCase()===w || jabatanPML.toLowerCase()===w)) continue;
-
-      // Minimal harus ada PCL atau wilayah
-      if (!namaPCL && !wilayah && !kodeSLS) continue;
-
-      allData.push({ namaPML, jabatanPML, namaPCL, jabatanPCL, kec, kel, wilayah, kodeSLS, jmlKK, jmlPetani, jmlUsaha, tgtKK, tgtPetani, tgtUsaha, progres });
+      rawRows.push({namaPML,jabatanPML,namaPCL,jabatanPCL,kec,kel,jmlKK,jmlPetani,jmlUsaha,tgtKK,tgtPetani,tgtUsaha,progres});
     }
 
-    if (!allData.length) throw new Error('Data kosong setelah parsing. Periksa struktur sheet.');
+    // ── Group per PCL (jabatanPCL + kec sebagai key) ──
+    // Setiap card = 1 PCL, berisi agregat semua SLS-nya
+    const pclMap=new Map();
+    for(const r of rawRows){
+      const key=`${r.jabatanPCL}||${r.kec}`;
+      if(!pclMap.has(key)){
+        pclMap.set(key,{
+          namaPML:r.namaPML, jabatanPML:r.jabatanPML,
+          namaPCL:r.namaPCL, jabatanPCL:r.jabatanPCL,
+          kec:r.kec, kel:r.kel,
+          jmlKK:0,jmlPetani:0,jmlUsaha:0,
+          tgtKK:0,tgtPetani:0,tgtUsaha:0,
+          progList:[], slsCount:0
+        });
+      }
+      const e=pclMap.get(key);
+      e.jmlKK     += r.jmlKK;
+      e.jmlPetani += r.jmlPetani;
+      e.jmlUsaha  += r.jmlUsaha;
+      e.tgtKK     += r.tgtKK;
+      e.tgtPetani += r.tgtPetani;
+      e.tgtUsaha  += r.tgtUsaha;
+      e.slsCount++;
+      if(r.progres>0||r.tgtKK>0) e.progList.push(r.progres);
+      // Pastikan namaPML & jabatanPML terisi (ambil yang pertama ada)
+      if(!e.namaPML&&r.namaPML)       e.namaPML=r.namaPML;
+      if(!e.jabatanPML&&r.jabatanPML) e.jabatanPML=r.jabatanPML;
+    }
 
-    buildFilters();
+    allData=[...pclMap.values()].map(e=>({
+      ...e,
+      // Progres PCL = rata-rata progres SLS yang punya data
+      progres: e.progList.length ? Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length) : 0
+    }));
+
+    if(!allData.length) throw new Error('Data kosong setelah parsing. Periksa struktur sheet.');
+
     applyFilters();
     setSync(true);
-    setTimeout(loadData, 5*60*1000);
+    setTimeout(loadData,5*60*1000);
 
-  } catch(e) {
+  }catch(e){
     showErr(e.message);
-  } finally {
-    document.getElementById('loading').style.display = 'none';
+  }finally{
+    document.getElementById('loading').style.display='none';
     icon.classList.remove('spin');
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// FILTER
-// ══════════════════════════════════════════════════════════
-function buildFilters(){
-  const kecs = [...new Set(allData.map(d=>d.kec).filter(Boolean))].sort();
-  const selKec = document.getElementById('fKec');
-  selKec.innerHTML = '<option value="">Semua Kecamatan</option>' +
-    kecs.map(k=>`<option value="${k}">${k}</option>`).join('');
-}
-
+// ═══════════════════════════════════════════════════════
+// FILTER — cascading: Kecamatan → Jabatan PML
+// ═══════════════════════════════════════════════════════
 function onKecChange(){
-  const kec = document.getElementById('fKec').value;
-  const selJab = document.getElementById('fJabatan');
-  const selKel = document.getElementById('fKel');
+  const kec=document.getElementById('fKec').value;
+  const selJab=document.getElementById('fJabatan');
 
-  if (kec) {
-    const sub = allData.filter(d=>d.kec===kec);
+  if(kec){
+    // Kumpulkan jabatan PML unik di kecamatan ini dari allData
+    const jabs=[...new Set(
+      allData.filter(d=>d.kec===kec).map(d=>d.jabatanPML).filter(Boolean)
+    )].sort();
 
-    // Jabatan PML unik di kecamatan ini
-    const jabs = [...new Set(sub.map(d=>d.jabatanPML).filter(Boolean))].sort();
-    selJab.disabled = false;
-    selJab.innerHTML = '<option value="">Semua Jabatan PML</option>' +
+    selJab.disabled=false;
+    selJab.innerHTML='<option value="">Semua Jabatan PML</option>'+
       jabs.map(j=>`<option value="${j}">${j}</option>`).join('');
-
-    // Kelurahan unik
-    const kels = [...new Set(sub.map(d=>d.kel).filter(Boolean))].sort();
-    selKel.disabled = false;
-    selKel.innerHTML = '<option value="">Semua Kelurahan</option>' +
-      kels.map(k=>`<option value="${k}">${k}</option>`).join('');
-  } else {
-    selJab.disabled = true;
-    selJab.innerHTML = '<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
-    selKel.disabled = true;
-    selKel.innerHTML = '<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
+  }else{
+    selJab.disabled=true;
+    selJab.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
   }
   applyFilters();
 }
 
 function applyFilters(){
-  const kec     = document.getElementById('fKec').value;
-  const jabatan = document.getElementById('fJabatan').value;
-  const kel     = document.getElementById('fKel').value;
-  filtered = allData.filter(d =>
+  const kec    =document.getElementById('fKec').value;
+  const jabatan=document.getElementById('fJabatan').value;
+
+  // Filter: kecamatan (case-insensitive terhadap data sheet yang UPPERCASE)
+  filtered=allData.filter(d=>
     (!kec     || d.kec===kec) &&
-    (!jabatan || d.jabatanPML===jabatan) &&
-    (!kel     || d.kel===kel)
+    (!jabatan || d.jabatanPML===jabatan)
   );
   renderAll();
 }
 
 function resetFilters(){
-  document.getElementById('fKec').value = '';
-  const sj=document.getElementById('fJabatan'), sk=document.getElementById('fKel');
-  sj.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>'; sj.disabled=true;
-  sk.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>'; sk.disabled=true;
+  document.getElementById('fKec').value='';
+  const sj=document.getElementById('fJabatan');
+  sj.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
+  sj.disabled=true;
   applyFilters();
 }
 
 function setSort(m){
   sortMode=m;
-  ['Prog','Pcl','Kec'].forEach(s=>document.getElementById('sort'+s).classList.toggle('active',m===s.toLowerCase()));
+  document.getElementById('sortProg').classList.toggle('active',m==='prog');
+  document.getElementById('sortPcl').classList.toggle('active',m==='pcl');
+  document.getElementById('sortKec').classList.toggle('active',m==='kec');
   renderCards();
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // RENDER
-// ══════════════════════════════════════════════════════════
-function renderAll(){ renderStats(); renderCards(); renderTitle(); }
+// ═══════════════════════════════════════════════════════
+function renderAll(){renderStats();renderCards();renderTitle();}
 
 function renderStats(){
-  const d=filtered, n=d.length;
-  const withProg = d.filter(r=>r.progres>0);
-  const avgProg  = withProg.length ? Math.round(withProg.reduce((s,r)=>s+r.progres,0)/withProg.length) : 0;
-  document.getElementById('sTotalSLS').textContent    = fmt(n);
-  document.getElementById('sAvgProg').textContent     = avgProg+'%';
-  document.getElementById('sTotalKK').textContent     = fmt(d.reduce((s,r)=>s+r.jmlKK,0));
-  document.getElementById('sTargetKK').textContent    = fmt(d.reduce((s,r)=>s+r.tgtKK,0));
-  document.getElementById('sTotalPetani').textContent = fmt(d.reduce((s,r)=>s+r.jmlPetani,0));
-  document.getElementById('sTargetPetani').textContent= fmt(d.reduce((s,r)=>s+r.tgtPetani,0));
-  document.getElementById('sTotalUsaha').textContent  = fmt(d.reduce((s,r)=>s+r.jmlUsaha,0));
-  document.getElementById('sTargetUsaha').textContent = fmt(d.reduce((s,r)=>s+r.tgtUsaha,0));
+  const d=filtered,n=d.length;
+  const withProg=d.filter(r=>r.progres>0);
+  const avg=withProg.length?Math.round(withProg.reduce((s,r)=>s+r.progres,0)/withProg.length):0;
+  document.getElementById('sTotalPCL').textContent    =fmt(n);
+  document.getElementById('sAvgProg').textContent     =avg+'%';
+  document.getElementById('sTotalKK').textContent     =fmt(d.reduce((s,r)=>s+r.jmlKK,0));
+  document.getElementById('sTargetKK').textContent    =fmt(d.reduce((s,r)=>s+r.tgtKK,0));
+  document.getElementById('sTotalPetani').textContent =fmt(d.reduce((s,r)=>s+r.jmlPetani,0));
+  document.getElementById('sTargetPetani').textContent=fmt(d.reduce((s,r)=>s+r.tgtPetani,0));
+  document.getElementById('sTotalUsaha').textContent  =fmt(d.reduce((s,r)=>s+r.jmlUsaha,0));
+  document.getElementById('sTargetUsaha').textContent =fmt(d.reduce((s,r)=>s+r.tgtUsaha,0));
 }
 
 function renderTitle(){
   const kec=document.getElementById('fKec').value;
   const jab=document.getElementById('fJabatan').value;
-  const kel=document.getElementById('fKel').value;
-  let t='Daftar SLS per PCL';
-  if(kec) t+=' — '+kec;
-  if(kel) t+=' / '+kel;
+  // Label kecamatan yang proper case
+  const kecLabel=kec?kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'Semua Kecamatan';
+  let t='Daftar PCL';
+  if(kec) t+=' — Kec. '+kecLabel;
   if(jab) t+=' ('+jab+')';
   document.getElementById('secTitle').textContent=t;
-  document.getElementById('secCount').textContent=fmt(filtered.length)+' wilayah SLS ditemukan';
+  document.getElementById('secCount').textContent=fmt(filtered.length)+' PCL ditemukan';
 }
 
 function renderCards(){
@@ -563,30 +578,34 @@ function renderCards(){
   }
   const sorted=[...filtered].sort((a,b)=>{
     if(sortMode==='prog') return b.progres-a.progres;
-    if(sortMode==='pcl')  return a.namaPCL.localeCompare(b.namaPCL,'id');
-    return a.kec.localeCompare(b.kec,'id')||a.kel.localeCompare(b.kel,'id');
+    if(sortMode==='pcl')  return (a.jabatanPCL||'').localeCompare(b.jabatanPCL||'','id');
+    return (a.kec||'').localeCompare(b.kec||'','id');
   });
 
   grid.innerHTML=sorted.map((d,i)=>{
-    const c   = pColor(d.progres);
-    const av  = avColor(d.namaPCL||d.jabatanPCL||String(i));
-    const ini = initials(d.namaPCL||d.jabatanPCL||'SLS');
-    const barW= Math.min(d.progres,100);
-    const delay=(i%18)*30;
+    const c  =pColor(d.progres);
+    const key=(d.jabatanPCL||d.jabatanPML||String(i));
+    const av =avColor(key);
+    const ini=initials(d.jabatanPCL||d.namaPCL||'PC');
+    const barW=Math.min(d.progres,100);
+    const delay=(i%20)*28;
+    // Proper case kecamatan
+    const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
+
     return `<div class="pc" style="animation-delay:${delay}ms">
-  ${d.jabatanPML ? `<div class="pc-pml-strip">&#128100; ${d.jabatanPML}${d.namaPML?' &bull; '+d.namaPML:''}</div>` : ''}
+  ${d.jabatanPML?`<div class="pc-pml-strip">&#128100; ${d.jabatanPML}</div>`:''}
   <div class="pc-head">
     <div class="pc-av" style="background:${av}">${ini}</div>
     <div class="pc-meta">
-      <div class="pc-nama" title="${d.namaPCL||'—'}">${d.namaPCL||'—'}</div>
-      <div class="pc-jabatan">${d.jabatanPCL||'—'}</div>
-      <div class="pc-loc">&#128205; ${d.kec||'—'}${d.kel?' / '+d.kel:''}</div>
+      <div class="pc-nama" title="${d.jabatanPCL||'—'}">${d.jabatanPCL||'—'}</div>
+      <div class="pc-jabatan">${d.namaPCL||'—'}</div>
+      <div class="pc-kec">&#128205; ${kecLabel}</div>
     </div>
     <span class="badge ${c.cls}">${c.label}</span>
   </div>
   <div class="pc-body">
     <div class="pc-prog-row">
-      <span class="pc-prog-lbl">Progres</span>
+      <span class="pc-prog-lbl">Progres (${d.slsCount} SLS)</span>
       <span class="pc-prog-pct" style="color:${c.text}">${d.progres}%</span>
     </div>
     <div class="pc-bar-bg"><div class="pc-bar-fill" style="width:${barW}%;background:${c.bar}"></div></div>
@@ -607,18 +626,14 @@ function renderCards(){
         <div class="pc-box-sub">tgt: ${fmt(d.tgtUsaha)}</div>
       </div>
     </div>
-    ${d.wilayah||d.kodeSLS ? `<div class="pc-sls">
-      <span class="pc-sls-lbl">&#128506; ${d.wilayah||''}</span>
-      <span class="pc-sls-val">${d.kodeSLS||''}</span>
-    </div>` : ''}
   </div>
 </div>`;
   }).join('');
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // INIT
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 loadData();
 </script>
 </body>
