@@ -80,7 +80,7 @@
     #error-banner{background:#fff5f5;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:12px 16px;margin-bottom:20px;font-size:12px;font-weight:600;display:none}
 
     /* STAT CARDS */
-    .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
     .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
     .stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
     .stat-bar{position:absolute;top:0;left:0;right:0;height:3px}
@@ -124,14 +124,9 @@
     .pc-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
     .pc-prog-lbl{font-size:11px;font-weight:600;color:var(--text2)}
     .pc-prog-pct{font-size:17px;font-weight:800;letter-spacing:-.5px}
-    .pc-bar-bg{width:100%;height:9px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:12px}
+    .pc-bar-bg{width:100%;height:9px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:8px}
     .pc-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
-
-    .pc-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-    .pc-box{background:var(--surface2);border-radius:8px;padding:8px 10px}
-    .pc-box-lbl{font-size:9.5px;color:var(--text3);font-weight:600;margin-bottom:2px}
-    .pc-box-val{font-size:14px;font-weight:800;color:var(--text)}
-    .pc-box-sub{font-size:9px;color:var(--text3);margin-top:1px}
+    .pc-sls-info{font-size:10.5px;color:var(--text3);text-align:right}
 
     /* EMPTY */
     .empty{text-align:center;padding:56px 20px;color:var(--text3);grid-column:1/-1}
@@ -157,7 +152,6 @@
     footer{text-align:center;padding:14px;font-size:11px;color:var(--text3);font-weight:600;border-top:1px solid var(--border);background:var(--surface)}
     footer b{color:var(--brand)}
 
-    @media(max-width:1200px){.stats-row{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){
       aside{transform:translateX(-264px)}
@@ -208,9 +202,8 @@
     <div class="sb-section">
       <div class="sb-lbl">Filter Data</div>
 
-      <!-- Filter 1: Kategori Kecamatan (8 kecamatan statis) -->
       <div class="sf-group">
-        <div class="sf-label">&#128205; Kategori Kecamatan</div>
+        <div class="sf-label">&#128205; Kecamatan</div>
         <select id="fKec" onchange="onKecChange()">
           <option value="">Semua Kecamatan</option>
           <option value="PALU BARAT">Palu Barat</option>
@@ -224,7 +217,6 @@
         </select>
       </div>
 
-      <!-- Filter 2: Jabatan PML — muncul setelah pilih kecamatan -->
       <div class="sf-group">
         <div class="sf-label">&#128101; Jabatan PML</div>
         <select id="fJabatan" onchange="applyFilters()" disabled>
@@ -238,7 +230,7 @@
     <div class="sb-footer">
       <div class="sb-footer-txt">
         <b>Data Real-time</b><br>
-        Sheet: data projek<br>
+        Sheet: Data Projek<br>
         Auto-refresh tiap 5 menit
       </div>
     </div>
@@ -267,42 +259,28 @@
     <div class="page-body">
       <div id="error-banner">&#9888; <span id="errorMsg"></span></div>
 
-      <!-- STAT CARDS -->
+      <!-- STAT CARDS — hanya 3 kartu yang relevan -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-bar" style="background:linear-gradient(90deg,var(--brand),var(--accent))"></div>
           <div class="stat-ico" style="background:var(--accent-g)">&#128101;</div>
           <div class="stat-lbl">Total PCL</div>
           <div class="stat-val" id="sTotalPCL">—</div>
-          <div class="stat-sub">petugas cacah</div>
+          <div class="stat-sub">petugas cacah lapangan</div>
         </div>
         <div class="stat-card">
           <div class="stat-bar" style="background:linear-gradient(90deg,var(--purple),#A78BFA)"></div>
           <div class="stat-ico" style="background:var(--purple-g)">&#128202;</div>
           <div class="stat-lbl">Rata-rata Progres</div>
           <div class="stat-val" id="sAvgProg" style="color:var(--purple)">—</div>
-          <div class="stat-sub">keseluruhan</div>
+          <div class="stat-sub">dari seluruh PCL</div>
         </div>
         <div class="stat-card">
           <div class="stat-bar" style="background:linear-gradient(90deg,var(--green),#4ADE80)"></div>
-          <div class="stat-ico" style="background:var(--green-g)">&#128218;</div>
-          <div class="stat-lbl">Pengisian KK</div>
-          <div class="stat-val" id="sTotalKK" style="color:var(--green)">—</div>
-          <div class="stat-sub">dari target <span id="sTargetKK">—</span></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:linear-gradient(90deg,var(--blue),#60A5FA)"></div>
-          <div class="stat-ico" style="background:var(--blue-g)">&#127806;</div>
-          <div class="stat-lbl">Pengisian Petani</div>
-          <div class="stat-val" id="sTotalPetani" style="color:var(--blue)">—</div>
-          <div class="stat-sub">dari target <span id="sTargetPetani">—</span></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:linear-gradient(90deg,var(--amber),#FCD34D)"></div>
-          <div class="stat-ico" style="background:var(--amber-g)">&#127981;</div>
-          <div class="stat-lbl">Pengisian Usaha</div>
-          <div class="stat-val" id="sTotalUsaha" style="color:var(--amber)">—</div>
-          <div class="stat-sub">dari target <span id="sTargetUsaha">—</span></div>
+          <div class="stat-ico" style="background:var(--green-g)">&#9989;</div>
+          <div class="stat-lbl">PCL Selesai (≥100%)</div>
+          <div class="stat-val" id="sSelesai" style="color:var(--green)">—</div>
+          <div class="stat-sub">dari <span id="sTotalPCL2">—</span> total PCL</div>
         </div>
       </div>
 
@@ -331,14 +309,12 @@
 // KONFIGURASI
 // ═══════════════════════════════════════════════════════
 const SHEET_ID   = '1VV6jPG2fiZeI8fB92Wl-c2aLCABWo4KH';
-const SHEET_NAME = 'data projek';
+// Nama sheet sesuai tab di Google Sheets
+const SHEET_NAME = 'Data Projek';
 
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
-// allData  : 1 entri = 1 PCL (hasil group dari baris SLS)
-//            setiap PCL menyimpan array SLS-nya
-// filtered : hasil filter dari allData
 let allData  = [];
 let filtered = [];
 let sortMode = 'prog';
@@ -355,7 +331,7 @@ function pColor(v){
 }
 const AV_COLORS=['#B34500','#1D4ED8','#16A34A','#9333EA','#0891B2','#D97706','#DB2777','#059669','#7C3AED','#0284C7','#C2410C','#0F766E'];
 function avColor(s){let h=0;for(let c of s)h=(h*31+c.charCodeAt(0))&0xFFFF;return AV_COLORS[h%AV_COLORS.length];}
-function initials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
+function initials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
 function fmt(n){return(n||0).toLocaleString('id-ID');}
 function setSync(ok){
   const now=new Date(),t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
@@ -367,15 +343,27 @@ function toggleSidebar(){window.innerWidth<=768?document.body.classList.toggle('
 
 // ═══════════════════════════════════════════════════════
 // FETCH + PARSE
-// Struktur sheet (0-based):
-//   A=0 namaPML, B=1 jabatanPML, C=2 namaPCL, D=3 jabatanPCL
-//   E=4 kec, F=5 kel, G=6 wilayahSLS, H=7 kodeSLS
-//   I=8 jmlKK, J=9 petani, K=10 usaha
-//   L=11 tgtKK, M=12 tgtPetani, N=13 tgtUsaha
-//   O=14 progres
+//
+// Struktur kolom Google Sheet (0-based index):
+//   A=0  NAMA PML
+//   B=1  JABATAN PML
+//   C=2  NAMA PCL
+//   D=3  JABATAN PCL
+//   E=4  KECAMATAN
+//   F=5  KELURAHAN
+//   G=6  WILAYAH SLS
+//   H=7  KODE SLS
+//   I=8  JUMLAH PENGISIAN KELUARGA
+//   J=9  PENGISIAN PETANI
+//   K=10 PENGISIAN USAHA
+//   L=11 PERKIRAAN TARGET JUMLAH KELUARGA
+//   M=12 PERKIRAAN TARGET JUMLAH PETANI
+//   N=13 PERKIRAAN TARGET JUMLAH USAHA
+//   O=14 PROGRES
 //
 // Kolom A–E sering kosong (merged cells) → forward-fill
-// Setiap PCL dikelompokkan; progres PCL = rata-rata progres SLS-nya
+// Kita group per JABATAN PCL + KECAMATAN
+// Progres PCL = rata-rata PROGRES dari semua SLS-nya
 // ═══════════════════════════════════════════════════════
 async function loadData(){
   const icon=document.getElementById('refreshIcon');
@@ -385,103 +373,124 @@ async function loadData(){
   document.getElementById('loaderSub').textContent='Mengambil sheet "'+SHEET_NAME+'"...';
 
   try{
-    const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-    let res;
-    try{res=await fetch(url);}
-    catch(e){throw new Error('Tidak bisa terhubung ke Google Sheets. ('+e.message+')');}
-    if(!res.ok) throw new Error('HTTP '+res.status+'. Pastikan sheet bisa diakses publik.');
+    // Coba beberapa nama sheet untuk toleransi typo
+    const sheetNames = [SHEET_NAME, 'data projek', 'Data projek', 'DATA PROJEK'];
+    let json = null;
+    let lastErr = '';
 
-    const txt=await res.text();
-    const match=txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
-    if(!match) throw new Error('Format respons tidak valid. Pastikan sheet sudah diset "Anyone with link can view".');
-
-    const json=JSON.parse(match[1]);
-    if(!json.table||!json.table.rows) throw new Error('Sheet "'+SHEET_NAME+'" kosong atau tidak ditemukan.');
-
-    // ── Parsing baris dengan forward-fill ──
-    // Hasil sementara: satu entri per baris SLS
-    const rawRows=[];
-    let lastPML='',lastJabPML='',lastPCL='',lastJabPCL='',lastKec='',lastKel='';
-
-    for(const row of json.table.rows){
-      if(!row?.c) continue;
-      const c=row.c;
-      const parse=v=>{const n=parseFloat(v);return isNaN(n)?0:n;};
-
-      const namaPML    = c[0]?.v ? String(c[0].v).trim() : lastPML;
-      const jabatanPML = c[1]?.v ? String(c[1].v).trim() : lastJabPML;
-      const namaPCL    = c[2]?.v ? String(c[2].v).trim() : lastPCL;
-      const jabatanPCL = c[3]?.v ? String(c[3].v).trim() : lastJabPCL;
-      const kec        = c[4]?.v ? String(c[4].v).trim().toUpperCase() : lastKec;
-      const kel        = c[5]?.v ? String(c[5].v).trim() : lastKel;
-
-      if(c[0]?.v) lastPML    = namaPML;
-      if(c[1]?.v) lastJabPML = jabatanPML;
-      if(c[2]?.v){ lastPCL=namaPCL; lastJabPCL=''; }
-      if(c[3]?.v) lastJabPCL = jabatanPCL;
-      if(c[4]?.v) lastKec    = kec;
-      if(c[5]?.v) lastKel    = kel;
-
-      const jmlKK     = parse(c[8]?.v);
-      const jmlPetani = parse(c[9]?.v);
-      const jmlUsaha  = parse(c[10]?.v);
-      const tgtKK     = parse(c[11]?.v);
-      const tgtPetani = parse(c[12]?.v);
-      const tgtUsaha  = parse(c[13]?.v);
-      let   progRaw   = parse(c[14]?.v);
-      const progres   = progRaw>0&&progRaw<=1.5 ? Math.round(progRaw*100) : Math.round(progRaw);
-
-      // Skip header
-      const skip=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan','no',''];
-      if(skip.includes(namaPCL.toLowerCase())||skip.includes(jabatanPML.toLowerCase())) continue;
-      if(!jabatanPCL&&!namaPCL&&!kec) continue;
-
-      rawRows.push({namaPML,jabatanPML,namaPCL,jabatanPCL,kec,kel,jmlKK,jmlPetani,jmlUsaha,tgtKK,tgtPetani,tgtUsaha,progres});
+    for(const sn of sheetNames){
+      try{
+        const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sn)}`;
+        const res=await fetch(url);
+        if(!res.ok) continue;
+        const txt=await res.text();
+        const match=txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+        if(!match) continue;
+        const j=JSON.parse(match[1]);
+        if(j.table&&j.table.rows&&j.table.rows.length>1){
+          json=j;
+          console.log('Sheet ditemukan:', sn);
+          break;
+        }
+      }catch(e){ lastErr=e.message; }
     }
 
-    // ── Group per PCL (jabatanPCL + kec sebagai key) ──
-    // Setiap card = 1 PCL, berisi agregat semua SLS-nya
+    if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view". ('+lastErr+')');
+
+    // ── Parsing baris dengan forward-fill ──
+    const rawRows=[];
+    let lastA='',lastB='',lastC='',lastD='',lastE='';
+
+    // Skip baris pertama (header)
+    const rows = json.table.rows;
+    for(let ri=0; ri<rows.length; ri++){
+      const row=rows[ri];
+      if(!row?.c) continue;
+      const c=row.c;
+
+      // Ambil nilai tiap sel, forward-fill jika kosong
+      const valA = c[0]?.v ? String(c[0].v).trim() : null;
+      const valB = c[1]?.v ? String(c[1].v).trim() : null;
+      const valC = c[2]?.v ? String(c[2].v).trim() : null;
+      const valD = c[3]?.v ? String(c[3].v).trim() : null;
+      const valE = c[4]?.v ? String(c[4].v).trim().toUpperCase() : null;
+
+      if(valA) lastA=valA;
+      if(valB) lastB=valB;
+      if(valC){ lastC=valC; }
+      if(valD){ lastD=valD; }
+      if(valE) lastE=valE;
+
+      const namaPML    = lastA;
+      const jabatanPML = lastB;
+      const namaPCL    = lastC;
+      const jabatanPCL = lastD;
+      const kec        = lastE;
+
+      // Skip baris header (baris pertama sheet)
+      if(ri===0) continue;
+
+      // Skip jika semua identitas kosong
+      if(!jabatanPML && !jabatanPCL && !kec) continue;
+
+      // Ambil nilai kolom O (index 14) = PROGRES
+      const progRaw = c[14]?.v;
+      let progres = 0;
+      if(progRaw !== null && progRaw !== undefined && progRaw !== ''){
+        const pNum = parseFloat(progRaw);
+        if(!isNaN(pNum)){
+          // Jika nilai antara 0–1.5 → persentase desimal (misal 0.75 = 75%)
+          progres = pNum > 0 && pNum <= 1.5 ? Math.round(pNum*100) : Math.round(pNum);
+        }
+      }
+
+      rawRows.push({namaPML,jabatanPML,namaPCL,jabatanPCL,kec,progres});
+    }
+
+    if(!rawRows.length) throw new Error('Tidak ada baris data valid. Pastikan sheet "'+SHEET_NAME+'" memiliki data.');
+
+    // ── Group per PCL (JABATAN PCL + KECAMATAN sebagai key) ──
     const pclMap=new Map();
     for(const r of rawRows){
+      // Gunakan jabatanPCL sebagai identifier utama PCL
+      // Jika jabatanPCL kosong di baris SLS berikutnya, sudah diforward-fill
       const key=`${r.jabatanPCL}||${r.kec}`;
       if(!pclMap.has(key)){
         pclMap.set(key,{
           namaPML:r.namaPML, jabatanPML:r.jabatanPML,
           namaPCL:r.namaPCL, jabatanPCL:r.jabatanPCL,
-          kec:r.kec, kel:r.kel,
-          jmlKK:0,jmlPetani:0,jmlUsaha:0,
-          tgtKK:0,tgtPetani:0,tgtUsaha:0,
+          kec:r.kec,
           progList:[], slsCount:0
         });
       }
       const e=pclMap.get(key);
-      e.jmlKK     += r.jmlKK;
-      e.jmlPetani += r.jmlPetani;
-      e.jmlUsaha  += r.jmlUsaha;
-      e.tgtKK     += r.tgtKK;
-      e.tgtPetani += r.tgtPetani;
-      e.tgtUsaha  += r.tgtUsaha;
       e.slsCount++;
-      if(r.progres>0||r.tgtKK>0) e.progList.push(r.progres);
-      // Pastikan namaPML & jabatanPML terisi (ambil yang pertama ada)
-      if(!e.namaPML&&r.namaPML)       e.namaPML=r.namaPML;
-      if(!e.jabatanPML&&r.jabatanPML) e.jabatanPML=r.jabatanPML;
+      // Hitung rata-rata progres dari semua SLS
+      e.progList.push(r.progres);
+      // Update nama jika belum ada
+      if(!e.namaPML && r.namaPML) e.namaPML=r.namaPML;
+      if(!e.jabatanPML && r.jabatanPML) e.jabatanPML=r.jabatanPML;
     }
 
     allData=[...pclMap.values()].map(e=>({
       ...e,
-      // Progres PCL = rata-rata progres SLS yang punya data
-      progres: e.progList.length ? Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length) : 0
+      progres: e.progList.length
+        ? Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length)
+        : 0
     }));
 
-    if(!allData.length) throw new Error('Data kosong setelah parsing. Periksa struktur sheet.');
+    // Filter entri yang tidak valid (tanpa jabatanPCL dan tanpa kecamatan)
+    allData = allData.filter(d => d.jabatanPCL || d.kec);
+
+    if(!allData.length) throw new Error('Data kosong setelah grouping. Total raw rows: '+rawRows.length);
 
     applyFilters();
     setSync(true);
-    setTimeout(loadData,5*60*1000);
+    setTimeout(loadData, 5*60*1000);
 
   }catch(e){
     showErr(e.message);
+    console.error(e);
   }finally{
     document.getElementById('loading').style.display='none';
     icon.classList.remove('spin');
@@ -496,7 +505,6 @@ function onKecChange(){
   const selJab=document.getElementById('fJabatan');
 
   if(kec){
-    // Kumpulkan jabatan PML unik di kecamatan ini dari allData
     const jabs=[...new Set(
       allData.filter(d=>d.kec===kec).map(d=>d.jabatanPML).filter(Boolean)
     )].sort();
@@ -515,7 +523,6 @@ function applyFilters(){
   const kec    =document.getElementById('fKec').value;
   const jabatan=document.getElementById('fJabatan').value;
 
-  // Filter: kecamatan (case-insensitive terhadap data sheet yang UPPERCASE)
   filtered=allData.filter(d=>
     (!kec     || d.kec===kec) &&
     (!jabatan || d.jabatanPML===jabatan)
@@ -545,23 +552,19 @@ function setSort(m){
 function renderAll(){renderStats();renderCards();renderTitle();}
 
 function renderStats(){
-  const d=filtered,n=d.length;
+  const d=filtered, n=d.length;
   const withProg=d.filter(r=>r.progres>0);
   const avg=withProg.length?Math.round(withProg.reduce((s,r)=>s+r.progres,0)/withProg.length):0;
-  document.getElementById('sTotalPCL').textContent    =fmt(n);
-  document.getElementById('sAvgProg').textContent     =avg+'%';
-  document.getElementById('sTotalKK').textContent     =fmt(d.reduce((s,r)=>s+r.jmlKK,0));
-  document.getElementById('sTargetKK').textContent    =fmt(d.reduce((s,r)=>s+r.tgtKK,0));
-  document.getElementById('sTotalPetani').textContent =fmt(d.reduce((s,r)=>s+r.jmlPetani,0));
-  document.getElementById('sTargetPetani').textContent=fmt(d.reduce((s,r)=>s+r.tgtPetani,0));
-  document.getElementById('sTotalUsaha').textContent  =fmt(d.reduce((s,r)=>s+r.jmlUsaha,0));
-  document.getElementById('sTargetUsaha').textContent =fmt(d.reduce((s,r)=>s+r.tgtUsaha,0));
+  const selesai=d.filter(r=>r.progres>=100).length;
+  document.getElementById('sTotalPCL').textContent  = fmt(n);
+  document.getElementById('sTotalPCL2').textContent = fmt(n);
+  document.getElementById('sAvgProg').textContent   = avg+'%';
+  document.getElementById('sSelesai').textContent   = fmt(selesai);
 }
 
 function renderTitle(){
   const kec=document.getElementById('fKec').value;
   const jab=document.getElementById('fJabatan').value;
-  // Label kecamatan yang proper case
   const kecLabel=kec?kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'Semua Kecamatan';
   let t='Daftar PCL';
   if(kec) t+=' — Kec. '+kecLabel;
@@ -589,7 +592,6 @@ function renderCards(){
     const ini=initials(d.jabatanPCL||d.namaPCL||'PC');
     const barW=Math.min(d.progres,100);
     const delay=(i%20)*28;
-    // Proper case kecamatan
     const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
 
     return `<div class="pc" style="animation-delay:${delay}ms">
@@ -605,27 +607,11 @@ function renderCards(){
   </div>
   <div class="pc-body">
     <div class="pc-prog-row">
-      <span class="pc-prog-lbl">Progres (${d.slsCount} SLS)</span>
+      <span class="pc-prog-lbl">Progres</span>
       <span class="pc-prog-pct" style="color:${c.text}">${d.progres}%</span>
     </div>
     <div class="pc-bar-bg"><div class="pc-bar-fill" style="width:${barW}%;background:${c.bar}"></div></div>
-    <div class="pc-grid3">
-      <div class="pc-box">
-        <div class="pc-box-lbl">KK</div>
-        <div class="pc-box-val">${fmt(d.jmlKK)}</div>
-        <div class="pc-box-sub">tgt: ${fmt(d.tgtKK)}</div>
-      </div>
-      <div class="pc-box">
-        <div class="pc-box-lbl">Petani</div>
-        <div class="pc-box-val">${fmt(d.jmlPetani)}</div>
-        <div class="pc-box-sub">tgt: ${fmt(d.tgtPetani)}</div>
-      </div>
-      <div class="pc-box">
-        <div class="pc-box-lbl">Usaha</div>
-        <div class="pc-box-val">${fmt(d.jmlUsaha)}</div>
-        <div class="pc-box-sub">tgt: ${fmt(d.tgtUsaha)}</div>
-      </div>
-    </div>
+    <div class="pc-sls-info">${d.slsCount} SLS wilayah kerja</div>
   </div>
 </div>`;
   }).join('');
