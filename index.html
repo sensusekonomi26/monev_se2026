@@ -450,8 +450,14 @@ async function loadData(){
       if(valD) lastD=valD;
       if(valE) lastE=valE;
 
+      // Skip baris header (ri===0) dan baris yang berisi teks header
       if(ri===0) continue;
-      if(!lastB&&!lastD&&!lastE) continue;
+      const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
+      if(valA&&headerWords.includes(valA.toLowerCase())) continue;
+      if(valB&&headerWords.includes(valB.toLowerCase())) continue;
+
+      // Hanya push jika jabatanPCL sudah terisi (hasil forward-fill)
+      if(!lastD||!lastE) continue;
 
       const progRaw=c[14]?.v;
       let progres=0;
@@ -467,7 +473,9 @@ async function loadData(){
 
     const pclMap=new Map();
     for(const r of rawRows){
-      const key=`${r.jabatanPCL}||${r.kec}`;
+      // Key wajib punya jabatanPCL — mencegah entri palsu
+      if(!r.jabatanPCL) continue;
+      const key=`${r.jabatanPCL.trim()}||${r.kec.trim()}`;
       if(!pclMap.has(key)){
         pclMap.set(key,{namaPML:r.namaPML,jabatanPML:r.jabatanPML,namaPCL:r.namaPCL,jabatanPCL:r.jabatanPCL,kec:r.kec,progList:[],slsCount:0});
       }
@@ -481,7 +489,7 @@ async function loadData(){
     allData=[...pclMap.values()].map(e=>({
       ...e,
       progres:e.progList.length?Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length):0
-    })).filter(d=>d.jabatanPCL||d.kec);
+    })).filter(d=>d.jabatanPCL&&d.kec);
 
     if(!allData.length) throw new Error('Data kosong setelah grouping.');
 
