@@ -4,169 +4,251 @@
   <meta charset="UTF-8"/>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIMONTIK — Monitoring Petugas Sensus</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <title>MONSE 2026 — Monitoring Petugas Sensus Ekonomi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --brand:#B34500;--brand2:#8A3300;
-      --accent:#FF6B1A;--accent-g:rgba(255,107,26,.12);
-      --green:#16A34A;--green-g:rgba(22,163,74,.12);
-      --blue:#1D4ED8;--blue-g:rgba(29,78,216,.12);
-      --amber:#D97706;--amber-g:rgba(217,119,6,.12);
-      --red:#DC2626;--red-g:rgba(220,38,38,.12);
-      --purple:#7C3AED;--purple-g:rgba(124,58,237,.12);
-      --bg:#F2F5FA;--surface:#FFF;--surface2:#F8FAFC;
-      --border:#E2E8F2;--text:#0F1C2E;--text2:#3D5170;--text3:#8A9DB8;
+      --navy:#0F1B3D;--navy2:#162447;--navy3:#1E3163;
+      --blue:#2563EB;--blue2:#3B82F6;--blue-g:rgba(37,99,235,.12);
+      --accent:#F97316;--accent2:#FB923C;
+      --green:#10B981;--green-g:rgba(16,185,129,.12);
+      --amber:#F59E0B;--amber-g:rgba(245,158,11,.12);
+      --red:#EF4444;--red-g:rgba(239,68,68,.12);
+      --bg:#F0F4FB;--surface:#FFF;--surface2:#F7F9FD;
+      --border:#DDE4F0;--text:#0F1B3D;--text2:#3D5170;--text3:#8A9DB8;
       --r:14px;--rs:9px;
+      --sidebar:240px;
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
-    .layout{display:flex;min-height:100vh}
+    body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
+    /* ── SIDEBAR ── */
     aside{
-      width:264px;min-height:100vh;
-      background:linear-gradient(170deg,#6B2700 0%,#8A3300 45%,#B34500 100%);
+      width:var(--sidebar);min-height:100vh;
+      background:var(--navy);
       display:flex;flex-direction:column;
       position:fixed;top:0;left:0;bottom:0;z-index:200;
-      box-shadow:6px 0 32px rgba(0,0,0,.22);
+      box-shadow:4px 0 24px rgba(0,0,0,.25);
       overflow-y:auto;overflow-x:hidden;
       transition:transform .3s ease;
-      scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent;
+      scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;
     }
     aside::-webkit-scrollbar{width:3px}
-    aside::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+    aside::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
 
-    .sb-brand{padding:26px 22px 20px;border-bottom:1px solid rgba(255,255,255,.12)}
-    .sb-logos{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-    .sb-logos img{width:42px;height:42px;object-fit:contain;flex-shrink:0;border-radius:6px}
-    .sb-name{font-size:13px;font-weight:700;color:#fff;line-height:1.35}
-    .sb-sub{font-size:10.5px;color:rgba(255,255,255,.55);margin-top:2px}
-    .sb-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:9.5px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:9px;letter-spacing:.5px}
+    /* Brand */
+    .sb-brand{padding:28px 20px 22px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .sb-logo-text{
+      font-size:32px;font-weight:800;color:#fff;
+      letter-spacing:-1.5px;line-height:1;
+      text-shadow:0 0 40px rgba(59,130,246,.4);
+    }
+    .sb-logo-text span{color:var(--blue2)}
+    .sb-year{
+      display:inline-block;
+      font-size:11px;font-weight:700;letter-spacing:2px;
+      color:var(--accent2);
+      background:rgba(249,115,22,.15);
+      border:1px solid rgba(249,115,22,.3);
+      border-radius:4px;padding:2px 8px;margin-top:6px;
+    }
+    .sb-tagline{font-size:10px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.6;letter-spacing:.3px}
 
-    .sb-section{padding:16px 16px 0}
-    .sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.8px;padding:0 6px;margin-bottom:10px}
+    /* Nav label */
+    .sb-section{padding:18px 16px 0}
+    .sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:2px;padding:0 4px;margin-bottom:10px}
 
-    .sf-group{margin-bottom:14px}
-    .sf-label{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:6px;padding:0 2px;display:flex;align-items:center;gap:5px}
-    select{width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.18);border-radius:var(--rs);padding:9px 32px 9px 12px;cursor:pointer;outline:none;transition:border .15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.55)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
-    select:focus{border-color:rgba(255,255,255,.5)}
-    select option{background:#8A3300;color:#fff}
-    select:disabled{opacity:.38;cursor:not-allowed}
+    /* Filter */
+    .sf-group{margin-bottom:12px}
+    .sf-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:5px;padding:0 2px;display:flex;align-items:center;gap:4px}
+    select{
+      width:100%;font-family:'Sora',sans-serif;font-size:11.5px;font-weight:600;
+      color:#fff;background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);border-radius:8px;
+      padding:9px 30px 9px 11px;cursor:pointer;outline:none;
+      transition:border .15s;appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 10px center;
+    }
+    select:focus{border-color:rgba(59,130,246,.6)}
+    select option{background:#162447;color:#fff}
+    select:disabled{opacity:.3;cursor:not-allowed}
 
-    .btn-sb{width:100%;border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;padding:9px;border-radius:var(--rs);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:5px}
-    .btn-reset{background:rgba(255,255,255,.12)}
-    .btn-reset:hover{background:rgba(255,255,255,.22)}
+    .btn-reset{
+      width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.7);font-family:'Sora',sans-serif;font-size:11px;font-weight:600;
+      padding:9px;border-radius:8px;cursor:pointer;transition:all .15s;
+      display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;
+    }
+    .btn-reset:hover{background:rgba(255,255,255,.14)}
 
-    .sb-footer{margin-top:auto;padding:16px 22px;border-top:1px solid rgba(255,255,255,.1)}
-    .sb-footer-txt{font-size:10px;color:rgba(255,255,255,.38);line-height:1.7}
-    .sb-footer-txt b{color:rgba(255,255,255,.6)}
+    .sb-footer{margin-top:auto;padding:16px 20px;border-top:1px solid rgba(255,255,255,.07)}
+    .sb-footer-txt{font-size:10px;color:rgba(255,255,255,.28);line-height:1.8}
+    .sb-footer-txt b{color:rgba(255,255,255,.5)}
 
-    .content{margin-left:264px;flex:1;min-height:100vh;display:flex;flex-direction:column;transition:margin-left .3s ease}
+    /* ── CONTENT ── */
+    .content{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
 
-    .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 30px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05)}
-    .topbar-left h1{font-size:15px;font-weight:700;color:var(--text)}
-    .topbar-left p{font-size:11px;color:var(--text3);margin-top:1px}
+    /* Topbar */
+    .topbar{
+      background:var(--surface);border-bottom:1px solid var(--border);
+      padding:0 28px;height:58px;
+      display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;
+      box-shadow:0 1px 6px rgba(15,27,61,.06);
+    }
+    .topbar-title{font-size:15px;font-weight:700;color:var(--text)}
+    .topbar-sub{font-size:10.5px;color:var(--text3);margin-top:1px}
     .topbar-right{display:flex;align-items:center;gap:10px}
-    .sync-badge{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--text2);font-weight:600}
-    .sync-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2.5s infinite}
+    .sync-badge{
+      display:flex;align-items:center;gap:6px;
+      background:var(--surface2);border:1px solid var(--border);
+      border-radius:20px;padding:5px 12px;
+      font-size:10.5px;color:var(--text2);font-weight:600;
+    }
+    .sync-dot{width:7px;height:7px;border-radius:50%;background:#10B981;animation:pulse 2.5s infinite}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-    .btn-refresh{background:var(--brand);color:#fff;border:none;border-radius:var(--rs);padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;box-shadow:0 3px 10px rgba(179,69,0,.3)}
-    .btn-refresh:hover{background:var(--brand2);transform:translateY(-1px)}
+    .btn-refresh{
+      background:var(--blue);color:#fff;border:none;border-radius:8px;
+      padding:8px 16px;font-size:11.5px;font-weight:700;cursor:pointer;
+      display:flex;align-items:center;gap:6px;font-family:'Sora',sans-serif;
+      transition:all .15s;box-shadow:0 3px 12px rgba(37,99,235,.3);
+    }
+    .btn-refresh:hover{background:#1D4ED8;transform:translateY(-1px)}
     .spin{animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    .page-body{padding:26px 30px;flex:1}
-    #error-banner{background:#fff5f5;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:12px 16px;margin-bottom:20px;font-size:12px;font-weight:600;display:none}
+    /* Page */
+    .page-body{padding:24px 28px;flex:1}
+    #error-banner{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:11px 15px;margin-bottom:18px;font-size:11.5px;font-weight:600;display:none}
 
-    /* STAT CARDS */
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
-    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
-    .stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
-    .stat-bar{position:absolute;top:0;left:0;right:0;height:3px}
-    .stat-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:16px}
-    .stat-lbl{font-size:10.5px;font-weight:600;color:var(--text3);margin-bottom:3px}
-    .stat-val{font-size:22px;font-weight:800;letter-spacing:-1px;line-height:1}
-    .stat-sub{font-size:10.5px;color:var(--text3);margin-top:4px}
+    /* ── STAT HERO CARDS (navy, seperti referensi) ── */
+    .hero-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+    .hero-card{
+      background:var(--navy2);border-radius:var(--r);
+      padding:20px 22px;position:relative;overflow:hidden;
+      transition:transform .15s,box-shadow .15s;
+    }
+    .hero-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,27,61,.2)}
+    .hero-card::before{
+      content:'';position:absolute;right:-20px;top:-20px;
+      width:90px;height:90px;border-radius:50%;
+      background:rgba(255,255,255,.04);
+    }
+    .hero-card::after{
+      content:'';position:absolute;right:10px;top:10px;
+      width:50px;height:50px;border-radius:50%;
+      background:rgba(255,255,255,.04);
+    }
+    .hero-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;margin-bottom:10px}
+    .hero-val{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
+    .hero-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
 
-    /* SECTION HEADER */
+    /* ── SECTION ── */
+    .sec-wrap{margin-bottom:10px}
     .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
-    .sec-title{font-size:14px;font-weight:700;color:var(--text)}
+    .sec-title{font-size:15px;font-weight:700;color:var(--text)}
     .sec-count{font-size:11px;color:var(--text3);margin-top:2px}
-    .sort-bar{display:flex;gap:6px;flex-wrap:wrap}
-    .sort-btn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}
-    .sort-btn.active,.sort-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .sort-bar{display:flex;gap:6px}
+    .sort-btn{
+      background:var(--surface);border:1px solid var(--border);border-radius:20px;
+      padding:5px 13px;font-size:11px;font-weight:600;color:var(--text2);
+      cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif;
+    }
+    .sort-btn.active,.sort-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
 
-    /* PETUGAS CARDS */
-    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    /* ── PCL CARDS ── */
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    .pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .18s,box-shadow .18s;animation:fadeUp .35s ease both}
-    .pc:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+    .pc{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      overflow:hidden;transition:transform .18s,box-shadow .18s;
+      animation:fadeUp .3s ease both;
+    }
+    .pc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,27,61,.1)}
 
-    /* Strip PML */
-    .pc-pml-strip{background:linear-gradient(90deg,rgba(179,69,0,.09),rgba(179,69,0,.02));border-bottom:1px solid rgba(179,69,0,.13);padding:7px 16px;display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--brand2);font-weight:700}
+    /* PML strip */
+    .pc-pml{
+      background:var(--navy);
+      padding:7px 14px;
+      font-size:10px;font-weight:600;color:rgba(255,255,255,.6);
+      display:flex;align-items:center;gap:5px;
+    }
+    .pc-pml span{color:rgba(255,255,255,.9);font-weight:700}
 
-    .pc-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-    .pc-av{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;color:#fff;letter-spacing:-.5px}
-    .pc-meta{flex:1;min-width:0}
-    .pc-nama{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pc-jabatan{font-size:10.5px;color:var(--text3);margin-top:2px}
-    .pc-kec{font-size:10px;color:var(--text2);font-weight:600;margin-top:3px}
-    .badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
-    .bg{background:var(--green-g);color:#15803D}
-    .bb{background:var(--blue-g);color:#1E40AF}
-    .ba{background:var(--amber-g);color:#92400E}
-    .br{background:var(--red-g);color:#B91C1C}
-    .bp{background:rgba(139,148,158,.12);color:#64748B}
+    .pc-body{padding:16px 14px}
 
-    .pc-body{padding:14px 16px}
-    .pc-prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-    .pc-prog-lbl{font-size:11px;font-weight:600;color:var(--text2)}
-    .pc-prog-pct{font-size:17px;font-weight:800;letter-spacing:-.5px}
-    .pc-bar-bg{width:100%;height:9px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:8px}
+    /* Nama PCL */
+    .pc-nama{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pc-kec{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:4px}
+
+    /* Responden info */
+    .pc-resp{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .pc-resp-txt{font-size:11px;color:var(--text3);font-weight:500}
+    .pc-resp-num{font-size:11px;font-weight:700;color:var(--text2)}
+
+    /* Progress bar */
+    .pc-bar-bg{width:100%;height:8px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:10px}
     .pc-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
-    .pc-sls-info{font-size:10.5px;color:var(--text3);text-align:right}
+
+    /* Persen besar */
+    .pc-pct{font-size:22px;font-weight:800;letter-spacing:-1px;line-height:1}
+
+    /* Status badge */
+    .badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;float:right;margin-top:4px}
+    .bg{background:var(--green-g);color:#059669}
+    .bb{background:var(--blue-g);color:#1D4ED8}
+    .ba{background:var(--amber-g);color:#D97706}
+    .br{background:var(--red-g);color:#DC2626}
+    .bp{background:rgba(148,163,184,.12);color:#64748B}
 
     /* EMPTY */
-    .empty{text-align:center;padding:56px 20px;color:var(--text3);grid-column:1/-1}
-    .empty-ico{font-size:44px;margin-bottom:10px}
+    .empty{text-align:center;padding:60px 20px;color:var(--text3);grid-column:1/-1}
+    .empty-ico{font-size:40px;margin-bottom:10px}
     .empty-ttl{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px}
 
     /* LOADING */
-    #loading{position:fixed;inset:0;background:rgba(242,245,250,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px;backdrop-filter:blur(4px)}
-    .loader-ring{width:52px;height:52px;border-radius:50%;border:4px solid var(--border);border-top-color:var(--accent);animation:spin .85s linear infinite}
-    .loader-label{font-size:13px;font-weight:600;color:var(--text2)}
-    .loader-sub{font-size:11px;color:var(--text3);margin-top:-8px}
+    #loading{position:fixed;inset:0;background:rgba(15,27,61,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px;backdrop-filter:blur(6px)}
+    .loader-ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--blue2);animation:spin .85s linear infinite}
+    .loader-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8)}
+    .loader-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:-8px}
 
     /* TOGGLE */
-    .toggle-btn{position:fixed;top:14px;left:232px;z-index:300;width:30px;height:30px;background:var(--brand);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(179,69,0,.45);transition:left .3s,background .15s}
-    .toggle-btn:hover{background:var(--brand2)}
+    .toggle-btn{
+      position:fixed;top:14px;left:calc(var(--sidebar) - 16px);z-index:300;
+      width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;cursor:pointer;
+      box-shadow:0 2px 8px rgba(37,99,235,.4);transition:left .3s,background .15s;
+    }
+    .toggle-btn:hover{background:#1D4ED8}
     .toggle-btn svg{transition:transform .3s}
     .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
-    body.sidebar-collapsed aside{transform:translateX(-264px)}
+    body.sidebar-collapsed aside{transform:translateX(calc(-1 * var(--sidebar)))}
     body.sidebar-collapsed .content{margin-left:0}
     body.sidebar-collapsed .toggle-btn{left:10px}
     body.sidebar-collapsed .toggle-btn svg{transform:rotate(180deg)}
 
-    footer{text-align:center;padding:14px;font-size:11px;color:var(--text3);font-weight:600;border-top:1px solid var(--border);background:var(--surface)}
-    footer b{color:var(--brand)}
+    footer{text-align:center;padding:14px;font-size:10.5px;color:var(--text3);font-weight:600;border-top:1px solid var(--border);background:var(--surface)}
+    footer b{color:var(--blue)}
 
-    @media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:1100px){.hero-row{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:768px){
-      aside{transform:translateX(-264px)}
+      aside{transform:translateX(calc(-1 * var(--sidebar)))}
       body.sidebar-open aside{transform:translateX(0)!important}
       body.sidebar-open .sb-overlay{display:block}
       .content{margin-left:0!important}
       .toggle-btn{left:10px!important;top:12px}
-      body.sidebar-open .toggle-btn{left:272px!important}
+      body.sidebar-open .toggle-btn{left:calc(var(--sidebar) + 8px)!important}
       body.sidebar-open .toggle-btn svg{transform:rotate(180deg)}
-      .topbar{padding:0 12px 0 50px;height:52px}
+      .topbar{padding:0 12px 0 48px;height:52px}
       .page-body{padding:14px 10px}
       .pgrid{grid-template-columns:1fr}
+      .hero-row{grid-template-columns:repeat(2,1fr)}
     }
     @media(max-width:480px){
-      .stats-row{grid-template-columns:repeat(2,1fr)}
+      .hero-row{grid-template-columns:1fr 1fr}
       .sync-badge{display:none}
     }
   </style>
@@ -187,23 +269,19 @@
   </svg>
 </button>
 
-<div class="layout">
+<div style="display:flex;min-height:100vh">
   <aside>
     <div class="sb-brand">
-      <div class="sb-logos">
-        <img src="logo_kota_palu.png" alt="Logo Kota Palu"/>
-        <img src="logo_bps_tanpa_bg.png" alt="Logo BPS"/>
-      </div>
-      <div class="sb-name">Dashboard Monitoring<br>Petugas Sensus</div>
-      <div class="sb-sub">SDI KOTA PALU</div>
-      <div class="sb-pill">&#9679; MONEV PETUGAS</div>
+      <div class="sb-logo-text">MON<span>SE</span></div>
+      <div class="sb-year">2026</div>
+      <div class="sb-tagline">Monitoring Petugas<br>Sensus Ekonomi<br>BPS Kota Palu</div>
     </div>
 
     <div class="sb-section">
       <div class="sb-lbl">Filter Data</div>
 
       <div class="sf-group">
-        <div class="sf-label">&#128205; Kecamatan</div>
+        <div class="sf-label">📍 Kecamatan</div>
         <select id="fKec" onchange="onKecChange()">
           <option value="">Semua Kecamatan</option>
           <option value="PALU BARAT">Palu Barat</option>
@@ -218,29 +296,28 @@
       </div>
 
       <div class="sf-group">
-        <div class="sf-label">&#128101; Jabatan PML</div>
+        <div class="sf-label">👤 Jabatan PML</div>
         <select id="fJabatan" onchange="applyFilters()" disabled>
-          <option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>
+          <option value="">— Pilih Kecamatan Dulu —</option>
         </select>
       </div>
 
-      <button class="btn-sb btn-reset" onclick="resetFilters()">&#8635; Reset Filter</button>
+      <button class="btn-reset" onclick="resetFilters()">↺ Reset Filter</button>
     </div>
 
     <div class="sb-footer">
       <div class="sb-footer-txt">
-        <b>Data Real-time</b><br>
-        Sheet: Data Projek<br>
-        Auto-refresh tiap 5 menit
+        <b>BPS Kota Palu</b><br>
+        Sensus Ekonomi 2026
       </div>
     </div>
   </aside>
 
   <div class="content">
     <div class="topbar">
-      <div class="topbar-left">
-        <h1>Monitoring Petugas Sensus</h1>
-        <p>Pengelola SDI Kota Palu</p>
+      <div>
+        <div class="topbar-title">Dashboard Sensus Ekonomi 2026</div>
+        <div class="topbar-sub">Monitoring Petugas — BPS Kota Palu</div>
       </div>
       <div class="topbar-right">
         <div class="sync-badge">
@@ -257,42 +334,41 @@
     </div>
 
     <div class="page-body">
-      <div id="error-banner">&#9888; <span id="errorMsg"></span></div>
+      <div id="error-banner">⚠ <span id="errorMsg"></span></div>
 
-      <!-- STAT CARDS — hanya 3 kartu yang relevan -->
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-bar" style="background:linear-gradient(90deg,var(--brand),var(--accent))"></div>
-          <div class="stat-ico" style="background:var(--accent-g)">&#128101;</div>
-          <div class="stat-lbl">Total PCL</div>
-          <div class="stat-val" id="sTotalPCL">—</div>
-          <div class="stat-sub">petugas cacah lapangan</div>
+      <!-- HERO STAT CARDS -->
+      <div class="hero-row">
+        <div class="hero-card">
+          <div class="hero-lbl">TOTAL PCL</div>
+          <div class="hero-val" id="sTotalPCL">—</div>
+          <div class="hero-sub">petugas cacah lapangan</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:linear-gradient(90deg,var(--purple),#A78BFA)"></div>
-          <div class="stat-ico" style="background:var(--purple-g)">&#128202;</div>
-          <div class="stat-lbl">Rata-rata Progres</div>
-          <div class="stat-val" id="sAvgProg" style="color:var(--purple)">—</div>
-          <div class="stat-sub">dari seluruh PCL</div>
+        <div class="hero-card">
+          <div class="hero-lbl">RATA-RATA PROGRES</div>
+          <div class="hero-val" id="sAvgProg">—</div>
+          <div class="hero-sub">dari seluruh PCL</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:linear-gradient(90deg,var(--green),#4ADE80)"></div>
-          <div class="stat-ico" style="background:var(--green-g)">&#9989;</div>
-          <div class="stat-lbl">PCL Selesai (≥100%)</div>
-          <div class="stat-val" id="sSelesai" style="color:var(--green)">—</div>
-          <div class="stat-sub">dari <span id="sTotalPCL2">—</span> total PCL</div>
+        <div class="hero-card">
+          <div class="hero-lbl">PCL SELESAI</div>
+          <div class="hero-val" id="sSelesai" style="color:#34D399">—</div>
+          <div class="hero-sub">progres ≥ 100%</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-lbl">PCL BELUM MULAI</div>
+          <div class="hero-val" id="sBelum" style="color:#F87171">—</div>
+          <div class="hero-sub">progres 0%</div>
         </div>
       </div>
 
-      <!-- CARDS HEADER -->
+      <!-- SECTION HEADER -->
       <div class="sec-head">
         <div>
-          <div class="sec-title" id="secTitle">Daftar PCL</div>
+          <div class="sec-title" id="secTitle">Progress Per PCL</div>
           <div class="sec-count" id="secCount">Memuat data...</div>
         </div>
         <div class="sort-bar">
-          <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres &#8595;</button>
-          <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A&#8211;Z</button>
+          <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres ↓</button>
+          <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A–Z</button>
           <button class="sort-btn" id="sortKec"  onclick="setSort('kec')">Kecamatan</button>
         </div>
       </div>
@@ -302,69 +378,32 @@
   </div>
 </div>
 
-<footer><b>SDI KOTA PALU</b> &nbsp;&bull;&nbsp; Dashboard Monitoring Petugas Sensus &nbsp;&bull;&nbsp; &copy; 2026 Badan Pusat Statistik Kota Palu</footer>
+<footer><b>MONSE 2026</b> &nbsp;•&nbsp; Monitoring Petugas Sensus Ekonomi &nbsp;•&nbsp; © 2026 Badan Pusat Statistik Kota Palu</footer>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// KONFIGURASI
-// ═══════════════════════════════════════════════════════
 const SHEET_ID   = '1VV6jPG2fiZeI8fB92Wl-c2aLCABWo4KH';
-// Nama sheet sesuai tab di Google Sheets
 const SHEET_NAME = 'Data Projek';
 
-// ═══════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════
 let allData  = [];
 let filtered = [];
 let sortMode = 'prog';
 
-// ═══════════════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════════════
 function pColor(v){
-  if(v>=100) return {bar:'#16A34A',text:'#15803D',cls:'bg',label:'Selesai'};
-  if(v>=75)  return {bar:'#1D4ED8',text:'#1E40AF',cls:'bb',label:'Hampir'};
-  if(v>=50)  return {bar:'#D97706',text:'#92400E',cls:'ba',label:'Proses'};
-  if(v>0)    return {bar:'#DC2626',text:'#B91C1C',cls:'br',label:'Tertinggal'};
-  return           {bar:'#94A3B8',text:'#64748B',cls:'bp',label:'Belum Mulai'};
+  if(v>=100) return {bar:'#10B981',text:'#059669',cls:'bg',label:'Selesai'};
+  if(v>=75)  return {bar:'#2563EB',text:'#1D4ED8',cls:'bb',label:'Hampir'};
+  if(v>=50)  return {bar:'#F59E0B',text:'#D97706',cls:'ba',label:'Proses'};
+  if(v>0)    return {bar:'#EF4444',text:'#DC2626',cls:'br',label:'Tertinggal'};
+  return           {bar:'#CBD5E1',text:'#64748B',cls:'bp',label:'Belum Mulai'};
 }
-const AV_COLORS=['#B34500','#1D4ED8','#16A34A','#9333EA','#0891B2','#D97706','#DB2777','#059669','#7C3AED','#0284C7','#C2410C','#0F766E'];
-function avColor(s){let h=0;for(let c of s)h=(h*31+c.charCodeAt(0))&0xFFFF;return AV_COLORS[h%AV_COLORS.length];}
-function initials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
 function fmt(n){return(n||0).toLocaleString('id-ID');}
 function setSync(ok){
-  const now=new Date(),t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('lastSync').textContent=ok?'Sinkron '+t:'Gagal memuat';
-  document.getElementById('syncDot').style.background=ok?'#22c55e':'#e63946';
+  const now=new Date(),t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('lastSync').textContent=ok?'Update: '+t+' (sinkron)':'Gagal memuat';
+  document.getElementById('syncDot').style.background=ok?'#10B981':'#EF4444';
 }
 function showErr(msg){document.getElementById('errorMsg').textContent=msg;document.getElementById('error-banner').style.display='block';setSync(false);}
 function toggleSidebar(){window.innerWidth<=768?document.body.classList.toggle('sidebar-open'):document.body.classList.toggle('sidebar-collapsed');}
 
-// ═══════════════════════════════════════════════════════
-// FETCH + PARSE
-//
-// Struktur kolom Google Sheet (0-based index):
-//   A=0  NAMA PML
-//   B=1  JABATAN PML
-//   C=2  NAMA PCL
-//   D=3  JABATAN PCL
-//   E=4  KECAMATAN
-//   F=5  KELURAHAN
-//   G=6  WILAYAH SLS
-//   H=7  KODE SLS
-//   I=8  JUMLAH PENGISIAN KELUARGA
-//   J=9  PENGISIAN PETANI
-//   K=10 PENGISIAN USAHA
-//   L=11 PERKIRAAN TARGET JUMLAH KELUARGA
-//   M=12 PERKIRAAN TARGET JUMLAH PETANI
-//   N=13 PERKIRAAN TARGET JUMLAH USAHA
-//   O=14 PROGRES
-//
-// Kolom A–E sering kosong (merged cells) → forward-fill
-// Kita group per JABATAN PCL + KECAMATAN
-// Progres PCL = rata-rata PROGRES dari semua SLS-nya
-// ═══════════════════════════════════════════════════════
 async function loadData(){
   const icon=document.getElementById('refreshIcon');
   icon.classList.add('spin');
@@ -373,10 +412,8 @@ async function loadData(){
   document.getElementById('loaderSub').textContent='Mengambil sheet "'+SHEET_NAME+'"...';
 
   try{
-    // Coba beberapa nama sheet untuk toleransi typo
-    const sheetNames = [SHEET_NAME, 'data projek', 'Data projek', 'DATA PROJEK'];
-    let json = null;
-    let lastErr = '';
+    const sheetNames=[SHEET_NAME,'data projek','Data projek','DATA PROJEK'];
+    let json=null;
 
     for(const sn of sheetNames){
       try{
@@ -387,106 +424,70 @@ async function loadData(){
         const match=txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
         if(!match) continue;
         const j=JSON.parse(match[1]);
-        if(j.table&&j.table.rows&&j.table.rows.length>1){
-          json=j;
-          console.log('Sheet ditemukan:', sn);
-          break;
-        }
-      }catch(e){ lastErr=e.message; }
+        if(j.table&&j.table.rows&&j.table.rows.length>1){json=j;break;}
+      }catch(e){}
     }
 
-    if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view". ('+lastErr+')');
+    if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view".');
 
-    // ── Parsing baris dengan forward-fill ──
     const rawRows=[];
     let lastA='',lastB='',lastC='',lastD='',lastE='';
 
-    // Skip baris pertama (header)
-    const rows = json.table.rows;
-    for(let ri=0; ri<rows.length; ri++){
-      const row=rows[ri];
+    for(let ri=0;ri<json.table.rows.length;ri++){
+      const row=json.table.rows[ri];
       if(!row?.c) continue;
       const c=row.c;
 
-      // Ambil nilai tiap sel, forward-fill jika kosong
-      const valA = c[0]?.v ? String(c[0].v).trim() : null;
-      const valB = c[1]?.v ? String(c[1].v).trim() : null;
-      const valC = c[2]?.v ? String(c[2].v).trim() : null;
-      const valD = c[3]?.v ? String(c[3].v).trim() : null;
-      const valE = c[4]?.v ? String(c[4].v).trim().toUpperCase() : null;
+      const valA=c[0]?.v?String(c[0].v).trim():null;
+      const valB=c[1]?.v?String(c[1].v).trim():null;
+      const valC=c[2]?.v?String(c[2].v).trim():null;
+      const valD=c[3]?.v?String(c[3].v).trim():null;
+      const valE=c[4]?.v?String(c[4].v).trim().toUpperCase():null;
 
       if(valA) lastA=valA;
       if(valB) lastB=valB;
-      if(valC){ lastC=valC; }
-      if(valD){ lastD=valD; }
+      if(valC) lastC=valC;
+      if(valD) lastD=valD;
       if(valE) lastE=valE;
 
-      const namaPML    = lastA;
-      const jabatanPML = lastB;
-      const namaPCL    = lastC;
-      const jabatanPCL = lastD;
-      const kec        = lastE;
-
-      // Skip baris header (baris pertama sheet)
       if(ri===0) continue;
+      if(!lastB&&!lastD&&!lastE) continue;
 
-      // Skip jika semua identitas kosong
-      if(!jabatanPML && !jabatanPCL && !kec) continue;
-
-      // Ambil nilai kolom O (index 14) = PROGRES
-      const progRaw = c[14]?.v;
-      let progres = 0;
-      if(progRaw !== null && progRaw !== undefined && progRaw !== ''){
-        const pNum = parseFloat(progRaw);
-        if(!isNaN(pNum)){
-          // Jika nilai antara 0–1.5 → persentase desimal (misal 0.75 = 75%)
-          progres = pNum > 0 && pNum <= 1.5 ? Math.round(pNum*100) : Math.round(pNum);
-        }
+      const progRaw=c[14]?.v;
+      let progres=0;
+      if(progRaw!==null&&progRaw!==undefined&&progRaw!==''){
+        const pNum=parseFloat(progRaw);
+        if(!isNaN(pNum)) progres=pNum>0&&pNum<=1.5?Math.round(pNum*100):Math.round(pNum);
       }
 
-      rawRows.push({namaPML,jabatanPML,namaPCL,jabatanPCL,kec,progres});
+      rawRows.push({namaPML:lastA,jabatanPML:lastB,namaPCL:lastC,jabatanPCL:lastD,kec:lastE,progres});
     }
 
-    if(!rawRows.length) throw new Error('Tidak ada baris data valid. Pastikan sheet "'+SHEET_NAME+'" memiliki data.');
+    if(!rawRows.length) throw new Error('Tidak ada baris data valid.');
 
-    // ── Group per PCL (JABATAN PCL + KECAMATAN sebagai key) ──
     const pclMap=new Map();
     for(const r of rawRows){
-      // Gunakan jabatanPCL sebagai identifier utama PCL
-      // Jika jabatanPCL kosong di baris SLS berikutnya, sudah diforward-fill
       const key=`${r.jabatanPCL}||${r.kec}`;
       if(!pclMap.has(key)){
-        pclMap.set(key,{
-          namaPML:r.namaPML, jabatanPML:r.jabatanPML,
-          namaPCL:r.namaPCL, jabatanPCL:r.jabatanPCL,
-          kec:r.kec,
-          progList:[], slsCount:0
-        });
+        pclMap.set(key,{namaPML:r.namaPML,jabatanPML:r.jabatanPML,namaPCL:r.namaPCL,jabatanPCL:r.jabatanPCL,kec:r.kec,progList:[],slsCount:0});
       }
       const e=pclMap.get(key);
       e.slsCount++;
-      // Hitung rata-rata progres dari semua SLS
       e.progList.push(r.progres);
-      // Update nama jika belum ada
-      if(!e.namaPML && r.namaPML) e.namaPML=r.namaPML;
-      if(!e.jabatanPML && r.jabatanPML) e.jabatanPML=r.jabatanPML;
+      if(!e.namaPML&&r.namaPML) e.namaPML=r.namaPML;
+      if(!e.jabatanPML&&r.jabatanPML) e.jabatanPML=r.jabatanPML;
     }
 
     allData=[...pclMap.values()].map(e=>({
       ...e,
-      progres: e.progList.length
-        ? Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length)
-        : 0
-    }));
+      progres:e.progList.length?Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length):0
+    })).filter(d=>d.jabatanPCL||d.kec);
 
-    // Filter entri yang tidak valid (tanpa jabatanPCL dan tanpa kecamatan)
-    allData = allData.filter(d => d.jabatanPCL || d.kec);
-
-    if(!allData.length) throw new Error('Data kosong setelah grouping. Total raw rows: '+rawRows.length);
+    if(!allData.length) throw new Error('Data kosong setelah grouping.');
 
     applyFilters();
     setSync(true);
-    setTimeout(loadData, 5*60*1000);
+    setTimeout(loadData,5*60*1000);
 
   }catch(e){
     showErr(e.message);
@@ -497,76 +498,59 @@ async function loadData(){
   }
 }
 
-// ═══════════════════════════════════════════════════════
-// FILTER — cascading: Kecamatan → Jabatan PML
-// ═══════════════════════════════════════════════════════
 function onKecChange(){
   const kec=document.getElementById('fKec').value;
   const selJab=document.getElementById('fJabatan');
-
   if(kec){
-    const jabs=[...new Set(
-      allData.filter(d=>d.kec===kec).map(d=>d.jabatanPML).filter(Boolean)
-    )].sort();
-
+    const jabs=[...new Set(allData.filter(d=>d.kec===kec).map(d=>d.jabatanPML).filter(Boolean))].sort();
     selJab.disabled=false;
-    selJab.innerHTML='<option value="">Semua Jabatan PML</option>'+
-      jabs.map(j=>`<option value="${j}">${j}</option>`).join('');
+    selJab.innerHTML='<option value="">Semua Jabatan PML</option>'+jabs.map(j=>`<option value="${j}">${j}</option>`).join('');
   }else{
     selJab.disabled=true;
-    selJab.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
+    selJab.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
   }
   applyFilters();
 }
 
 function applyFilters(){
-  const kec    =document.getElementById('fKec').value;
+  const kec=document.getElementById('fKec').value;
   const jabatan=document.getElementById('fJabatan').value;
-
-  filtered=allData.filter(d=>
-    (!kec     || d.kec===kec) &&
-    (!jabatan || d.jabatanPML===jabatan)
-  );
+  filtered=allData.filter(d=>(!kec||d.kec===kec)&&(!jabatan||d.jabatanPML===jabatan));
   renderAll();
 }
 
 function resetFilters(){
   document.getElementById('fKec').value='';
   const sj=document.getElementById('fJabatan');
-  sj.innerHTML='<option value="">&#8212; Pilih Kecamatan Dulu &#8212;</option>';
+  sj.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
   sj.disabled=true;
   applyFilters();
 }
 
 function setSort(m){
   sortMode=m;
-  document.getElementById('sortProg').classList.toggle('active',m==='prog');
-  document.getElementById('sortPcl').classList.toggle('active',m==='pcl');
-  document.getElementById('sortKec').classList.toggle('active',m==='kec');
+  ['sortProg','sortPcl','sortKec'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(m==='prog'?'sortProg':m==='pcl'?'sortPcl':'sortKec').classList.add('active');
   renderCards();
 }
 
-// ═══════════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════════
 function renderAll(){renderStats();renderCards();renderTitle();}
 
 function renderStats(){
-  const d=filtered, n=d.length;
+  const d=filtered,n=d.length;
   const withProg=d.filter(r=>r.progres>0);
   const avg=withProg.length?Math.round(withProg.reduce((s,r)=>s+r.progres,0)/withProg.length):0;
-  const selesai=d.filter(r=>r.progres>=100).length;
-  document.getElementById('sTotalPCL').textContent  = fmt(n);
-  document.getElementById('sTotalPCL2').textContent = fmt(n);
-  document.getElementById('sAvgProg').textContent   = avg+'%';
-  document.getElementById('sSelesai').textContent   = fmt(selesai);
+  document.getElementById('sTotalPCL').textContent=fmt(n);
+  document.getElementById('sAvgProg').textContent=avg+'%';
+  document.getElementById('sSelesai').textContent=fmt(d.filter(r=>r.progres>=100).length);
+  document.getElementById('sBelum').textContent=fmt(d.filter(r=>r.progres===0).length);
 }
 
 function renderTitle(){
   const kec=document.getElementById('fKec').value;
   const jab=document.getElementById('fJabatan').value;
   const kecLabel=kec?kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'Semua Kecamatan';
-  let t='Daftar PCL';
+  let t='Progress Per PCL';
   if(kec) t+=' — Kec. '+kecLabel;
   if(jab) t+=' ('+jab+')';
   document.getElementById('secTitle').textContent=t;
@@ -576,7 +560,7 @@ function renderTitle(){
 function renderCards(){
   const grid=document.getElementById('petugasGrid');
   if(!filtered.length){
-    grid.innerHTML=`<div class="empty"><div class="empty-ico">&#128269;</div><div class="empty-ttl">Tidak ada data</div><div>Coba ubah atau reset filter</div></div>`;
+    grid.innerHTML=`<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">Tidak ada data</div><div>Coba ubah atau reset filter</div></div>`;
     return;
   }
   const sorted=[...filtered].sort((a,b)=>{
@@ -586,40 +570,30 @@ function renderCards(){
   });
 
   grid.innerHTML=sorted.map((d,i)=>{
-    const c  =pColor(d.progres);
-    const key=(d.jabatanPCL||d.jabatanPML||String(i));
-    const av =avColor(key);
-    const ini=initials(d.jabatanPCL||d.namaPCL||'PC');
+    const c=pColor(d.progres);
     const barW=Math.min(d.progres,100);
-    const delay=(i%20)*28;
+    const delay=(i%20)*25;
     const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
 
     return `<div class="pc" style="animation-delay:${delay}ms">
-  ${d.jabatanPML?`<div class="pc-pml-strip">&#128100; ${d.jabatanPML}</div>`:''}
-  <div class="pc-head">
-    <div class="pc-av" style="background:${av}">${ini}</div>
-    <div class="pc-meta">
-      <div class="pc-nama" title="${d.jabatanPCL||'—'}">${d.jabatanPCL||'—'}</div>
-      <div class="pc-jabatan">${d.namaPCL||'—'}</div>
-      <div class="pc-kec">&#128205; ${kecLabel}</div>
-    </div>
-    <span class="badge ${c.cls}">${c.label}</span>
-  </div>
+  <div class="pc-pml">PML: <span>${d.jabatanPML||'—'}</span></div>
   <div class="pc-body">
-    <div class="pc-prog-row">
-      <span class="pc-prog-lbl">Progres</span>
-      <span class="pc-prog-pct" style="color:${c.text}">${d.progres}%</span>
+    <div class="pc-nama" title="${d.jabatanPCL||'—'}">${d.jabatanPCL||'—'}</div>
+    <div class="pc-kec">📍 ${kecLabel} &nbsp;·&nbsp; ${d.slsCount} SLS</div>
+    <div class="pc-resp">
+      <span class="pc-resp-txt">Progres Pengisian</span>
+      <span class="pc-resp-num">— / —</span>
     </div>
     <div class="pc-bar-bg"><div class="pc-bar-fill" style="width:${barW}%;background:${c.bar}"></div></div>
-    <div class="pc-sls-info">${d.slsCount} SLS wilayah kerja</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between">
+      <div class="pc-pct" style="color:${c.text}">${d.progres}%</div>
+      <span class="badge ${c.cls}">${c.label}</span>
+    </div>
   </div>
 </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════
 loadData();
 </script>
 </body>
