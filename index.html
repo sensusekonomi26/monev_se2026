@@ -430,56 +430,115 @@ async function loadData(){
 
     if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view".');
 
-    // ── PASS 1: kumpulkan semua baris mentah ──
-    const allRowsRaw=[];
-    const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
-    for(let ri=0;ri<json.table.rows.length;ri++){
-      const row=json.table.rows[ri];
-      if(!row?.c) continue;
-      const c=row.c;
-      const getV=(idx)=>c[idx]?.v!=null?String(c[idx].v).trim():null;
-      const valA=getV(0),valB=getV(1),valC=getV(2),valD=getV(3),valE=getV(4)?getV(4).toUpperCase():null;
-      // Skip header row
-      if(ri===0) continue;
-      if(valA&&headerWords.includes(valA.toLowerCase())) continue;
-      if(valB&&headerWords.includes(valB.toLowerCase())) continue;
-      const progRaw=c[14]?.v;
-      let progres=0;
-      if(progRaw!=null&&progRaw!==''){const pn=parseFloat(progRaw);if(!isNaN(pn))progres=pn>0&&pn<=1.5?Math.round(pn*100):Math.round(pn);}
-      allRowsRaw.push({valA,valB,valC,valD,valE,progres});
+    // ── PARSING: Kumpulkan nilai tiap kolom per baris ──
+    const rows = json.table.rows;
+    const N = rows.length;
+
+    // Helper ambil nilai string dari cell
+    const gv = (row, idx) => {
+      const v = row?.c?.[idx]?.v;
+      return v != null ? String(v).trim() : '';
+    };
+
+    // Buat array nilai per kolom (raw, belum di-fill)
+    const colA=[],colB=[],colC=[],colD=[],colE=[];
+    for(let i=0;i<N;i++){
+      const r=rows[i];
+      colA.push(gv(r,0)); colB.push(gv(r,1)); colC.push(gv(r,2));
+      colD.push(gv(r,3)); colE.push(gv(r,4)?gv(r,4).toUpperCase():'');
     }
 
-    // ── PASS 2: forward-fill A,B,C,D,E ──
-    let lastA='',lastB='',lastC='',lastD='',lastE='';
-    const tmp=allRowsRaw.map(r=>{
-      if(r.valA) lastA=r.valA;
-      if(r.valB) lastB=r.valB;
-      if(r.valC) lastC=r.valC;
-      if(r.valD) lastD=r.valD;
-      if(r.valE) lastE=r.valE;
-      return {namaPML:lastA,jabatanPML:lastB,namaPCL:lastC,jabatanPCL:lastD,kec:lastE,progres:r.progres,hasD:!!r.valD};
-    });
+    // Forward-fill semua kolom
+    const ffA=[...colA],ffB=[...colB],ffC=[...colC],ffD=[...colD],ffE=[...colE];
+    for(let i=1;i<N;i++){
+      if(!ffA[i]) ffA[i]=ffA[i-1];
+      if(!ffB[i]) ffB[i]=ffB[i-1];
+      if(!ffC[i]) ffC[i]=ffC[i-1];
+      if(!ffD[i]) ffD[i]=ffD[i-1];
+      if(!ffE[i]) ffE[i]=ffE[i-1];
+    }
 
-    // ── PASS 3: backward-fill jabatanPCL hanya dalam blok kecamatan yang sama ──
-    // Baris SLS sebelum kemunculan jabatanPCL di kolom D (merged cell di atas)
-    // harus diisi dengan jabatanPCL berikutnya, ASALKAN kecamatan sama
-    for(let i=0;i<tmp.length;i++){
-      if(!tmp[i].jabatanPCL && tmp[i].kec){
-        for(let j=i+1;j<tmp.length;j++){
-          // Berhenti jika kecamatan berbeda
-          if(tmp[j].kec && tmp[j].kec!==tmp[i].kec) break;
-          if(tmp[j].jabatanPCL){
-            tmp[i].jabatanPCL=tmp[j].jabatanPCL;
-            if(!tmp[i].namaPCL) tmp[i].namaPCL=tmp[j].namaPCL;
-            if(!tmp[i].jabatanPML) tmp[i].jabatanPML=tmp[j].jabatanPML;
-            if(!tmp[i].namaPML) tmp[i].namaPML=tmp[j].namaPML;
-            break;
-          }
-        }
+    // Temukan index baris di mana nilai D (jabatanPCL) PERTAMA KALI muncul
+    // Baris sebelum baris itu (dalam blok kecamatan yang sama) harus di-assign ke PCL pertama tsb
+    // Caranya: untuk setiap baris, cari jabatanPCL yang tepat dengan melihat
+    // nilai asli kolom D terdekat di bawah dalam blok kecamatan yang sama
+
+    // Buat array jabatanPCL yang sudah dikoreksi
+    const corrD = [...ffD]; // default: forward-fill
+    for(let i=1;i<N;i++){
+      // Jika baris ini punya nilai D asli (bukan hasil fill), gunakan itu
+      // Jika tidak, dan baris sebelumnya juga hasil fill dari PCL berbeda kecamatan,
+      // kita perlu backward-fill dari baris berikutnya
+      if(!colD[i] && colD[i-1]==='' && ffD[i]!=='' ){
+        // Baris ini hasil forward-fill — cek apakah ada nilai D asli di bawah
+        // dalam kecamatan yang sama sebelum PCL berganti
+        // Tidak perlu diubah — forward-fill sudah benar untuk kasus ini
       }
     }
 
-    const rawRows=tmp.filter(r=>r.jabatanPCL&&r.kec);
+    // Backward-fill untuk baris paling awal tiap blok PCL
+    // (baris sebelum kemunculan nilai D asli, dalam kecamatan yang sama)
+    const finalD=[...Array(N).fill('')];
+    const finalKec=[...ffE];
+
+    // Pass: untuk setiap posisi kolom D yang asli ada nilai, tandai
+    // Semua baris sebelumnya (sampai nilai D asli sebelumnya) yang kecamatannya sama
+    // mendapat jabatanPCL dari nilai D ini
+    let lastRealD='', lastRealDKec='';
+    // Kumpulkan posisi nilai D asli
+    const dPositions=[];
+    for(let i=1;i<N;i++){ // skip baris 0 (header)
+      if(colD[i]) dPositions.push(i);
+    }
+
+    // Untuk setiap baris, tentukan jabatanPCL yang benar
+    // Dengan cara: cari nilai D asli terdekat yang kecamatannya sama (ke depan jika belum ada, ke belakang jika sudah)
+    for(let i=1;i<N;i++){
+      if(colD[i]){
+        finalD[i]=colD[i];
+      } else {
+        // Cari nilai D asli terdekat ke depan dalam kecamatan yang sama
+        let found='';
+        const myKec=ffE[i];
+        // Cek ke belakang dulu (forward-fill normal)
+        if(ffD[i] && ffE[i]===myKec) found=ffD[i];
+        // Jika belum ada D asli sebelumnya dalam kecamatan ini, cari ke depan
+        if(!found || !hasPrevDInSameKec(i, colD, ffE, myKec)){
+          for(let j=i+1;j<N;j++){
+            if(colD[j] && ffE[j]===myKec){ found=colD[j]; break; }
+            if(ffE[j] && ffE[j]!==myKec) break; // kecamatan berbeda, stop
+          }
+        }
+        finalD[i]=found||ffD[i];
+      }
+    }
+
+    function hasPrevDInSameKec(pos, colD, ffE, kec){
+      for(let k=pos-1;k>=1;k--){
+        if(ffE[k]!==kec) return false;
+        if(colD[k]) return true;
+      }
+      return false;
+    }
+
+    // Bangun rawRows dari hasil parsing
+    const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
+    const rawRows=[];
+    for(let i=1;i<N;i++){
+      const jabatanPCL=finalD[i]||ffD[i];
+      const kec=ffE[i];
+      if(!jabatanPCL||!kec) continue;
+      // Skip baris header
+      if(headerWords.includes(ffB[i].toLowerCase())||headerWords.includes(ffA[i].toLowerCase())) continue;
+
+      const progRaw=rows[i]?.c?.[14]?.v;
+      let progres=0;
+      if(progRaw!=null&&progRaw!==''){
+        const pn=parseFloat(progRaw);
+        if(!isNaN(pn)) progres=pn>0&&pn<=1.5?Math.round(pn*100):Math.round(pn);
+      }
+      rawRows.push({namaPML:ffA[i],jabatanPML:ffB[i],namaPCL:ffC[i],jabatanPCL:jabatanPCL.trim(),kec:kec.trim(),progres});
+    }
 
     if(!rawRows.length) throw new Error('Tidak ada baris data valid.');
 
