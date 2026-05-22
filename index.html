@@ -430,44 +430,55 @@ async function loadData(){
 
     if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view".');
 
-    const rawRows=[];
-    let lastA='',lastB='',lastC='',lastD='',lastE='';
-
+    // ── PASS 1: kumpulkan semua baris mentah ──
+    const allRowsRaw=[];
+    const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
     for(let ri=0;ri<json.table.rows.length;ri++){
       const row=json.table.rows[ri];
       if(!row?.c) continue;
       const c=row.c;
-
-      const valA=c[0]?.v?String(c[0].v).trim():null;
-      const valB=c[1]?.v?String(c[1].v).trim():null;
-      const valC=c[2]?.v?String(c[2].v).trim():null;
-      const valD=c[3]?.v?String(c[3].v).trim():null;
-      const valE=c[4]?.v?String(c[4].v).trim().toUpperCase():null;
-
-      if(valA) lastA=valA;
-      if(valB) lastB=valB;
-      if(valC) lastC=valC;
-      if(valD) lastD=valD;
-      if(valE) lastE=valE;
-
-      // Skip baris header (ri===0) dan baris yang berisi teks header
+      const getV=(idx)=>c[idx]?.v!=null?String(c[idx].v).trim():null;
+      const valA=getV(0),valB=getV(1),valC=getV(2),valD=getV(3),valE=getV(4)?getV(4).toUpperCase():null;
+      // Skip header row
       if(ri===0) continue;
-      const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
       if(valA&&headerWords.includes(valA.toLowerCase())) continue;
       if(valB&&headerWords.includes(valB.toLowerCase())) continue;
-
-      // Hanya push jika jabatanPCL sudah terisi (hasil forward-fill)
-      if(!lastD||!lastE) continue;
-
       const progRaw=c[14]?.v;
       let progres=0;
-      if(progRaw!==null&&progRaw!==undefined&&progRaw!==''){
-        const pNum=parseFloat(progRaw);
-        if(!isNaN(pNum)) progres=pNum>0&&pNum<=1.5?Math.round(pNum*100):Math.round(pNum);
-      }
-
-      rawRows.push({namaPML:lastA,jabatanPML:lastB,namaPCL:lastC,jabatanPCL:lastD,kec:lastE,progres});
+      if(progRaw!=null&&progRaw!==''){const pn=parseFloat(progRaw);if(!isNaN(pn))progres=pn>0&&pn<=1.5?Math.round(pn*100):Math.round(pn);}
+      allRowsRaw.push({valA,valB,valC,valD,valE,progres});
     }
+
+    // ── PASS 2: forward-fill A,B,C,D,E ──
+    let lastA='',lastB='',lastC='',lastD='',lastE='';
+    const tmp=allRowsRaw.map(r=>{
+      if(r.valA) lastA=r.valA;
+      if(r.valB) lastB=r.valB;
+      if(r.valC) lastC=r.valC;
+      if(r.valD) lastD=r.valD;
+      if(r.valE) lastE=r.valE;
+      return {namaPML:lastA,jabatanPML:lastB,namaPCL:lastC,jabatanPCL:lastD,kec:lastE,progres:r.progres,hasD:!!r.valD};
+    });
+
+    // ── PASS 3: backward-fill jabatanPCL & kec untuk baris sebelum nilai D muncul ──
+    // Cari blok: baris tanpa jabatanPCL yang diikuti baris dengan jabatanPCL
+    for(let i=0;i<tmp.length;i++){
+      if(!tmp[i].jabatanPCL){
+        // Cari jabatanPCL dari baris berikutnya
+        for(let j=i+1;j<tmp.length;j++){
+          if(tmp[j].jabatanPCL){
+            tmp[i].jabatanPCL=tmp[j].jabatanPCL;
+            tmp[i].namaPCL=tmp[j].namaPCL||tmp[i].namaPCL;
+            tmp[i].jabatanPML=tmp[j].jabatanPML||tmp[i].jabatanPML;
+            tmp[i].namaPML=tmp[j].namaPML||tmp[i].namaPML;
+            if(!tmp[i].kec) tmp[i].kec=tmp[j].kec;
+            break;
+          }
+        }
+      }
+    }
+
+    const rawRows=tmp.filter(r=>r.jabatanPCL&&r.kec);
 
     if(!rawRows.length) throw new Error('Tidak ada baris data valid.');
 
