@@ -460,18 +460,19 @@ async function loadData(){
       return {namaPML:lastA,jabatanPML:lastB,namaPCL:lastC,jabatanPCL:lastD,kec:lastE,progres:r.progres,hasD:!!r.valD};
     });
 
-    // ── PASS 3: backward-fill jabatanPCL & kec untuk baris sebelum nilai D muncul ──
-    // Cari blok: baris tanpa jabatanPCL yang diikuti baris dengan jabatanPCL
+    // ── PASS 3: backward-fill jabatanPCL hanya dalam blok kecamatan yang sama ──
+    // Baris SLS sebelum kemunculan jabatanPCL di kolom D (merged cell di atas)
+    // harus diisi dengan jabatanPCL berikutnya, ASALKAN kecamatan sama
     for(let i=0;i<tmp.length;i++){
-      if(!tmp[i].jabatanPCL){
-        // Cari jabatanPCL dari baris berikutnya
+      if(!tmp[i].jabatanPCL && tmp[i].kec){
         for(let j=i+1;j<tmp.length;j++){
+          // Berhenti jika kecamatan berbeda
+          if(tmp[j].kec && tmp[j].kec!==tmp[i].kec) break;
           if(tmp[j].jabatanPCL){
             tmp[i].jabatanPCL=tmp[j].jabatanPCL;
-            tmp[i].namaPCL=tmp[j].namaPCL||tmp[i].namaPCL;
-            tmp[i].jabatanPML=tmp[j].jabatanPML||tmp[i].jabatanPML;
-            tmp[i].namaPML=tmp[j].namaPML||tmp[i].namaPML;
-            if(!tmp[i].kec) tmp[i].kec=tmp[j].kec;
+            if(!tmp[i].namaPCL) tmp[i].namaPCL=tmp[j].namaPCL;
+            if(!tmp[i].jabatanPML) tmp[i].jabatanPML=tmp[j].jabatanPML;
+            if(!tmp[i].namaPML) tmp[i].namaPML=tmp[j].namaPML;
             break;
           }
         }
