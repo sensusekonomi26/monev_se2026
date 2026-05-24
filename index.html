@@ -348,7 +348,7 @@
 
 <script>
 // ─── KONFIGURASI ───────────────────────────────────────────────
-const SHEET_ID   = '1VV6jPG2fiZeI8fB92Wl-c2aLCABWo4KH';
+const SHEET_ID   = '1fv8XwQY5U4SLda8ll27sy4tiq1nNJuBfX76cya0_nGU';
 const SHEET_NAME = 'Data Projek';
 
 // INDEKS KOLOM (0-based) berdasarkan struktur spreadsheet baru:
@@ -399,10 +399,16 @@ function fmt(n){return(n||0).toLocaleString('id-ID');}
 function pct(v){return Math.min(v,100)+'%';}
 
 function parseProgres(raw){
-  if(raw==null||raw==='') return 0;
+  if(raw==null||raw==="") return 0;
+  if(typeof raw==="string"){
+    const s=raw.trim().replace("%","").replace(",",".");
+    const n=parseFloat(s);
+    if(isNaN(n)) return 0;
+    if(n>0&&n<=1.5) return Math.round(n*100);
+    return Math.round(n);
+  }
   const n=parseFloat(raw);
   if(isNaN(n)) return 0;
-  // jika nilai antara 0-1.5 anggap desimal (0.75 → 75%)
   if(n>0&&n<=1.5) return Math.round(n*100);
   return Math.round(n);
 }
