@@ -15,6 +15,7 @@
       --green:#10B981;--green-g:rgba(16,185,129,.12);
       --amber:#F59E0B;--amber-g:rgba(245,158,11,.12);
       --red:#EF4444;--red-g:rgba(239,68,68,.12);
+      --purple:#8B5CF6;--purple-g:rgba(139,92,246,.12);
       --bg:#F0F4FB;--surface:#FFF;--surface2:#F7F9FD;
       --border:#DDE4F0;--text:#0F1B3D;--text2:#3D5170;--text3:#8A9DB8;
       --r:14px;--rs:9px;
@@ -23,7 +24,6 @@
     html{scroll-behavior:smooth}
     body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-    /* ── SIDEBAR ── */
     aside{
       width:var(--sidebar);min-height:100vh;
       background:var(--navy);
@@ -37,29 +37,15 @@
     aside::-webkit-scrollbar{width:3px}
     aside::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
 
-    /* Brand */
     .sb-brand{padding:28px 20px 22px;border-bottom:1px solid rgba(255,255,255,.07)}
-    .sb-logo-text{
-      font-size:32px;font-weight:800;color:#fff;
-      letter-spacing:-1.5px;line-height:1;
-      text-shadow:0 0 40px rgba(59,130,246,.4);
-    }
+    .sb-logo-text{font-size:32px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1;text-shadow:0 0 40px rgba(59,130,246,.4)}
     .sb-logo-text span{color:var(--blue2)}
-    .sb-year{
-      display:inline-block;
-      font-size:11px;font-weight:700;letter-spacing:2px;
-      color:var(--accent2);
-      background:rgba(249,115,22,.15);
-      border:1px solid rgba(249,115,22,.3);
-      border-radius:4px;padding:2px 8px;margin-top:6px;
-    }
+    .sb-year{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent2);background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);border-radius:4px;padding:2px 8px;margin-top:6px}
     .sb-tagline{font-size:10px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.6;letter-spacing:.3px}
 
-    /* Nav label */
     .sb-section{padding:18px 16px 0}
     .sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:2px;padding:0 4px;margin-bottom:10px}
 
-    /* Filter */
     .sf-group{margin-bottom:12px}
     .sf-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:5px;padding:0 2px;display:flex;align-items:center;gap:4px}
     select{
@@ -87,10 +73,8 @@
     .sb-footer-txt{font-size:10px;color:rgba(255,255,255,.28);line-height:1.8}
     .sb-footer-txt b{color:rgba(255,255,255,.5)}
 
-    /* ── CONTENT ── */
     .content{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
 
-    /* Topbar */
     .topbar{
       background:var(--surface);border-bottom:1px solid var(--border);
       padding:0 28px;height:58px;
@@ -101,12 +85,7 @@
     .topbar-title{font-size:15px;font-weight:700;color:var(--text)}
     .topbar-sub{font-size:10.5px;color:var(--text3);margin-top:1px}
     .topbar-right{display:flex;align-items:center;gap:10px}
-    .sync-badge{
-      display:flex;align-items:center;gap:6px;
-      background:var(--surface2);border:1px solid var(--border);
-      border-radius:20px;padding:5px 12px;
-      font-size:10.5px;color:var(--text2);font-weight:600;
-    }
+    .sync-badge{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10.5px;color:var(--text2);font-weight:600}
     .sync-dot{width:7px;height:7px;border-radius:50%;background:#10B981;animation:pulse 2.5s infinite}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
     .btn-refresh{
@@ -119,85 +98,70 @@
     .spin{animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* Page */
     .page-body{padding:24px 28px;flex:1}
     #error-banner{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:11px 15px;margin-bottom:18px;font-size:11.5px;font-weight:600;display:none}
 
-    /* ── STAT HERO CARDS (navy, seperti referensi) ── */
+    /* HERO CARDS */
     .hero-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
-    .hero-card{
-      background:var(--navy2);border-radius:var(--r);
-      padding:20px 22px;position:relative;overflow:hidden;
-      transition:transform .15s,box-shadow .15s;
-    }
+    .hero-card{background:var(--navy2);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
     .hero-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,27,61,.2)}
-    .hero-card::before{
-      content:'';position:absolute;right:-20px;top:-20px;
-      width:90px;height:90px;border-radius:50%;
-      background:rgba(255,255,255,.04);
-    }
-    .hero-card::after{
-      content:'';position:absolute;right:10px;top:10px;
-      width:50px;height:50px;border-radius:50%;
-      background:rgba(255,255,255,.04);
-    }
+    .hero-card::before{content:'';position:absolute;right:-20px;top:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.04)}
+    .hero-card::after{content:'';position:absolute;right:10px;top:10px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.04)}
     .hero-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;margin-bottom:10px}
     .hero-val{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
     .hero-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
 
-    /* ── SECTION ── */
-    .sec-wrap{margin-bottom:10px}
-    .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
-    .sec-title{font-size:15px;font-weight:700;color:var(--text)}
-    .sec-count{font-size:11px;color:var(--text3);margin-top:2px}
-    .sort-bar{display:flex;gap:6px}
-    .sort-btn{
+    /* TABS for progres type */
+    .prog-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+    .prog-tab{
       background:var(--surface);border:1px solid var(--border);border-radius:20px;
-      padding:5px 13px;font-size:11px;font-weight:600;color:var(--text2);
+      padding:5px 14px;font-size:11px;font-weight:600;color:var(--text2);
       cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif;
     }
+    .prog-tab.active-k{background:#2563EB;color:#fff;border-color:#2563EB}
+    .prog-tab.active-p{background:#8B5CF6;color:#fff;border-color:#8B5CF6}
+    .prog-tab.active-u{background:#F59E0B;color:#fff;border-color:#F59E0B}
+    .prog-tab.active-r{background:#10B981;color:#fff;border-color:#10B981}
+
+    /* SECTION */
+    .sec-wrap{margin-bottom:10px}
+    .sec-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+    .sec-title{font-size:15px;font-weight:700;color:var(--text)}
+    .sec-count{font-size:11px;color:var(--text3);margin-top:2px}
+    .sec-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+    .sort-bar{display:flex;gap:6px}
+    .sort-btn{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif}
     .sort-btn.active,.sort-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
 
-    /* ── PCL CARDS ── */
-    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    /* PCL CARDS */
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    .pc{
-      background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-      overflow:hidden;transition:transform .18s,box-shadow .18s;
-      animation:fadeUp .3s ease both;
-    }
+    .pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
     .pc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,27,61,.1)}
 
-    /* PML strip */
-    .pc-pml{
-      background:var(--navy);
-      padding:7px 14px;
-      font-size:10px;font-weight:600;color:rgba(255,255,255,.6);
-      display:flex;align-items:center;gap:5px;
-    }
+    .pc-pml{background:var(--navy);padding:7px 14px;font-size:10px;font-weight:600;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px}
     .pc-pml span{color:rgba(255,255,255,.9);font-weight:700}
 
-    .pc-body{padding:16px 14px}
+    .pc-body{padding:14px 14px 16px}
 
-    /* Nama PCL */
     .pc-nama{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pc-kec{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:4px}
+    .pc-kec{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:4px}
 
-    /* Responden info */
-    .pc-resp{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .pc-resp-txt{font-size:11px;color:var(--text3);font-weight:500}
-    .pc-resp-num{font-size:11px;font-weight:700;color:var(--text2)}
+    /* 3 progress bars */
+    .prog-section{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+    .prog-row{display:flex;flex-direction:column;gap:3px}
+    .prog-label-row{display:flex;justify-content:space-between;align-items:center}
+    .prog-label{font-size:10px;font-weight:600;color:var(--text3)}
+    .prog-val{font-size:10px;font-weight:700}
+    .prog-bar-bg{width:100%;height:6px;background:var(--bg);border-radius:20px;overflow:hidden}
+    .prog-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
 
-    /* Progress bar */
-    .pc-bar-bg{width:100%;height:8px;background:var(--bg);border-radius:20px;overflow:hidden;margin-bottom:10px}
-    .pc-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
-
-    /* Persen besar */
-    .pc-pct{font-size:22px;font-weight:800;letter-spacing:-1px;line-height:1}
-
-    /* Status badge */
-    .badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;float:right;margin-top:4px}
+    /* Summary row */
+    .pc-summary{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border)}
+    .pc-avg{font-size:20px;font-weight:800;letter-spacing:-1px}
+    .pc-sls{font-size:10px;color:var(--text3)}
+    .badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px}
     .bg{background:var(--green-g);color:#059669}
     .bb{background:var(--blue-g);color:#1D4ED8}
     .ba{background:var(--amber-g);color:#D97706}
@@ -216,12 +180,7 @@
     .loader-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:-8px}
 
     /* TOGGLE */
-    .toggle-btn{
-      position:fixed;top:14px;left:calc(var(--sidebar) - 16px);z-index:300;
-      width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;cursor:pointer;
-      box-shadow:0 2px 8px rgba(37,99,235,.4);transition:left .3s,background .15s;
-    }
+    .toggle-btn{position:fixed;top:14px;left:calc(var(--sidebar) - 16px);z-index:300;width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.4);transition:left .3s,background .15s}
     .toggle-btn:hover{background:#1D4ED8}
     .toggle-btn svg{transition:transform .3s}
     .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
@@ -264,9 +223,7 @@
 </div>
 
 <button class="toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
-    <path d="M15 18l-6-6 6-6"/>
-  </svg>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
 </button>
 
 <div style="display:flex;min-height:100vh">
@@ -296,8 +253,8 @@
       </div>
 
       <div class="sf-group">
-        <div class="sf-label">👤 Jabatan PML</div>
-        <select id="fJabatan" onchange="applyFilters()" disabled>
+        <div class="sf-label">👤 Nama PML</div>
+        <select id="fPML" onchange="applyFilters()" disabled>
           <option value="">— Pilih Kecamatan Dulu —</option>
         </select>
       </div>
@@ -307,8 +264,7 @@
 
     <div class="sb-footer">
       <div class="sb-footer-txt">
-        <b>BPS Kota Palu</b><br>
-        Sensus Ekonomi 2026
+        <b>BPS Kota Palu</b><br>Sensus Ekonomi 2026
       </div>
     </div>
   </aside>
@@ -346,17 +302,17 @@
         <div class="hero-card">
           <div class="hero-lbl">RATA-RATA PROGRES</div>
           <div class="hero-val" id="sAvgProg">—</div>
-          <div class="hero-sub">dari seluruh PCL</div>
+          <div class="hero-sub">rata-rata 3 kategori</div>
         </div>
         <div class="hero-card">
           <div class="hero-lbl">PCL SELESAI</div>
           <div class="hero-val" id="sSelesai" style="color:#34D399">—</div>
-          <div class="hero-sub">progres ≥ 100%</div>
+          <div class="hero-sub">rata-rata progres ≥ 100%</div>
         </div>
         <div class="hero-card">
           <div class="hero-lbl">PCL BELUM MULAI</div>
           <div class="hero-val" id="sBelum" style="color:#F87171">—</div>
-          <div class="hero-sub">progres 0%</div>
+          <div class="hero-sub">semua kategori 0%</div>
         </div>
       </div>
 
@@ -366,10 +322,20 @@
           <div class="sec-title" id="secTitle">Progress Per PCL</div>
           <div class="sec-count" id="secCount">Memuat data...</div>
         </div>
-        <div class="sort-bar">
-          <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres ↓</button>
-          <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A–Z</button>
-          <button class="sort-btn" id="sortKec"  onclick="setSort('kec')">Kecamatan</button>
+        <div class="sec-head-right">
+          <!-- Progres tabs -->
+          <div class="prog-tabs">
+            <button class="prog-tab active-r" id="tabR" onclick="setProgTab('rata')">📊 Rata-rata</button>
+            <button class="prog-tab" id="tabK" onclick="setProgTab('keluarga')">🏠 Keluarga</button>
+            <button class="prog-tab" id="tabP" onclick="setProgTab('petani')">🌾 Petani</button>
+            <button class="prog-tab" id="tabU" onclick="setProgTab('usaha')">🏪 Usaha</button>
+          </div>
+          <!-- Sort -->
+          <div class="sort-bar">
+            <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres ↓</button>
+            <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A–Z</button>
+            <button class="sort-btn" id="sortKec"  onclick="setSort('kec')">Kecamatan</button>
+          </div>
         </div>
       </div>
 
@@ -381,13 +347,47 @@
 <footer><b>MONSE 2026</b> &nbsp;•&nbsp; Monitoring Petugas Sensus Ekonomi &nbsp;•&nbsp; © 2026 Badan Pusat Statistik Kota Palu</footer>
 
 <script>
+// ─── KONFIGURASI ───────────────────────────────────────────────
 const SHEET_ID   = '1VV6jPG2fiZeI8fB92Wl-c2aLCABWo4KH';
 const SHEET_NAME = 'Data Projek';
 
-let allData  = [];
-let filtered = [];
-let sortMode = 'prog';
+// INDEKS KOLOM (0-based) berdasarkan struktur spreadsheet baru:
+// A=0  NAMA PML
+// B=1  NAMA PCL
+// C=2  KECAMATAN
+// D=3  KELURAHAN
+// E=4  WILAYAH SLS
+// F=5  KODE SLS
+// G=6  PENGISIAN JUMLAH KELUARGA
+// H=7  TOTAL PENGISIAN JUMLAH KELUARGA
+// I=8  PERKIRAAN TARGET JUMLAH
+// J=9  PROGRES JUMLAH KELUARGA
+// K=10 ADA PETANI
+// L=11 PENGISIAN JUMLAH PETANI
+// M=12 TOTAL PENGISIAN JUMLAH PETANI
+// N=13 PERKIRAAN JUMLAH PETANI
+// O=14 PROGRES JUMLAH PETANI
+// P=15 PENGISIAN USAHA
+// Q=16 TOTAL PENGISIAN USAHA
+// R=17 PERKIRAAN JUMLAH USAHA
+// S=18 PROGRES JUMLAH USAHA
 
+const COL_PML      = 0;
+const COL_PCL      = 1;
+const COL_KEC      = 2;
+const COL_KEL      = 3;
+const COL_SLS      = 4;
+const COL_PROG_KEL = 9;   // J — Progres Keluarga
+const COL_PROG_PET = 14;  // O — Progres Petani
+const COL_PROG_USA = 18;  // S — Progres Usaha
+
+// ─── STATE ─────────────────────────────────────────────────────
+let allData   = [];
+let filtered  = [];
+let sortMode  = 'prog';
+let progTab   = 'rata'; // 'rata' | 'keluarga' | 'petani' | 'usaha'
+
+// ─── HELPERS ───────────────────────────────────────────────────
 function pColor(v){
   if(v>=100) return {bar:'#10B981',text:'#059669',cls:'bg',label:'Selesai'};
   if(v>=75)  return {bar:'#2563EB',text:'#1D4ED8',cls:'bb',label:'Hampir'};
@@ -396,14 +396,35 @@ function pColor(v){
   return           {bar:'#CBD5E1',text:'#64748B',cls:'bp',label:'Belum Mulai'};
 }
 function fmt(n){return(n||0).toLocaleString('id-ID');}
+function pct(v){return Math.min(v,100)+'%';}
+
+function parseProgres(raw){
+  if(raw==null||raw==='') return 0;
+  const n=parseFloat(raw);
+  if(isNaN(n)) return 0;
+  // jika nilai antara 0-1.5 anggap desimal (0.75 → 75%)
+  if(n>0&&n<=1.5) return Math.round(n*100);
+  return Math.round(n);
+}
+
 function setSync(ok){
-  const now=new Date(),t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
-  document.getElementById('lastSync').textContent=ok?'Update: '+t+' (sinkron)':'Gagal memuat';
+  const now=new Date();
+  const t=[now.getHours(),now.getMinutes(),now.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':');
+  document.getElementById('lastSync').textContent=ok?'Update: '+t:' Gagal memuat';
   document.getElementById('syncDot').style.background=ok?'#10B981':'#EF4444';
 }
-function showErr(msg){document.getElementById('errorMsg').textContent=msg;document.getElementById('error-banner').style.display='block';setSync(false);}
-function toggleSidebar(){window.innerWidth<=768?document.body.classList.toggle('sidebar-open'):document.body.classList.toggle('sidebar-collapsed');}
+function showErr(msg){
+  document.getElementById('errorMsg').textContent=msg;
+  document.getElementById('error-banner').style.display='block';
+  setSync(false);
+}
+function toggleSidebar(){
+  window.innerWidth<=768
+    ?document.body.classList.toggle('sidebar-open')
+    :document.body.classList.toggle('sidebar-collapsed');
+}
 
+// ─── LOAD DATA ─────────────────────────────────────────────────
 async function loadData(){
   const icon=document.getElementById('refreshIcon');
   icon.classList.add('spin');
@@ -430,143 +451,90 @@ async function loadData(){
 
     if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view".');
 
-    // ── PARSING: Kumpulkan nilai tiap kolom per baris ──
-    const rows = json.table.rows;
-    const N = rows.length;
+    const rows=json.table.rows;
+    const N=rows.length;
 
     // Helper ambil nilai string dari cell
-    const gv = (row, idx) => {
-      const v = row?.c?.[idx]?.v;
-      return v != null ? String(v).trim() : '';
+    const gv=(row,idx)=>{
+      const v=row?.c?.[idx]?.v;
+      return v!=null?String(v).trim():'';
+    };
+    // Helper ambil nilai numerik dari cell
+    const gn=(row,idx)=>{
+      const v=row?.c?.[idx]?.v;
+      return v!=null?v:null;
     };
 
-    // Buat array nilai per kolom (raw, belum di-fill)
-    const colA=[],colB=[],colC=[],colD=[],colE=[];
+    // Kumpulkan nilai kolom per baris (nilai asli, sebelum fill)
+    const rawPML=[], rawPCL=[], rawKEC=[];
     for(let i=0;i<N;i++){
-      const r=rows[i];
-      colA.push(gv(r,0)); colB.push(gv(r,1)); colC.push(gv(r,2));
-      colD.push(gv(r,3)); colE.push(gv(r,4)?gv(r,4).toUpperCase():'');
+      rawPML.push(gv(rows[i],COL_PML));
+      rawPCL.push(gv(rows[i],COL_PCL));
+      rawKEC.push(gv(rows[i],COL_KEC).toUpperCase());
     }
 
-    // Forward-fill semua kolom
-    const ffA=[...colA],ffB=[...colB],ffC=[...colC],ffD=[...colD],ffE=[...colE];
+    // Forward-fill PML, PCL, KEC (karena di-merge di spreadsheet)
+    const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
     for(let i=1;i<N;i++){
-      if(!ffA[i]) ffA[i]=ffA[i-1];
-      if(!ffB[i]) ffB[i]=ffB[i-1];
-      if(!ffC[i]) ffC[i]=ffC[i-1];
-      if(!ffD[i]) ffD[i]=ffD[i-1];
-      if(!ffE[i]) ffE[i]=ffE[i-1];
+      if(!ffPML[i]) ffPML[i]=ffPML[i-1];
+      if(!ffPCL[i]) ffPCL[i]=ffPCL[i-1];
+      if(!ffKEC[i]) ffKEC[i]=ffKEC[i-1];
     }
 
-    // Temukan index baris di mana nilai D (jabatanPCL) PERTAMA KALI muncul
-    // Baris sebelum baris itu (dalam blok kecamatan yang sama) harus di-assign ke PCL pertama tsb
-    // Caranya: untuk setiap baris, cari jabatanPCL yang tepat dengan melihat
-    // nilai asli kolom D terdekat di bawah dalam blok kecamatan yang sama
-
-    // Buat array jabatanPCL yang sudah dikoreksi
-    const corrD = [...ffD]; // default: forward-fill
-    for(let i=1;i<N;i++){
-      // Jika baris ini punya nilai D asli (bukan hasil fill), gunakan itu
-      // Jika tidak, dan baris sebelumnya juga hasil fill dari PCL berbeda kecamatan,
-      // kita perlu backward-fill dari baris berikutnya
-      if(!colD[i] && colD[i-1]==='' && ffD[i]!=='' ){
-        // Baris ini hasil forward-fill — cek apakah ada nilai D asli di bawah
-        // dalam kecamatan yang sama sebelum PCL berganti
-        // Tidak perlu diubah — forward-fill sudah benar untuk kasus ini
-      }
-    }
-
-    // Backward-fill untuk baris paling awal tiap blok PCL
-    // (baris sebelum kemunculan nilai D asli, dalam kecamatan yang sama)
-    const finalD=[...Array(N).fill('')];
-    const finalKec=[...ffE];
-
-    // Pass: untuk setiap posisi kolom D yang asli ada nilai, tandai
-    // Semua baris sebelumnya (sampai nilai D asli sebelumnya) yang kecamatannya sama
-    // mendapat jabatanPCL dari nilai D ini
-    let lastRealD='', lastRealDKec='';
-    // Kumpulkan posisi nilai D asli
-    const dPositions=[];
-    for(let i=1;i<N;i++){ // skip baris 0 (header)
-      if(colD[i]) dPositions.push(i);
-    }
-
-    // Untuk setiap baris, tentukan jabatanPCL yang benar
-    // Dengan cara: cari nilai D asli terdekat yang kecamatannya sama (ke depan jika belum ada, ke belakang jika sudah)
-    for(let i=1;i<N;i++){
-      if(colD[i]){
-        finalD[i]=colD[i];
-      } else {
-        // Cari nilai D asli terdekat ke depan dalam kecamatan yang sama
-        let found='';
-        const myKec=ffE[i];
-        // Cek ke belakang dulu (forward-fill normal)
-        if(ffD[i] && ffE[i]===myKec) found=ffD[i];
-        // Jika belum ada D asli sebelumnya dalam kecamatan ini, cari ke depan
-        if(!found || !hasPrevDInSameKec(i, colD, ffE, myKec)){
-          for(let j=i+1;j<N;j++){
-            if(colD[j] && ffE[j]===myKec){ found=colD[j]; break; }
-            if(ffE[j] && ffE[j]!==myKec) break; // kecamatan berbeda, stop
-          }
-        }
-        finalD[i]=found||ffD[i];
-      }
-    }
-
-    function hasPrevDInSameKec(pos, colD, ffE, kec){
-      for(let k=pos-1;k>=1;k--){
-        if(ffE[k]!==kec) return false;
-        if(colD[k]) return true;
-      }
-      return false;
-    }
-
-    // Bangun rawRows dari hasil parsing
-    const headerWords=['nama pml','jabatan pml','nama pcl','jabatan pcl','kecamatan'];
+    // Bangun rawRows — skip baris 0 (header)
+    const headerWords=new Set(['nama pml','nama pcl','kecamatan','kelurahan','wilayah sls','kode sls','progres']);
     const rawRows=[];
     for(let i=1;i<N;i++){
-      const jabatanPCL=finalD[i]||ffD[i];
-      const kec=ffE[i];
-      if(!jabatanPCL||!kec) continue;
-      // Skip baris header
-      if(headerWords.includes(ffB[i].toLowerCase())||headerWords.includes(ffA[i].toLowerCase())) continue;
+      const pml=ffPML[i];
+      const pcl=ffPCL[i];
+      const kec=ffKEC[i];
+      if(!pcl||!kec) continue;
+      // Skip baris header berulang
+      if(headerWords.has(pcl.toLowerCase())||headerWords.has(pml.toLowerCase())) continue;
 
-      const progRaw=rows[i]?.c?.[14]?.v;
-      let progres=0;
-      if(progRaw!=null&&progRaw!==''){
-        const pn=parseFloat(progRaw);
-        if(!isNaN(pn)) progres=pn>0&&pn<=1.5?Math.round(pn*100):Math.round(pn);
-      }
-      rawRows.push({namaPML:ffA[i],jabatanPML:ffB[i],namaPCL:ffC[i],jabatanPCL:jabatanPCL.trim(),kec:kec.trim(),progres});
+      const progKel = parseProgres(gn(rows[i], COL_PROG_KEL));
+      const progPet = parseProgres(gn(rows[i], COL_PROG_PET));
+      const progUsa = parseProgres(gn(rows[i], COL_PROG_USA));
+
+      rawRows.push({namaPML:pml, namaPCL:pcl, kec:kec.trim(), progKel, progPet, progUsa});
     }
 
     if(!rawRows.length) throw new Error('Tidak ada baris data valid.');
 
+    // Group per PCL (namaPCL + kec sebagai key)
     const pclMap=new Map();
     for(const r of rawRows){
-      // Key wajib punya jabatanPCL — mencegah entri palsu
-      if(!r.jabatanPCL) continue;
-      const key=`${r.jabatanPCL.trim()}||${r.kec.trim()}`;
+      const key=`${r.namaPCL.trim()}||${r.kec.trim()}`;
       if(!pclMap.has(key)){
-        pclMap.set(key,{namaPML:r.namaPML,jabatanPML:r.jabatanPML,namaPCL:r.namaPCL,jabatanPCL:r.jabatanPCL,kec:r.kec,progList:[],slsCount:0});
+        pclMap.set(key,{
+          namaPML:r.namaPML, namaPCL:r.namaPCL, kec:r.kec,
+          slsCount:0,
+          listKel:[], listPet:[], listUsa:[]
+        });
       }
       const e=pclMap.get(key);
       e.slsCount++;
-      e.progList.push(r.progres);
+      e.listKel.push(r.progKel);
+      e.listPet.push(r.progPet);
+      e.listUsa.push(r.progUsa);
       if(!e.namaPML&&r.namaPML) e.namaPML=r.namaPML;
-      if(!e.jabatanPML&&r.jabatanPML) e.jabatanPML=r.jabatanPML;
     }
+
+    const avg=arr=>arr.length?Math.round(arr.reduce((s,v)=>s+v,0)/arr.length):0;
 
     allData=[...pclMap.values()].map(e=>({
       ...e,
-      progres:e.progList.length?Math.round(e.progList.reduce((s,v)=>s+v,0)/e.progList.length):0
-    })).filter(d=>d.jabatanPCL&&d.kec);
+      progKel : avg(e.listKel),
+      progPet : avg(e.listPet),
+      progUsa : avg(e.listUsa),
+      progRata: Math.round((avg(e.listKel)+avg(e.listPet)+avg(e.listUsa))/3)
+    })).filter(d=>d.namaPCL&&d.kec);
 
     if(!allData.length) throw new Error('Data kosong setelah grouping.');
 
     applyFilters();
     setSync(true);
-    setTimeout(loadData,5*60*1000);
+    setTimeout(loadData, 5*60*1000);
 
   }catch(e){
     showErr(e.message);
@@ -577,35 +545,37 @@ async function loadData(){
   }
 }
 
+// ─── FILTER ────────────────────────────────────────────────────
 function onKecChange(){
   const kec=document.getElementById('fKec').value;
-  const selJab=document.getElementById('fJabatan');
+  const selPML=document.getElementById('fPML');
   if(kec){
-    const jabs=[...new Set(allData.filter(d=>d.kec===kec).map(d=>d.jabatanPML).filter(Boolean))].sort();
-    selJab.disabled=false;
-    selJab.innerHTML='<option value="">Semua Jabatan PML</option>'+jabs.map(j=>`<option value="${j}">${j}</option>`).join('');
+    const pmls=[...new Set(allData.filter(d=>d.kec===kec).map(d=>d.namaPML).filter(Boolean))].sort();
+    selPML.disabled=false;
+    selPML.innerHTML='<option value="">Semua PML</option>'+pmls.map(p=>`<option value="${p}">${p}</option>`).join('');
   }else{
-    selJab.disabled=true;
-    selJab.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
+    selPML.disabled=true;
+    selPML.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
   }
   applyFilters();
 }
 
 function applyFilters(){
   const kec=document.getElementById('fKec').value;
-  const jabatan=document.getElementById('fJabatan').value;
-  filtered=allData.filter(d=>(!kec||d.kec===kec)&&(!jabatan||d.jabatanPML===jabatan));
+  const pml=document.getElementById('fPML').value;
+  filtered=allData.filter(d=>(!kec||d.kec===kec)&&(!pml||d.namaPML===pml));
   renderAll();
 }
 
 function resetFilters(){
   document.getElementById('fKec').value='';
-  const sj=document.getElementById('fJabatan');
-  sj.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
-  sj.disabled=true;
+  const sp=document.getElementById('fPML');
+  sp.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
+  sp.disabled=true;
   applyFilters();
 }
 
+// ─── SORT & TAB ────────────────────────────────────────────────
 function setSort(m){
   sortMode=m;
   ['sortProg','sortPcl','sortKec'].forEach(id=>document.getElementById(id).classList.remove('active'));
@@ -613,27 +583,50 @@ function setSort(m){
   renderCards();
 }
 
+function setProgTab(t){
+  progTab=t;
+  const map={rata:'tabR',keluarga:'tabK',petani:'tabP',usaha:'tabU'};
+  const cls={rata:'active-r',keluarga:'active-k',petani:'active-p',usaha:'active-u'};
+  Object.values(map).forEach(id=>{
+    const el=document.getElementById(id);
+    el.className='prog-tab';
+  });
+  document.getElementById(map[t]).className='prog-tab '+cls[t];
+  renderStats();
+  renderCards();
+}
+
+function getMainProg(d){
+  if(progTab==='keluarga') return d.progKel;
+  if(progTab==='petani')   return d.progPet;
+  if(progTab==='usaha')    return d.progUsa;
+  return d.progRata;
+}
+
+// ─── RENDER ────────────────────────────────────────────────────
 function renderAll(){renderStats();renderCards();renderTitle();}
 
 function renderStats(){
-  const d=filtered,n=d.length;
-  const withProg=d.filter(r=>r.progres>0);
-  const avg=withProg.length?Math.round(withProg.reduce((s,r)=>s+r.progres,0)/withProg.length):0;
+  const d=filtered, n=d.length;
+  const vals=d.map(r=>getMainProg(r));
+  const active=vals.filter(v=>v>0);
+  const avg=active.length?Math.round(active.reduce((s,v)=>s+v,0)/active.length):0;
   document.getElementById('sTotalPCL').textContent=fmt(n);
   document.getElementById('sAvgProg').textContent=avg+'%';
-  document.getElementById('sSelesai').textContent=fmt(d.filter(r=>r.progres>=100).length);
-  document.getElementById('sBelum').textContent=fmt(d.filter(r=>r.progres===0).length);
+  document.getElementById('sSelesai').textContent=fmt(vals.filter(v=>v>=100).length);
+  document.getElementById('sBelum').textContent=fmt(d.filter(r=>r.progKel===0&&r.progPet===0&&r.progUsa===0).length);
 }
 
 function renderTitle(){
   const kec=document.getElementById('fKec').value;
-  const jab=document.getElementById('fJabatan').value;
+  const pml=document.getElementById('fPML').value;
+  const tabLabel={rata:'Rata-rata',keluarga:'Keluarga',petani:'Petani',usaha:'Usaha'};
   const kecLabel=kec?kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'Semua Kecamatan';
   let t='Progress Per PCL';
   if(kec) t+=' — Kec. '+kecLabel;
-  if(jab) t+=' ('+jab+')';
+  if(pml) t+=' ('+pml+')';
   document.getElementById('secTitle').textContent=t;
-  document.getElementById('secCount').textContent=fmt(filtered.length)+' PCL ditemukan';
+  document.getElementById('secCount').textContent=fmt(filtered.length)+' PCL · tampil progres '+tabLabel[progTab];
 }
 
 function renderCards(){
@@ -642,30 +635,59 @@ function renderCards(){
     grid.innerHTML=`<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">Tidak ada data</div><div>Coba ubah atau reset filter</div></div>`;
     return;
   }
+
   const sorted=[...filtered].sort((a,b)=>{
-    if(sortMode==='prog') return b.progres-a.progres;
-    if(sortMode==='pcl')  return (a.jabatanPCL||'').localeCompare(b.jabatanPCL||'','id');
+    if(sortMode==='prog') return getMainProg(b)-getMainProg(a);
+    if(sortMode==='pcl')  return (a.namaPCL||'').localeCompare(b.namaPCL||'','id');
     return (a.kec||'').localeCompare(b.kec||'','id');
   });
 
   grid.innerHTML=sorted.map((d,i)=>{
-    const c=pColor(d.progres);
-    const barW=Math.min(d.progres,100);
+    const mainProg=getMainProg(d);
+    const c=pColor(mainProg);
     const delay=(i%20)*25;
     const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
 
+    // warna per kategori
+    const cKel=pColor(d.progKel);
+    const cPet=pColor(d.progPet);
+    const cUsa=pColor(d.progUsa);
+
     return `<div class="pc" style="animation-delay:${delay}ms">
-  <div class="pc-pml">PML: <span>${d.jabatanPML||'—'}</span></div>
+  <div class="pc-pml">PML: <span>${d.namaPML||'—'}</span></div>
   <div class="pc-body">
-    <div class="pc-nama" title="${d.jabatanPCL||'—'}">${d.jabatanPCL||'—'}</div>
+    <div class="pc-nama" title="${d.namaPCL||'—'}">${d.namaPCL||'—'}</div>
     <div class="pc-kec">📍 ${kecLabel} &nbsp;·&nbsp; ${d.slsCount} SLS</div>
-    <div class="pc-resp">
-      <span class="pc-resp-txt">Progres Pengisian</span>
-      <span class="pc-resp-num">— / —</span>
+
+    <div class="prog-section">
+      <div class="prog-row">
+        <div class="prog-label-row">
+          <span class="prog-label">🏠 Keluarga</span>
+          <span class="prog-val" style="color:${cKel.text}">${d.progKel}%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progKel)};background:${cKel.bar}"></div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-label-row">
+          <span class="prog-label">🌾 Petani</span>
+          <span class="prog-val" style="color:${cPet.text}">${d.progPet}%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progPet)};background:${cPet.bar}"></div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-label-row">
+          <span class="prog-label">🏪 Usaha</span>
+          <span class="prog-val" style="color:${cUsa.text}">${d.progUsa}%</span>
+        </div>
+        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progUsa)};background:${cUsa.bar}"></div></div>
+      </div>
     </div>
-    <div class="pc-bar-bg"><div class="pc-bar-fill" style="width:${barW}%;background:${c.bar}"></div></div>
-    <div style="display:flex;align-items:flex-end;justify-content:space-between">
-      <div class="pc-pct" style="color:${c.text}">${d.progres}%</div>
+
+    <div class="pc-summary">
+      <div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:1px">Rata-rata</div>
+        <div class="pc-avg" style="color:${c.text}">${d.progRata}%</div>
+      </div>
       <span class="badge ${c.cls}">${c.label}</span>
     </div>
   </div>
