@@ -487,54 +487,54 @@ async function loadData(){
       if(!ffKEC[i]) ffKEC[i]=ffKEC[i-1];
     }
 
-    // Bangun rawRows — skip baris 0 (header)
+    // Bangun data per PCL
+    // Struktur sheet: tiap PCL punya beberapa baris SLS
+    // Kolom J(9), O(14), S(18) = PROGRES — hanya terisi di 1 baris per PCL (baris yang ada TOTAL-nya)
+    // Strategi: per PCL, simpan nilai progres TERAKHIR yang tidak null di kolom J/O/S
     const headerWords=new Set(['nama pml','nama pcl','kecamatan','kelurahan','wilayah sls','kode sls','progres']);
-    const rawRows=[];
+
+    // Group langsung per PCL
+    const pclMap=new Map();
     for(let i=1;i<N;i++){
       const pml=ffPML[i];
       const pcl=ffPCL[i];
       const kec=ffKEC[i];
       if(!pcl||!kec) continue;
-      // Skip baris header berulang
       if(headerWords.has(pcl.toLowerCase())||headerWords.has(pml.toLowerCase())) continue;
 
-      const progKel = parseProgres(gn(rows[i], COL_PROG_KEL));
-      const progPet = parseProgres(gn(rows[i], COL_PROG_PET));
-      const progUsa = parseProgres(gn(rows[i], COL_PROG_USA));
-
-      rawRows.push({namaPML:pml, namaPCL:pcl, kec:kec.trim(), progKel, progPet, progUsa});
-    }
-
-    if(!rawRows.length) throw new Error('Tidak ada baris data valid.');
-
-    // Group per PCL (namaPCL + kec sebagai key)
-    const pclMap=new Map();
-    for(const r of rawRows){
-      const key=`${r.namaPCL.trim()}||${r.kec.trim()}`;
+      const key=`${pcl.trim()}||${kec.trim()}`;
       if(!pclMap.has(key)){
         pclMap.set(key,{
-          namaPML:r.namaPML, namaPCL:r.namaPCL, kec:r.kec,
+          namaPML:pml, namaPCL:pcl, kec:kec.trim(),
           slsCount:0,
-          listKel:[], listPet:[], listUsa:[]
+          progKel:null, progPet:null, progUsa:null
         });
       }
       const e=pclMap.get(key);
       e.slsCount++;
-      e.listKel.push(r.progKel);
-      e.listPet.push(r.progPet);
-      e.listUsa.push(r.progUsa);
-      if(!e.namaPML&&r.namaPML) e.namaPML=r.namaPML;
+      if(!e.namaPML&&pml) e.namaPML=pml;
+
+      // Override progres jika baris ini punya nilai tidak-null di kolom J/O/S
+      // (baris ringkasan PCL yang ada TOTAL-nya akan punya nilai ini)
+      const rKel=gn(rows[i], COL_PROG_KEL);
+      const rPet=gn(rows[i], COL_PROG_PET);
+      const rUsa=gn(rows[i], COL_PROG_USA);
+      if(rKel!=null) e.progKel=parseProgres(rKel);
+      if(rPet!=null) e.progPet=parseProgres(rPet);
+      if(rUsa!=null) e.progUsa=parseProgres(rUsa);
     }
 
-    const avg=arr=>arr.length?Math.round(arr.reduce((s,v)=>s+v,0)/arr.length):0;
+    if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
 
-    allData=[...pclMap.values()].map(e=>({
-      ...e,
-      progKel : avg(e.listKel),
-      progPet : avg(e.listPet),
-      progUsa : avg(e.listUsa),
-      progRata: Math.round((avg(e.listKel)+avg(e.listPet)+avg(e.listUsa))/3)
-    })).filter(d=>d.namaPCL&&d.kec);
+    allData=[...pclMap.values()].map(e=>{
+      const progKel = e.progKel ?? 0;
+      const progPet = e.progPet ?? 0;
+      const progUsa = e.progUsa ?? 0;
+      return {
+        ...e, progKel, progPet, progUsa,
+        progRata: Math.round((progKel+progPet+progUsa)/3)
+      };
+    }).filter(d=>d.namaPCL&&d.kec);
 
     if(!allData.length) throw new Error('Data kosong setelah grouping.');
 
