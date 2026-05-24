@@ -339,6 +339,7 @@
         </div>
       </div>
 
+      <div id="debug-panel" style="display:none;background:#0f1b3d;color:#fff;font-size:11px;font-family:monospace;padding:12px 16px;border-radius:10px;margin-bottom:14px;line-height:1.8"></div>
       <div class="pgrid" id="petugasGrid"></div>
     </div>
   </div>
@@ -465,13 +466,13 @@ async function loadData(){
       const v=row?.c?.[idx]?.v;
       return v!=null?String(v).trim():'';
     };
-    // Helper ambil nilai numerik dari cell
+    // Helper ambil nilai numerik dari cell (kembalikan null jika kosong)
     const gn=(row,idx)=>{
       const v=row?.c?.[idx]?.v;
       return v!=null?v:null;
     };
 
-    // Kumpulkan nilai kolom per baris (nilai asli, sebelum fill)
+    // ── STEP 1: kumpulkan nilai ASLI tiap kolom (sebelum fill) ──
     const rawPML=[], rawPCL=[], rawKEC=[];
     for(let i=0;i<N;i++){
       rawPML.push(gv(rows[i],COL_PML));
@@ -479,43 +480,59 @@ async function loadData(){
       rawKEC.push(gv(rows[i],COL_KEC).toUpperCase());
     }
 
-    // Forward-fill PML, PCL, KEC (karena di-merge di spreadsheet)
+    // ── STEP 2: forward-fill PML, PCL, KEC ──
+    // Tapi SKIP baris header (baris 0) agar tidak di-fill ke bawah
     const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
+    // Kata-kata yang menandakan baris adalah header, bukan data
+    const headerWords=new Set([
+      'nama pml','nama pcl','kecamatan','kelurahan',
+      'wilayah sls','kode sls','progres','pengisian'
+    ]);
     for(let i=1;i<N;i++){
-      if(!ffPML[i]) ffPML[i]=ffPML[i-1];
-      if(!ffPCL[i]) ffPCL[i]=ffPCL[i-1];
-      if(!ffKEC[i]) ffKEC[i]=ffKEC[i-1];
+      // Hanya fill jika nilai sebelumnya BUKAN kata header
+      const prevPML=ffPML[i-1], prevPCL=ffPCL[i-1], prevKEC=ffKEC[i-1];
+      if(!ffPML[i] && prevPML && !headerWords.has(prevPML.toLowerCase())) ffPML[i]=prevPML;
+      if(!ffPCL[i] && prevPCL && !headerWords.has(prevPCL.toLowerCase())) ffPCL[i]=prevPCL;
+      if(!ffKEC[i] && prevKEC && !headerWords.has(prevKEC.toLowerCase())) ffKEC[i]=prevKEC;
     }
 
-    // Bangun data per PCL
-    // Struktur sheet: tiap PCL punya beberapa baris SLS
-    // Kolom J(9), O(14), S(18) = PROGRES — hanya terisi di 1 baris per PCL (baris yang ada TOTAL-nya)
-    // Strategi: per PCL, simpan nilai progres TERAKHIR yang tidak null di kolom J/O/S
-    const headerWords=new Set(['nama pml','nama pcl','kecamatan','kelurahan','wilayah sls','kode sls','progres']);
-
-    // Group langsung per PCL
+    // ── STEP 3: group per PCL ──
+    // Tiap PCL punya beberapa baris SLS.
+    // Kolom J/O/S (progres) hanya terisi di SATU baris per PCL (baris yang ada TOTAL-nya).
+    // Kita simpan nilai progres dari baris manapun yang J/O/S tidak null.
+    // slsCount = jumlah baris SLS (yang punya KODE SLS di kolom F=5)
+    const COL_KODE_SLS = 5;
     const pclMap=new Map();
+
     for(let i=1;i<N;i++){
       const pml=ffPML[i];
       const pcl=ffPCL[i];
       const kec=ffKEC[i];
+
+      // Skip baris tanpa PCL/KEC atau baris header
       if(!pcl||!kec) continue;
       if(headerWords.has(pcl.toLowerCase())||headerWords.has(pml.toLowerCase())) continue;
+      // Skip baris yang PCL-nya tampak seperti header (mengandung kata header)
+      const pclLow=pcl.toLowerCase();
+      if(pclLow.includes('nama pcl')||pclLow==='pcl') continue;
 
       const key=`${pcl.trim()}||${kec.trim()}`;
       if(!pclMap.has(key)){
         pclMap.set(key,{
-          namaPML:pml, namaPCL:pcl, kec:kec.trim(),
+          namaPML:pml||'—', namaPCL:pcl, kec:kec.trim(),
           slsCount:0,
           progKel:null, progPet:null, progUsa:null
         });
       }
       const e=pclMap.get(key);
-      e.slsCount++;
-      if(!e.namaPML&&pml) e.namaPML=pml;
 
-      // Override progres jika baris ini punya nilai tidak-null di kolom J/O/S
-      // (baris ringkasan PCL yang ada TOTAL-nya akan punya nilai ini)
+      // Hitung SLS: baris yang punya KODE SLS di kolom F
+      const kodeSLS=gv(rows[i], COL_KODE_SLS);
+      if(kodeSLS) e.slsCount++;
+
+      if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
+
+      // Simpan progres dari baris yang punya nilai (baris ringkasan)
       const rKel=gn(rows[i], COL_PROG_KEL);
       const rPet=gn(rows[i], COL_PROG_PET);
       const rUsa=gn(rows[i], COL_PROG_USA);
@@ -527,9 +544,9 @@ async function loadData(){
     if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
 
     allData=[...pclMap.values()].map(e=>{
-      const progKel = e.progKel ?? 0;
-      const progPet = e.progPet ?? 0;
-      const progUsa = e.progUsa ?? 0;
+      const progKel = e.progKel??0;
+      const progPet = e.progPet??0;
+      const progUsa = e.progUsa??0;
       return {
         ...e, progKel, progPet, progUsa,
         progRata: Math.round((progKel+progPet+progUsa)/3)
@@ -537,6 +554,29 @@ async function loadData(){
     }).filter(d=>d.namaPCL&&d.kec);
 
     if(!allData.length) throw new Error('Data kosong setelah grouping.');
+
+    // DEBUG: tampilkan 5 PCL pertama di console dan panel
+    console.table(allData.slice(0,10).map(d=>({
+      PCL:d.namaPCL, KEC:d.kec, SLS:d.slsCount,
+      Kel:d.progKel, Pet:d.progPet, Usa:d.progUsa, Rata:d.progRata
+    })));
+    // Debug panel
+    const dbg=document.getElementById('debug-panel');
+    if(dbg){
+      dbg.innerHTML='<b>DEBUG — 10 PCL pertama:</b><br>'+
+        allData.slice(0,10).map(d=>
+          `<span style="color:#aef">${d.namaPCL}</span> | ${d.kec} | SLS:${d.slsCount} | Kel:<b>${d.progKel}%</b> Pet:<b>${d.progPet}%</b> Usa:<b>${d.progUsa}%</b>`
+        ).join('<br>');
+      dbg.style.display='block';
+    }
+
+    // DEBUG raw rows: cari PCL BARAT 1
+    console.log('=== RAW SHEET ROWS (baris 1-20) ===');
+    for(let di=1;di<=Math.min(20,rows.length-1);di++){
+      const r=rows[di];
+      const vals=[0,1,2,9,14,18].map(ci=>r?.c?.[ci]?.v??'∅');
+      console.log(`Row${di}: PML=${vals[0]} PCL=${vals[1]} KEC=${vals[2]} J=${vals[3]} O=${vals[4]} S=${vals[5]}`);
+    }
 
     applyFilters();
     setSync(true);
