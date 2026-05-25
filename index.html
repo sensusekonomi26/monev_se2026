@@ -497,6 +497,11 @@ async function loadData(){
       rawKEC.push(gv(rows[i],COL_KEC).toUpperCase());
     }
 
+    // ── STEP 1b: log raw values baris 1-10 ──
+    for(let di=1;di<=Math.min(10,N-1);di++){
+      console.log(`RAW row${di+1}: PML="${rawPML[di]}" PCL="${rawPCL[di]}" KEC="${rawKEC[di]}" J=${rows[di]?.c?.[COL_PROG_KEL]?.v??'null'} O=${rows[di]?.c?.[COL_PROG_PET]?.v??'null'} S=${rows[di]?.c?.[COL_PROG_USA]?.v??'null'} SLS="${gv(rows[di],COL_SLS)}"`);
+    }
+
     // ── STEP 2: forward-fill PML, PCL, KEC ──
     // Tapi SKIP baris header (baris 0) agar tidak di-fill ke bawah
     const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
