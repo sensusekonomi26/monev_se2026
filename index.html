@@ -548,9 +548,15 @@ async function loadData(){
       const e=pclMap.get(key);
 
       // Hitung SLS: baris yang punya WILAYAH SLS (kolom E, index 4) atau KODE SLS (kolom F, index 5)
-      const wilayahSLS=gv(rows[i], COL_SLS);   // kolom E = WILAYAH SLS
-      const kodeSLS=gv(rows[i], COL_KODE_SLS); // kolom F = KODE SLS
-      if(wilayahSLS||kodeSLS) e.slsCount++;
+      const wilayahSLS = gv(rows[i], COL_SLS);
+      const kodeSLS    = gv(rows[i], COL_KODE_SLS);
+      // Hitung baris sebagai SLS jika ada wilayah/kode SLS,
+      // ATAU jika ada data progres di baris tersebut
+      const rKelCheck  = gn(rows[i], COL_PROG_KEL);
+      const rPetCheck  = gn(rows[i], COL_PROG_PET);
+      const rUsaCheck  = gn(rows[i], COL_PROG_USA);
+      const adaData    = rKelCheck != null || rPetCheck != null || rUsaCheck != null;
+      if(wilayahSLS || kodeSLS || adaData) e.slsCount++;
 
       if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
 
