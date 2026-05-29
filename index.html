@@ -556,7 +556,7 @@ async function loadData(){
       const rPetCheck  = gn(rows[i], COL_PROG_PET);
       const rUsaCheck  = gn(rows[i], COL_PROG_USA);
       const adaData    = rKelCheck != null || rPetCheck != null || rUsaCheck != null;
-      if(wilayahSLS || kodeSLS || adaData) e.slsCount++;
+      if(kodeSLS) e.slsCount++;
 
       if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
 
