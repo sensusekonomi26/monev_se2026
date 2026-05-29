@@ -101,7 +101,6 @@
     .page-body{padding:24px 28px;flex:1}
     #error-banner{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:11px 15px;margin-bottom:18px;font-size:11.5px;font-weight:600;display:none}
 
-    /* HERO CARDS */
     .hero-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
     .hero-card{background:var(--navy2);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
     .hero-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,27,61,.2)}
@@ -111,7 +110,6 @@
     .hero-val{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
     .hero-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
 
-    /* TABS for progres type */
     .prog-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
     .prog-tab{
       background:var(--surface);border:1px solid var(--border);border-radius:20px;
@@ -123,7 +121,6 @@
     .prog-tab.active-u{background:#F59E0B;color:#fff;border-color:#F59E0B}
     .prog-tab.active-r{background:#10B981;color:#fff;border-color:#10B981}
 
-    /* SECTION */
     .sec-wrap{margin-bottom:10px}
     .sec-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
     .sec-title{font-size:15px;font-weight:700;color:var(--text)}
@@ -133,7 +130,6 @@
     .sort-btn{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif}
     .sort-btn.active,.sort-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
 
-    /* PCL CARDS */
     .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
@@ -148,7 +144,6 @@
     .pc-nama{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .pc-kec{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:4px}
 
-    /* 3 progress bars */
     .prog-section{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
     .prog-row{display:flex;flex-direction:column;gap:3px}
     .prog-label-row{display:flex;justify-content:space-between;align-items:center}
@@ -157,7 +152,6 @@
     .prog-bar-bg{width:100%;height:6px;background:var(--bg);border-radius:20px;overflow:hidden}
     .prog-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
 
-    /* Summary row */
     .pc-summary{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border)}
     .pc-avg{font-size:20px;font-weight:800;letter-spacing:-1px}
     .pc-sls{font-size:10px;color:var(--text3)}
@@ -168,18 +162,15 @@
     .br{background:var(--red-g);color:#DC2626}
     .bp{background:rgba(148,163,184,.12);color:#64748B}
 
-    /* EMPTY */
     .empty{text-align:center;padding:60px 20px;color:var(--text3);grid-column:1/-1}
     .empty-ico{font-size:40px;margin-bottom:10px}
     .empty-ttl{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px}
 
-    /* LOADING */
     #loading{position:fixed;inset:0;background:rgba(15,27,61,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px;backdrop-filter:blur(6px)}
     .loader-ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--blue2);animation:spin .85s linear infinite}
     .loader-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8)}
     .loader-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:-8px}
 
-    /* TOGGLE */
     .toggle-btn{position:fixed;top:14px;left:calc(var(--sidebar) - 16px);z-index:300;width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.4);transition:left .3s,background .15s}
     .toggle-btn:hover{background:#1D4ED8}
     .toggle-btn svg{transition:transform .3s}
@@ -292,7 +283,6 @@
     <div class="page-body">
       <div id="error-banner">⚠ <span id="errorMsg"></span></div>
 
-      <!-- HERO STAT CARDS -->
       <div class="hero-row">
         <div class="hero-card">
           <div class="hero-lbl">TOTAL PCL</div>
@@ -316,21 +306,18 @@
         </div>
       </div>
 
-      <!-- SECTION HEADER -->
       <div class="sec-head">
         <div>
           <div class="sec-title" id="secTitle">Progress Per PCL</div>
           <div class="sec-count" id="secCount">Memuat data...</div>
         </div>
         <div class="sec-head-right">
-          <!-- Progres tabs -->
           <div class="prog-tabs">
             <button class="prog-tab active-r" id="tabR" onclick="setProgTab('rata')">📊 Rata-rata</button>
             <button class="prog-tab" id="tabK" onclick="setProgTab('keluarga')">🏠 Keluarga</button>
             <button class="prog-tab" id="tabP" onclick="setProgTab('petani')">🌾 Petani</button>
             <button class="prog-tab" id="tabU" onclick="setProgTab('usaha')">🏪 Usaha</button>
           </div>
-          <!-- Sort -->
           <div class="sort-bar">
             <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres ↓</button>
             <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A–Z</button>
@@ -351,42 +338,30 @@
 const SHEET_ID   = '1fv8XwQY5U4SLda8ll27sy4tiq1nNJuBfX76cya0_nGU';
 const SHEET_NAME = 'Data Projek';
 
-// INDEKS KOLOM (0-based) berdasarkan struktur spreadsheet baru:
-// A=0  NAMA PML
-// B=1  NAMA PCL
-// C=2  KECAMATAN
-// D=3  KELURAHAN
-// E=4  WILAYAH SLS
-// F=5  KODE SLS
-// G=6  PENGISIAN JUMLAH KELUARGA
-// H=7  TOTAL PENGISIAN JUMLAH KELUARGA
-// I=8  PERKIRAAN TARGET JUMLAH
-// J=9  PROGRES JUMLAH KELUARGA
-// K=10 ADA PETANI
-// L=11 PENGISIAN JUMLAH PETANI
-// M=12 TOTAL PENGISIAN JUMLAH PETANI
-// N=13 PERKIRAAN JUMLAH PETANI
-// O=14 PROGRES JUMLAH PETANI
-// P=15 PENGISIAN USAHA
-// Q=16 TOTAL PENGISIAN USAHA
-// R=17 PERKIRAAN JUMLAH USAHA
-// S=18 PROGRES JUMLAH USAHA
+// INDEKS KOLOM (0-based):
+// A=0  NAMA PML        B=1  NAMA PCL        C=2  KECAMATAN
+// D=3  KELURAHAN       E=4  WILAYAH SLS     F=5  KODE SLS
+// G=6  PENGISIAN KEL   H=7  TOTAL KEL       I=8  TARGET KEL
+// J=9  PROGRES KEL     K=10 ADA PETANI      L=11 PENGISIAN PET
+// M=12 TOTAL PET       N=13 TARGET PET      O=14 PROGRES PET
+// P=15 PENGISIAN USA   Q=16 TOTAL USA       R=17 TARGET USA
+// S=18 PROGRES USA
 
 const COL_PML      = 0;
 const COL_PCL      = 1;
 const COL_KEC      = 2;
-const COL_KEL      = 3;
-const COL_SLS      = 4;
-const COL_KODE_SLS = 5; // F — Kode SLS
-let COL_PROG_KEL = 9;   // J — Progres Keluarga (auto-detected dari header)
-let COL_PROG_PET = 14;  // O — Progres Petani (auto-detected dari header)
-let COL_PROG_USA = 18;  // S — Progres Usaha (auto-detected dari header)
+const COL_SLS      = 4;   // E — Wilayah SLS
+const COL_KODE_SLS = 5;   // F — Kode SLS ← kunci utama hitung SLS
+
+let COL_PROG_KEL = 9;     // J — auto-detected
+let COL_PROG_PET = 14;    // O — auto-detected
+let COL_PROG_USA = 18;    // S — auto-detected
 
 // ─── STATE ─────────────────────────────────────────────────────
-let allData   = [];
-let filtered  = [];
-let sortMode  = 'prog';
-let progTab   = 'rata'; // 'rata' | 'keluarga' | 'petani' | 'usaha'
+let allData  = [];
+let filtered = [];
+let sortMode = 'prog';
+let progTab  = 'rata';
 
 // ─── HELPERS ───────────────────────────────────────────────────
 function pColor(v){
@@ -400,9 +375,9 @@ function fmt(n){return(n||0).toLocaleString('id-ID');}
 function pct(v){return Math.min(v,100)+'%';}
 
 function parseProgres(raw){
-  if(raw==null||raw==="") return 0;
-  if(typeof raw==="string"){
-    const s=raw.trim().replace("%","").replace(",",".");
+  if(raw==null||raw==='') return 0;
+  if(typeof raw==='string'){
+    const s=raw.trim().replace('%','').replace(',','.');
     const n=parseFloat(s);
     if(isNaN(n)) return 0;
     if(n>0&&n<=1.5) return Math.round(n*100);
@@ -417,7 +392,7 @@ function parseProgres(raw){
 function setSync(ok){
   const now=new Date();
   const t=[now.getHours(),now.getMinutes(),now.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':');
-  document.getElementById('lastSync').textContent=ok?'Update: '+t:' Gagal memuat';
+  document.getElementById('lastSync').textContent=ok?'Update: '+t:'Gagal memuat';
   document.getElementById('syncDot').style.background=ok?'#10B981':'#EF4444';
 }
 function showErr(msg){
@@ -461,19 +436,10 @@ async function loadData(){
     const rows=json.table.rows;
     const N=rows.length;
 
-    // Helper ambil nilai string dari cell
-    const gv=(row,idx)=>{
-      const v=row?.c?.[idx]?.v;
-      return v!=null?String(v).trim():'';
-    };
-    // Helper ambil nilai numerik dari cell (kembalikan null jika kosong)
-    const gn=(row,idx)=>{
-      const v=row?.c?.[idx]?.v;
-      return v!=null?v:null;
-    };
+    const gv=(row,idx)=>{const v=row?.c?.[idx]?.v;return v!=null?String(v).trim():'';};
+    const gn=(row,idx)=>{const v=row?.c?.[idx]?.v;return v!=null?v:null;};
 
-    // ── STEP 0: deteksi indeks kolom progres dari header row ──
-    // Cari kolom yang namanya mengandung "PROGRES" di baris header (baris 0)
+    // ── STEP 0: auto-detect kolom PROGRES dari header ──
     if(rows[0]&&rows[0].c){
       const hdr=rows[0].c;
       let progCount=0;
@@ -489,7 +455,7 @@ async function loadData(){
       console.log(`Auto-detect PROGRES cols: KEL=${COL_PROG_KEL} PET=${COL_PROG_PET} USA=${COL_PROG_USA}`);
     }
 
-    // ── STEP 1: kumpulkan nilai ASLI tiap kolom (sebelum fill) ──
+    // ── STEP 1: kumpulkan nilai asli PML, PCL, KEC ──
     const rawPML=[], rawPCL=[], rawKEC=[];
     for(let i=0;i<N;i++){
       rawPML.push(gv(rows[i],COL_PML));
@@ -497,32 +463,22 @@ async function loadData(){
       rawKEC.push(gv(rows[i],COL_KEC).toUpperCase());
     }
 
-    // ── STEP 1b: log raw values baris 1-10 ──
-    for(let di=1;di<=Math.min(10,N-1);di++){
-      console.log(`RAW row${di+1}: PML="${rawPML[di]}" PCL="${rawPCL[di]}" KEC="${rawKEC[di]}" J=${rows[di]?.c?.[COL_PROG_KEL]?.v??'null'} O=${rows[di]?.c?.[COL_PROG_PET]?.v??'null'} S=${rows[di]?.c?.[COL_PROG_USA]?.v??'null'} SLS="${gv(rows[di],COL_SLS)}"`);
-    }
-
     // ── STEP 2: forward-fill PML, PCL, KEC ──
-    // Tapi SKIP baris header (baris 0) agar tidak di-fill ke bawah
-    const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
-    // Kata-kata yang menandakan baris adalah header, bukan data
     const headerWords=new Set([
       'nama pml','nama pcl','kecamatan','kelurahan',
       'wilayah sls','kode sls','progres','pengisian'
     ]);
+    const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
     for(let i=1;i<N;i++){
-      // Hanya fill jika nilai sebelumnya BUKAN kata header
       const prevPML=ffPML[i-1], prevPCL=ffPCL[i-1], prevKEC=ffKEC[i-1];
-      if(!ffPML[i] && prevPML && !headerWords.has(prevPML.toLowerCase())) ffPML[i]=prevPML;
-      if(!ffPCL[i] && prevPCL && !headerWords.has(prevPCL.toLowerCase())) ffPCL[i]=prevPCL;
-      if(!ffKEC[i] && prevKEC && !headerWords.has(prevKEC.toLowerCase())) ffKEC[i]=prevKEC;
+      if(!ffPML[i]&&prevPML&&!headerWords.has(prevPML.toLowerCase())) ffPML[i]=prevPML;
+      if(!ffPCL[i]&&prevPCL&&!headerWords.has(prevPCL.toLowerCase())) ffPCL[i]=prevPCL;
+      if(!ffKEC[i]&&prevKEC&&!headerWords.has(prevKEC.toLowerCase())) ffKEC[i]=prevKEC;
     }
 
     // ── STEP 3: group per PCL ──
-    // Tiap PCL punya beberapa baris SLS.
-    // Kolom J/O/S (progres) hanya terisi di SATU baris per PCL (baris yang ada TOTAL-nya).
-    // Kita simpan nilai progres dari baris manapun yang J/O/S tidak null.
-    // slsCount = jumlah baris SLS (yang punya KODE SLS di kolom F=5)
+    // FIX UTAMA: slsCount hanya dihitung dari baris yang punya KODE SLS (kolom F)
+    // Progres diambil dari baris manapun yang J/O/S tidak null
     const pclMap=new Map();
 
     for(let i=1;i<N;i++){
@@ -530,10 +486,8 @@ async function loadData(){
       const pcl=ffPCL[i];
       const kec=ffKEC[i];
 
-      // Skip baris tanpa PCL/KEC atau baris header
       if(!pcl||!kec) continue;
       if(headerWords.has(pcl.toLowerCase())||headerWords.has(pml.toLowerCase())) continue;
-      // Skip baris yang PCL-nya tampak seperti header (mengandung kata header)
       const pclLow=pcl.toLowerCase();
       if(pclLow.includes('nama pcl')||pclLow==='pcl') continue;
 
@@ -547,20 +501,13 @@ async function loadData(){
       }
       const e=pclMap.get(key);
 
-      // Hitung SLS: baris yang punya WILAYAH SLS (kolom E, index 4) atau KODE SLS (kolom F, index 5)
-      const wilayahSLS = gv(rows[i], COL_SLS);
-      const kodeSLS    = gv(rows[i], COL_KODE_SLS);
-      // Hitung baris sebagai SLS jika ada wilayah/kode SLS,
-      // ATAU jika ada data progres di baris tersebut
-      const rKelCheck  = gn(rows[i], COL_PROG_KEL);
-      const rPetCheck  = gn(rows[i], COL_PROG_PET);
-      const rUsaCheck  = gn(rows[i], COL_PROG_USA);
-      const adaData    = rKelCheck != null || rPetCheck != null || rUsaCheck != null;
+      // ✅ FIX: Hitung SLS HANYA berdasarkan KODE SLS (kolom F) yang terisi
+      const kodeSLS = gv(rows[i], COL_KODE_SLS);
       if(kodeSLS) e.slsCount++;
 
       if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
 
-      // Simpan progres dari baris yang punya nilai (baris ringkasan)
+      // Ambil progres dari baris yang punya nilai (baris ringkasan PCL)
       const rKel=gn(rows[i], COL_PROG_KEL);
       const rPet=gn(rows[i], COL_PROG_PET);
       const rUsa=gn(rows[i], COL_PROG_USA);
@@ -572,12 +519,12 @@ async function loadData(){
     if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
 
     allData=[...pclMap.values()].map(e=>{
-      const progKel = e.progKel??0;
-      const progPet = e.progPet??0;
-      const progUsa = e.progUsa??0;
+      const progKel=e.progKel??0;
+      const progPet=e.progPet??0;
+      const progUsa=e.progUsa??0;
       return {
         ...e, progKel, progPet, progUsa,
-        progRata: Math.round((progKel+progPet+progUsa)/3)
+        progRata:Math.round((progKel+progPet+progUsa)/3)
       };
     }).filter(d=>d.namaPCL&&d.kec);
 
@@ -638,10 +585,7 @@ function setProgTab(t){
   progTab=t;
   const map={rata:'tabR',keluarga:'tabK',petani:'tabP',usaha:'tabU'};
   const cls={rata:'active-r',keluarga:'active-k',petani:'active-p',usaha:'active-u'};
-  Object.values(map).forEach(id=>{
-    const el=document.getElementById(id);
-    el.className='prog-tab';
-  });
+  Object.values(map).forEach(id=>{document.getElementById(id).className='prog-tab';});
   document.getElementById(map[t]).className='prog-tab '+cls[t];
   renderStats();
   renderCards();
@@ -698,8 +642,6 @@ function renderCards(){
     const c=pColor(mainProg);
     const delay=(i%20)*25;
     const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
-
-    // warna per kategori
     const cKel=pColor(d.progKel);
     const cPet=pColor(d.progPet);
     const cUsa=pColor(d.progUsa);
@@ -709,7 +651,6 @@ function renderCards(){
   <div class="pc-body">
     <div class="pc-nama" title="${d.namaPCL||'—'}">${d.namaPCL||'—'}</div>
     <div class="pc-kec">📍 ${kecLabel} &nbsp;·&nbsp; ${d.slsCount} SLS</div>
-
     <div class="prog-section">
       <div class="prog-row">
         <div class="prog-label-row">
@@ -733,7 +674,6 @@ function renderCards(){
         <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progUsa)};background:${cUsa.bar}"></div></div>
       </div>
     </div>
-
     <div class="pc-summary">
       <div>
         <div style="font-size:10px;color:var(--text3);margin-bottom:1px">Rata-rata</div>
