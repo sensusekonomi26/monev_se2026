@@ -6,244 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MONSE 2026 — Monitoring Petugas Sensus Ekonomi</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --navy:#0F1B3D;--navy2:#162447;--navy3:#1E3163;
-      --blue:#2563EB;--blue2:#3B82F6;--blue-g:rgba(37,99,235,.12);
-      --accent:#F97316;--accent2:#FB923C;
-      --green:#10B981;--green-g:rgba(16,185,129,.12);
-      --amber:#F59E0B;--amber-g:rgba(245,158,11,.12);
-      --red:#EF4444;--red-g:rgba(239,68,68,.12);
-      --bg:#F0F4FB;--surface:#FFF;--surface2:#F7F9FD;
-      --border:#DDE4F0;--text:#0F1B3D;--text2:#3D5170;--text3:#8A9DB8;
-      --r:14px;--rs:9px;
-      --sidebar:240px;
-    }
-    html{scroll-behavior:smooth}
-    body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
-
-    aside{
-      width:var(--sidebar);min-height:100vh;
-      background:var(--navy);
-      display:flex;flex-direction:column;
-      position:fixed;top:0;left:0;bottom:0;z-index:200;
-      box-shadow:4px 0 24px rgba(0,0,0,.25);
-      overflow-y:auto;overflow-x:hidden;
-      transition:transform .3s ease;
-      scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;
-    }
-    aside::-webkit-scrollbar{width:3px}
-    aside::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
-
-    .sb-brand{padding:28px 20px 22px;border-bottom:1px solid rgba(255,255,255,.07)}
-    .sb-logo-text{font-size:32px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1;text-shadow:0 0 40px rgba(59,130,246,.4)}
-    .sb-logo-text span{color:var(--blue2)}
-    .sb-year{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent2);background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);border-radius:4px;padding:2px 8px;margin-top:6px}
-    .sb-tagline{font-size:10px;color:rgba(255,255,255,.38);margin-top:8px;line-height:1.6;letter-spacing:.3px}
-
-    .sb-section{padding:18px 16px 0}
-    .sb-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:2px;padding:0 4px;margin-bottom:10px}
-
-    .sf-group{margin-bottom:12px}
-    .sf-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:5px;padding:0 2px;display:flex;align-items:center;gap:4px}
-    select{
-      width:100%;font-family:'Sora',sans-serif;font-size:11.5px;font-weight:600;
-      color:#fff;background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);border-radius:8px;
-      padding:9px 30px 9px 11px;cursor:pointer;outline:none;
-      transition:border .15s;appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat:no-repeat;background-position:right 10px center;
-    }
-    select:focus{border-color:rgba(59,130,246,.6)}
-    select option{background:#162447;color:#fff}
-    select:disabled{opacity:.3;cursor:not-allowed}
-
-    .btn-reset{
-      width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-      color:rgba(255,255,255,.7);font-family:'Sora',sans-serif;font-size:11px;font-weight:600;
-      padding:9px;border-radius:8px;cursor:pointer;transition:all .15s;
-      display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;
-    }
-    .btn-reset:hover{background:rgba(255,255,255,.14)}
-
-    .sb-footer{margin-top:auto;padding:16px 20px;border-top:1px solid rgba(255,255,255,.07)}
-    .sb-footer-txt{font-size:10px;color:rgba(255,255,255,.28);line-height:1.8}
-    .sb-footer-txt b{color:rgba(255,255,255,.5)}
-
-    .content{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
-
-    .topbar{
-      background:var(--surface);border-bottom:1px solid var(--border);
-      padding:0 28px;height:58px;
-      display:flex;align-items:center;justify-content:space-between;
-      position:sticky;top:0;z-index:100;
-      box-shadow:0 1px 6px rgba(15,27,61,.06);
-    }
-    .topbar-title{font-size:15px;font-weight:700;color:var(--text)}
-    .topbar-sub{font-size:10.5px;color:var(--text3);margin-top:1px}
-    .topbar-right{display:flex;align-items:center;gap:10px}
-    .sync-badge{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:10.5px;color:var(--text2);font-weight:600}
-    .sync-dot{width:7px;height:7px;border-radius:50%;background:#10B981;animation:pulse 2.5s infinite}
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-    .btn-refresh{
-      background:var(--blue);color:#fff;border:none;border-radius:8px;
-      padding:8px 16px;font-size:11.5px;font-weight:700;cursor:pointer;
-      display:flex;align-items:center;gap:6px;font-family:'Sora',sans-serif;
-      transition:all .15s;box-shadow:0 3px 12px rgba(37,99,235,.3);
-    }
-    .btn-refresh:hover{background:#1D4ED8;transform:translateY(-1px)}
-    .spin{animation:spin .7s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    .page-body{padding:24px 28px;flex:1}
-    #error-banner{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;border-radius:var(--rs);padding:11px 15px;margin-bottom:18px;font-size:11.5px;font-weight:600;display:none}
-
-    /* SEARCH BAR */
-    .search-wrap{position:relative;margin-bottom:20px}
-    .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.4}
-    #searchInput{
-      width:100%;font-family:'Sora',sans-serif;font-size:13px;font-weight:500;
-      color:var(--text);background:var(--surface);
-      border:1.5px solid var(--border);border-radius:10px;
-      padding:11px 40px 11px 42px;outline:none;
-      transition:border .15s,box-shadow .15s;
-    }
-    #searchInput:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-    #searchInput::placeholder{color:var(--text3)}
-    .search-clear{
-      position:absolute;right:12px;top:50%;transform:translateY(-50%);
-      background:none;border:none;cursor:pointer;color:var(--text3);
-      font-size:16px;line-height:1;padding:2px 6px;border-radius:4px;
-      display:none;transition:color .15s;
-    }
-    .search-clear:hover{color:var(--text)}
-    .search-tag{
-      display:inline-flex;align-items:center;gap:5px;
-      background:var(--blue-g);border:1px solid rgba(37,99,235,.2);
-      color:var(--blue);border-radius:20px;padding:3px 10px;
-      font-size:11px;font-weight:600;margin-bottom:10px;
-    }
-
-    .hero-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
-    .hero-card{background:var(--navy2);border-radius:var(--r);padding:20px 22px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
-    .hero-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(15,27,61,.2)}
-    .hero-card::before{content:'';position:absolute;right:-20px;top:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.04)}
-    .hero-card::after{content:'';position:absolute;right:10px;top:10px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.04)}
-    .hero-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;margin-bottom:10px}
-    .hero-val{font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
-    .hero-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
-
-    .prog-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-    .prog-tab{
-      background:var(--surface);border:1px solid var(--border);border-radius:20px;
-      padding:5px 14px;font-size:11px;font-weight:600;color:var(--text2);
-      cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif;
-    }
-    .prog-tab.active-k{background:#2563EB;color:#fff;border-color:#2563EB}
-    .prog-tab.active-u{background:#F59E0B;color:#fff;border-color:#F59E0B}
-    .prog-tab.active-r{background:#10B981;color:#fff;border-color:#10B981}
-
-    .sec-wrap{margin-bottom:10px}
-    .sec-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-    .sec-title{font-size:15px;font-weight:700;color:var(--text)}
-    .sec-count{font-size:11px;color:var(--text3);margin-top:2px}
-    .sec-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-    .sort-bar{display:flex;gap:6px}
-    .sort-btn{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Sora',sans-serif}
-    .sort-btn.active,.sort-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
-
-    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-    .pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
-    .pc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,27,61,.1)}
-
-    .pc-pml{background:var(--navy);padding:7px 14px;font-size:10px;font-weight:600;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px}
-    .pc-pml span{color:rgba(255,255,255,.9);font-weight:700}
-
-    .pc-body{padding:14px 14px 16px}
-
-    .pc-nama{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pc-kec{font-size:10px;color:var(--text3);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:4px}
-
-    /* highlight hasil search */
-    mark{background:#FEF08A;color:var(--text);border-radius:2px;padding:0 1px}
-
-    .prog-section{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-    .prog-row{display:flex;flex-direction:column;gap:3px}
-    .prog-label-row{display:flex;justify-content:space-between;align-items:center}
-    .prog-label{font-size:10px;font-weight:600;color:var(--text3)}
-    .prog-val{font-size:10px;font-weight:700}
-    .prog-bar-bg{width:100%;height:6px;background:var(--bg);border-radius:20px;overflow:hidden}
-    .prog-bar-fill{height:100%;border-radius:20px;transition:width .7s cubic-bezier(.4,0,.2,1)}
-
-    .pc-summary{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border)}
-    .pc-avg{font-size:20px;font-weight:800;letter-spacing:-1px}
-    .badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px}
-    .bg{background:var(--green-g);color:#059669}
-    .bb{background:var(--blue-g);color:#1D4ED8}
-    .ba{background:var(--amber-g);color:#D97706}
-    .br{background:var(--red-g);color:#DC2626}
-    .bp{background:rgba(148,163,184,.12);color:#64748B}
-
-    .empty{text-align:center;padding:60px 20px;color:var(--text3);grid-column:1/-1}
-    .empty-ico{font-size:40px;margin-bottom:10px}
-    .empty-ttl{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:4px}
-
-    #loading{position:fixed;inset:0;background:rgba(15,27,61,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px;backdrop-filter:blur(6px)}
-    .loader-ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--blue2);animation:spin .85s linear infinite}
-    .loader-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8)}
-    .loader-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:-8px}
-
-    .toggle-btn{position:fixed;top:14px;left:calc(var(--sidebar) - 16px);z-index:300;width:30px;height:30px;background:var(--blue);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,.4);transition:left .3s,background .15s}
-    .toggle-btn:hover{background:#1D4ED8}
-    .toggle-btn svg{transition:transform .3s}
-    .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
-    body.sidebar-collapsed aside{transform:translateX(calc(-1 * var(--sidebar)))}
-    body.sidebar-collapsed .content{margin-left:0}
-    body.sidebar-collapsed .toggle-btn{left:10px}
-    body.sidebar-collapsed .toggle-btn svg{transform:rotate(180deg)}
-
-    footer{text-align:center;padding:14px;font-size:10.5px;color:var(--text3);font-weight:600;border-top:1px solid var(--border);background:var(--surface)}
-    footer b{color:var(--blue)}
-
-    @media(max-width:1100px){.hero-row{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:768px){
-      aside{transform:translateX(calc(-1 * var(--sidebar)))}
-      body.sidebar-open aside{transform:translateX(0)!important}
-      body.sidebar-open .sb-overlay{display:block}
-      .content{margin-left:0!important}
-      .toggle-btn{left:10px!important;top:12px}
-      body.sidebar-open .toggle-btn{left:calc(var(--sidebar) + 8px)!important}
-      body.sidebar-open .toggle-btn svg{transform:rotate(180deg)}
-      .topbar{padding:0 12px 0 48px;height:52px}
-      .page-body{padding:14px 10px}
-      .pgrid{grid-template-columns:1fr}
-      .hero-row{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:480px){
-      .hero-row{grid-template-columns:1fr 1fr}
-      .sync-badge{display:none}
-    }
-  </style>
+  <!-- Semua tampilan/styling ada di sini -->
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
+<!-- Overlay gelap saat sidebar terbuka di mobile -->
 <div class="sb-overlay" onclick="toggleSidebar()"></div>
 
+<!-- Loading overlay -->
 <div id="loading">
   <div class="loader-ring"></div>
   <div class="loader-label">Memuat data petugas...</div>
   <div class="loader-sub" id="loaderSub">Menghubungkan ke Google Sheets</div>
 </div>
 
+<!-- Tombol toggle sidebar -->
 <button class="toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg>
 </button>
 
 <div style="display:flex;min-height:100vh">
+
+  <!-- ── SIDEBAR ── -->
   <aside>
     <div class="sb-brand">
       <div class="sb-logo-text">MON<span>SE</span></div>
@@ -293,7 +80,10 @@
     </div>
   </aside>
 
+  <!-- ── KONTEN UTAMA ── -->
   <div class="content">
+
+    <!-- Topbar -->
     <div class="topbar">
       <div>
         <div class="topbar-title">Dashboard Sensus Ekonomi 2026</div>
@@ -306,16 +96,21 @@
         </div>
         <button class="btn-refresh" onclick="loadData()">
           <svg id="refreshIcon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+            <path d="M1 4v6h6M23 20v-6h-6"/>
+            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
           </svg>
           Refresh
         </button>
       </div>
     </div>
 
+    <!-- Body halaman -->
     <div class="page-body">
+
+      <!-- Banner error -->
       <div id="error-banner">⚠ <span id="errorMsg"></span></div>
 
+      <!-- Hero cards statistik -->
       <div class="hero-row">
         <div class="hero-card">
           <div class="hero-lbl">TOTAL PCL</div>
@@ -339,12 +134,19 @@
         </div>
       </div>
 
-      <!-- SEARCH BAR -->
+      <!-- Search bar -->
       <div class="search-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2.2">
-          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Cari nama PCL, PML, atau kecamatan..." oninput="onSearch()" onkeydown="onSearchKey(event)"/>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Cari nama PCL, PML, atau kecamatan..."
+          oninput="onSearch()"
+          onkeydown="onSearchKey(event)"
+        />
         <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Hapus pencarian">✕</button>
       </div>
       <div id="searchTag" style="display:none" class="search-tag">
@@ -352,17 +154,20 @@
         <span onclick="clearSearch()" style="cursor:pointer;opacity:.7;margin-left:2px">✕</span>
       </div>
 
+      <!-- Header section grid -->
       <div class="sec-head">
         <div>
           <div class="sec-title" id="secTitle">Progress Per PCL</div>
           <div class="sec-count" id="secCount">Memuat data...</div>
         </div>
         <div class="sec-head-right">
+          <!-- Tab progres -->
           <div class="prog-tabs">
             <button class="prog-tab active-r" id="tabR" onclick="setProgTab('rata')">📊 Rata-rata</button>
             <button class="prog-tab" id="tabK" onclick="setProgTab('keluarga')">🏠 Keluarga</button>
             <button class="prog-tab" id="tabU" onclick="setProgTab('usaha')">🏪 Usaha</button>
           </div>
+          <!-- Tombol sort -->
           <div class="sort-bar">
             <button class="sort-btn active" id="sortProg" onclick="setSort('prog')">Progres ↓</button>
             <button class="sort-btn" id="sortPcl"  onclick="setSort('pcl')">PCL A–Z</button>
@@ -371,397 +176,18 @@
         </div>
       </div>
 
+      <!-- Grid kartu petugas (diisi oleh app.js) -->
       <div class="pgrid" id="petugasGrid"></div>
-    </div>
-  </div>
+
+    </div><!-- /page-body -->
+  </div><!-- /content -->
 </div>
 
-<footer><b>MONSE 2026</b> &nbsp;•&nbsp; Monitoring Petugas Sensus Ekonomi &nbsp;•&nbsp; © 2026 Badan Pusat Statistik Kota Palu</footer>
+<footer>
+  <b>MONSE 2026</b> &nbsp;•&nbsp; Monitoring Petugas Sensus Ekonomi &nbsp;•&nbsp; © 2026 Badan Pusat Statistik Kota Palu
+</footer>
 
-<script>
-const SHEET_ID   = '1fv8XwQY5U4SLda8ll27sy4tiq1nNJuBfX76cya0_nGU';
-const SHEET_NAME = 'Data Projek';
-
-const COL_PML      = 0;
-const COL_PCL      = 1;
-const COL_KEC      = 2;
-const COL_KODE_SLS = 5;
-
-let COL_PROG_KEL = 9;
-let COL_PROG_USA = 13;
-
-let allData  = [];
-let filtered = [];
-let sortMode = 'prog';
-let progTab  = 'rata';
-let searchQ  = '';
-
-// ─── HELPERS ───────────────────────────────────────────────────
-function pColor(v){
-  if(v>=100) return {bar:'#10B981',text:'#059669',cls:'bg',label:'Selesai'};
-  if(v>=75)  return {bar:'#2563EB',text:'#1D4ED8',cls:'bb',label:'Hampir'};
-  if(v>=50)  return {bar:'#F59E0B',text:'#D97706',cls:'ba',label:'Proses'};
-  if(v>0)    return {bar:'#EF4444',text:'#DC2626',cls:'br',label:'Tertinggal'};
-  return           {bar:'#CBD5E1',text:'#64748B',cls:'bp',label:'Belum Mulai'};
-}
-function fmt(n){return(n||0).toLocaleString('id-ID');}
-function pct(v){return Math.min(v,100)+'%';}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
-function highlight(text, q){
-  if(!q) return esc(text);
-  const safe=esc(text);
-  const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
-  return safe.replace(re,'<mark>$1</mark>');
-}
-
-function parseProgres(raw){
-  if(raw==null||raw==='') return 0;
-  if(typeof raw==='string'){
-    const s=raw.trim().replace('%','').replace(',','.');
-    const n=parseFloat(s);
-    if(isNaN(n)) return 0;
-    if(n>0&&n<=1.5) return Math.round(n*100);
-    return Math.round(n);
-  }
-  const n=parseFloat(raw);
-  if(isNaN(n)) return 0;
-  if(n>0&&n<=1.5) return Math.round(n*100);
-  return Math.round(n);
-}
-
-function setSync(ok){
-  const now=new Date();
-  const t=[now.getHours(),now.getMinutes(),now.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':');
-  document.getElementById('lastSync').textContent=ok?'Update: '+t:'Gagal memuat';
-  document.getElementById('syncDot').style.background=ok?'#10B981':'#EF4444';
-}
-function showErr(msg){
-  document.getElementById('errorMsg').textContent=msg;
-  document.getElementById('error-banner').style.display='block';
-  setSync(false);
-}
-function toggleSidebar(){
-  window.innerWidth<=768
-    ?document.body.classList.toggle('sidebar-open')
-    :document.body.classList.toggle('sidebar-collapsed');
-}
-
-// ─── LOAD DATA ─────────────────────────────────────────────────
-async function loadData(){
-  const icon=document.getElementById('refreshIcon');
-  icon.classList.add('spin');
-  document.getElementById('loading').style.display='flex';
-  document.getElementById('error-banner').style.display='none';
-  document.getElementById('loaderSub').textContent='Mengambil sheet "'+SHEET_NAME+'"...';
-
-  try{
-    const sheetNames=[SHEET_NAME,'data projek','Data projek','DATA PROJEK'];
-    let json=null;
-
-    for(const sn of sheetNames){
-      try{
-        const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sn)}`;
-        const res=await fetch(url);
-        if(!res.ok) continue;
-        const txt=await res.text();
-        const match=txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
-        if(!match) continue;
-        const j=JSON.parse(match[1]);
-        if(j.table&&j.table.rows&&j.table.rows.length>1){json=j;break;}
-      }catch(e){}
-    }
-
-    if(!json) throw new Error('Tidak dapat membaca sheet. Pastikan sheet sudah diset "Anyone with link can view".');
-
-    const rows=json.table.rows;
-    const N=rows.length;
-
-    const gv=(row,idx)=>{const v=row?.c?.[idx]?.v;return v!=null?String(v).trim():'';};
-    const gn=(row,idx)=>{const v=row?.c?.[idx]?.v;return v!=null?v:null;};
-
-    if(rows[0]&&rows[0].c){
-      const hdr=rows[0].c;
-      let progCount=0;
-      for(let ci=0;ci<hdr.length;ci++){
-        const h=String(hdr[ci]?.v||hdr[ci]?.f||'').toUpperCase().trim();
-        if(h.includes('PROGRES')){
-          progCount++;
-          if(progCount===1) COL_PROG_KEL=ci;
-          if(progCount===2) COL_PROG_USA=ci;
-        }
-      }
-    }
-
-    const headerWords=new Set(['nama pml','nama pcl','kecamatan','kelurahan','wilayah sls','kode sls','progres','pengisian']);
-    const rawPML=[], rawPCL=[], rawKEC=[];
-    for(let i=0;i<N;i++){
-      rawPML.push(gv(rows[i],COL_PML));
-      rawPCL.push(gv(rows[i],COL_PCL));
-      rawKEC.push(gv(rows[i],COL_KEC).toUpperCase());
-    }
-
-    const ffPML=[...rawPML], ffPCL=[...rawPCL], ffKEC=[...rawKEC];
-    for(let i=1;i<N;i++){
-      const pp=ffPML[i-1],pc=ffPCL[i-1],pk=ffKEC[i-1];
-      if(!ffPML[i]&&pp&&!headerWords.has(pp.toLowerCase())) ffPML[i]=pp;
-      if(!ffPCL[i]&&pc&&!headerWords.has(pc.toLowerCase())) ffPCL[i]=pc;
-      if(!ffKEC[i]&&pk&&!headerWords.has(pk.toLowerCase())) ffKEC[i]=pk;
-    }
-
-    const pclMap=new Map();
-    for(let i=1;i<N;i++){
-      const pml=ffPML[i], pcl=ffPCL[i], kec=ffKEC[i];
-      if(!pcl||!kec) continue;
-      if(headerWords.has(pcl.toLowerCase())||headerWords.has(pml.toLowerCase())) continue;
-      const pclLow=pcl.toLowerCase();
-      if(pclLow.includes('nama pcl')||pclLow==='pcl') continue;
-
-      const key=`${pcl.trim()}||${kec.trim()}`;
-      if(!pclMap.has(key)){
-        pclMap.set(key,{namaPML:pml||'—',namaPCL:pcl,kec:kec.trim(),slsCount:0,progKel:null,progUsa:null});
-      }
-      const e=pclMap.get(key);
-      const kodeSLS=gv(rows[i],COL_KODE_SLS);
-      if(kodeSLS) e.slsCount++;
-      if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
-      const rKel=gn(rows[i],COL_PROG_KEL);
-      const rUsa=gn(rows[i],COL_PROG_USA);
-      if(rKel!=null) e.progKel=parseProgres(rKel);
-      if(rUsa!=null) e.progUsa=parseProgres(rUsa);
-    }
-
-    if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
-
-    allData=[...pclMap.values()].map(e=>{
-      const progKel=e.progKel??0;
-      const progUsa=e.progUsa??0;
-      return {...e,progKel,progUsa,progRata:Math.round((progKel+progUsa)/2)};
-    }).filter(d=>d.namaPCL&&d.kec);
-
-    if(!allData.length) throw new Error('Data kosong setelah grouping.');
-
-    applyFilters();
-    setSync(true);
-    setTimeout(loadData,5*60*1000);
-
-  }catch(e){
-    showErr(e.message);
-    console.error(e);
-  }finally{
-    document.getElementById('loading').style.display='none';
-    icon.classList.remove('spin');
-  }
-}
-
-// ─── FILTER & SEARCH ───────────────────────────────────────────
-function onKecChange(){
-  const kec=document.getElementById('fKec').value;
-  const selPML=document.getElementById('fPML');
-  const selPCL=document.getElementById('fPCL');
-
-  // reset PCL
-  selPCL.disabled=true;
-  selPCL.innerHTML='<option value="">— Pilih PML Dulu —</option>';
-
-  if(kec){
-    const pmls=[...new Set(allData.filter(d=>d.kec===kec).map(d=>d.namaPML).filter(Boolean))].sort();
-    selPML.disabled=false;
-    selPML.innerHTML='<option value="">Semua PML</option>'+pmls.map(p=>`<option value="${p}">${p}</option>`).join('');
-  }else{
-    selPML.disabled=true;
-    selPML.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
-  }
-  applyFilters();
-}
-
-function onPMLChange(){
-  const kec=document.getElementById('fKec').value;
-  const pml=document.getElementById('fPML').value;
-  const selPCL=document.getElementById('fPCL');
-
-  if(pml){
-    const pcls=[...new Set(
-      allData.filter(d=>(!kec||d.kec===kec)&&d.namaPML===pml).map(d=>d.namaPCL).filter(Boolean)
-    )].sort();
-    selPCL.disabled=false;
-    selPCL.innerHTML='<option value="">Semua PCL</option>'+pcls.map(p=>`<option value="${p}">${p}</option>`).join('');
-  }else{
-    selPCL.disabled=true;
-    selPCL.innerHTML='<option value="">— Pilih PML Dulu —</option>';
-  }
-  applyFilters();
-}
-
-function onSearch(){
-  const val=document.getElementById('searchInput').value;
-  searchQ=val.trim();
-  document.getElementById('searchClear').style.display=searchQ?'block':'none';
-  const tag=document.getElementById('searchTag');
-  if(searchQ){
-    tag.style.display='inline-flex';
-    document.getElementById('searchTagText').textContent='Hasil: "'+searchQ+'"';
-  }else{
-    tag.style.display='none';
-  }
-  applyFilters();
-}
-
-function onSearchKey(e){
-  if(e.key==='Escape') clearSearch();
-}
-
-function clearSearch(){
-  document.getElementById('searchInput').value='';
-  searchQ='';
-  document.getElementById('searchClear').style.display='none';
-  document.getElementById('searchTag').style.display='none';
-  applyFilters();
-}
-
-function applyFilters(){
-  const kec=document.getElementById('fKec').value;
-  const pml=document.getElementById('fPML').value;
-  const pcl=document.getElementById('fPCL').value;
-  const q=searchQ.toLowerCase();
-
-  filtered=allData.filter(d=>{
-    if(kec&&d.kec!==kec) return false;
-    if(pml&&d.namaPML!==pml) return false;
-    if(pcl&&d.namaPCL!==pcl) return false;
-    if(q){
-      const haystack=(d.namaPCL+' '+d.namaPML+' '+d.kec).toLowerCase();
-      return haystack.includes(q);
-    }
-    return true;
-  });
-  renderAll();
-}
-
-function resetFilters(){
-  document.getElementById('fKec').value='';
-  const sp=document.getElementById('fPML');
-  sp.innerHTML='<option value="">— Pilih Kecamatan Dulu —</option>';
-  sp.disabled=true;
-  const sc=document.getElementById('fPCL');
-  sc.innerHTML='<option value="">— Pilih PML Dulu —</option>';
-  sc.disabled=true;
-  clearSearch();
-}
-
-// ─── SORT & TAB ────────────────────────────────────────────────
-function setSort(m){
-  sortMode=m;
-  ['sortProg','sortPcl','sortKec'].forEach(id=>document.getElementById(id).classList.remove('active'));
-  document.getElementById(m==='prog'?'sortProg':m==='pcl'?'sortPcl':'sortKec').classList.add('active');
-  renderCards();
-}
-
-function setProgTab(t){
-  progTab=t;
-  const map={rata:'tabR',keluarga:'tabK',usaha:'tabU'};
-  const cls={rata:'active-r',keluarga:'active-k',usaha:'active-u'};
-  Object.values(map).forEach(id=>{document.getElementById(id).className='prog-tab';});
-  document.getElementById(map[t]).className='prog-tab '+cls[t];
-  renderStats();
-  renderCards();
-}
-
-function getMainProg(d){
-  if(progTab==='keluarga') return d.progKel;
-  if(progTab==='usaha')    return d.progUsa;
-  return d.progRata;
-}
-
-// ─── RENDER ────────────────────────────────────────────────────
-function renderAll(){renderStats();renderCards();renderTitle();}
-
-function renderStats(){
-  const d=filtered, n=d.length;
-  const vals=d.map(r=>getMainProg(r));
-  const active=vals.filter(v=>v>0);
-  const avg=active.length?Math.round(active.reduce((s,v)=>s+v,0)/active.length):0;
-  document.getElementById('sTotalPCL').textContent=fmt(n);
-  document.getElementById('sAvgProg').textContent=avg+'%';
-  document.getElementById('sSelesai').textContent=fmt(vals.filter(v=>v>=100).length);
-  document.getElementById('sBelum').textContent=fmt(d.filter(r=>r.progKel===0&&r.progUsa===0).length);
-}
-
-function renderTitle(){
-  const kec=document.getElementById('fKec').value;
-  const pml=document.getElementById('fPML').value;
-  const pcl=document.getElementById('fPCL').value;
-  const tabLabel={rata:'Rata-rata',keluarga:'Keluarga',usaha:'Usaha'};
-  const kecLabel=kec?kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'Semua Kecamatan';
-  let t='Progress Per PCL';
-  if(kec) t+=' — Kec. '+kecLabel;
-  if(pml&&!pcl) t+=' (PML: '+pml+')';
-  if(pcl) t+=' — '+pcl;
-  if(searchQ) t+=' · Cari: "'+searchQ+'"';
-  document.getElementById('secTitle').textContent=t;
-  document.getElementById('secCount').textContent=fmt(filtered.length)+' PCL · tampil progres '+tabLabel[progTab];
-}
-
-function renderCards(){
-  const grid=document.getElementById('petugasGrid');
-  const q=searchQ;
-
-  if(!filtered.length){
-    const msg=q?`Tidak ada PCL yang cocok dengan "<b>${esc(q)}</b>"`:'Coba ubah atau reset filter';
-    grid.innerHTML=`<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">Tidak ada data</div><div>${msg}</div></div>`;
-    return;
-  }
-
-  const sorted=[...filtered].sort((a,b)=>{
-    if(sortMode==='prog') return getMainProg(b)-getMainProg(a);
-    if(sortMode==='pcl')  return (a.namaPCL||'').localeCompare(b.namaPCL||'','id');
-    return (a.kec||'').localeCompare(b.kec||'','id');
-  });
-
-  grid.innerHTML=sorted.map((d,i)=>{
-    const mainProg=getMainProg(d);
-    const c=pColor(mainProg);
-    const delay=(i%20)*25;
-    const kecLabel=d.kec?d.kec.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' '):'-';
-    const cKel=pColor(d.progKel);
-    const cUsa=pColor(d.progUsa);
-    const hlPCL=highlight(d.namaPCL||'—', q);
-    const hlPML=highlight(d.namaPML||'—', q);
-
-    return `<div class="pc" style="animation-delay:${delay}ms">
-  <div class="pc-pml">PML: <span>${hlPML}</span></div>
-  <div class="pc-body">
-    <div class="pc-nama" title="${esc(d.namaPCL||'—')}">${hlPCL}</div>
-    <div class="pc-kec">📍 ${kecLabel} &nbsp;·&nbsp; ${d.slsCount} SLS</div>
-    <div class="prog-section">
-      <div class="prog-row">
-        <div class="prog-label-row">
-          <span class="prog-label">🏠 Keluarga</span>
-          <span class="prog-val" style="color:${cKel.text}">${d.progKel}%</span>
-        </div>
-        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progKel)};background:${cKel.bar}"></div></div>
-      </div>
-      <div class="prog-row">
-        <div class="prog-label-row">
-          <span class="prog-label">🏪 Usaha</span>
-          <span class="prog-val" style="color:${cUsa.text}">${d.progUsa}%</span>
-        </div>
-        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct(d.progUsa)};background:${cUsa.bar}"></div></div>
-      </div>
-    </div>
-    <div class="pc-summary">
-      <div>
-        <div style="font-size:10px;color:var(--text3);margin-bottom:1px">Rata-rata</div>
-        <div class="pc-avg" style="color:${c.text}">${d.progRata}%</div>
-      </div>
-      <span class="badge ${c.cls}">${c.label}</span>
-    </div>
-  </div>
-</div>`;
-  }).join('');
-}
-
-loadData();
-</script>
+<!-- Semua logika/data ada di sini -->
+<script src="app.js"></script>
 </body>
 </html>
