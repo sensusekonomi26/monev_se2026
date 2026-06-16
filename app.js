@@ -158,8 +158,10 @@ async function loadData(){
       if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
       const rKel=gn(rows[i],COL_PROG_KEL);
       const rUsa=gn(rows[i],COL_PROG_USA);
-      if(rKel!=null) e.progKel=parseProgres(rKel);
-      if(rUsa!=null) e.progUsa=parseProgres(rUsa);
+      if(rKel!=null && rKel!=='' && parseProgres(rKel)>0) 
+      e.progKel=parseProgres(rKel);
+      if(rUsa!=null && rUsa!=='' && parseProgres(rUsa)>0) 
+      e.progUsa=parseProgres(rUsa);
     }
 
     if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
