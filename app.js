@@ -157,11 +157,13 @@ async function loadData(){
       if(kodeSLS) e.slsCount++;
       if(!e.namaPML||e.namaPML==='—') e.namaPML=pml||'—';
       const rKel=gn(rows[i],COL_PROG_KEL);
-      const rUsa=gn(rows[i],COL_PROG_USA);
-      if(rKel!=null && rKel!=='' && parseProgres(rKel)>0) 
-      e.progKel=parseProgres(rKel);
-      if(rUsa!=null && rUsa!=='' && parseProgres(rUsa)>0) 
-      e.progUsa=parseProgres(rUsa);
+const rUsa=gn(rows[i],COL_PROG_USA);
+const pKel=parseProgres(rKel);
+const pUsa=parseProgres(rUsa);
+if(rKel!=null && rKel!=='' && pKel>0 && e.progKel===null)
+  e.progKel=pKel;
+if(rUsa!=null && rUsa!=='' && pUsa>0 && e.progUsa===null)
+  e.progUsa=pUsa;
     }
 
     if(!pclMap.size) throw new Error('Tidak ada baris data valid.');
